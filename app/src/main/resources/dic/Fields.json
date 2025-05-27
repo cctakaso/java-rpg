@@ -1,0 +1,66 @@
+{
+  "始まりの町":{
+    "name": "始まりの町",
+    "type": "Town",
+    "size": {"x": 200, "y": 50},
+    "items": {
+      "names": ["コイン","薬草"],
+      "numbers": [10, 10],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "characters": {
+      "names": ["スライム", "宿屋の主人","商人", "鍛冶屋", "神父", "町人", "弓使い", "魔法使い"],
+      "numbers": [10, 5, 2, 1, 2, 5, 3, 3],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "talks": {
+      "names": ["始まりの町"]
+    }
+  },
+  "山脈":{
+    "name": "山脈",
+    "type": "Mountain",
+    "size": {"x": 200, "y": 50},
+    "items": {
+      "names": ["コイン","薬草"],
+      "numbers": [5, 20],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "characters": {
+      "names": ["旅人", "スライム", "ゴブリン"],
+      "numbers": [5, 20, 10],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "parties" : {
+      "names": ["スライムパーティ"],
+      "numbers": [10],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "talks": {
+      "names": ["山脈"]
+    }
+  },
+  "洞窟":{
+    "name": "洞窟",
+    "type": "Cave",
+    "size": {"x": 200, "y": 50},
+    "items": {
+      "names": ["コイン","薬草", "ポーション"],
+      "numbers": [5, 20, 10],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "characters": {
+      "names": ["旅人", "魔法使い", "スライム", "ゴブリン", "ゴースト"],
+      "numbers": [5, 5, 10, 5, 5],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "parties" : {
+      "names": ["スライムパーティ"],
+      "numbers": [10],
+      "randomPt": {"x": 200, "y": 50}
+    },
+    "talks": {
+      "names": ["洞窟"]
+    }
+  }
+}

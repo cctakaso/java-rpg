@@ -1,0 +1,175 @@
+{
+  "紙幣": {
+    "name": "紙幣",
+    "itemType": "Money",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "コイン": {
+    "name": "コイン",
+    "itemType": "Money",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "薬草": {
+    "name": "薬草",
+    "itemType": "Herb",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 100,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ポーション": {
+    "name": "ポーション",
+    "itemType": "Potion",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 300,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "スーパーポーション": {
+    "name": "スーパーポーション",
+    "itemType": "SuperPotion",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ハイパーポーション": {
+    "name": "ハイパーポーション",
+    "itemType": "HyperPotion",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "HealthPoint",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "マジックポーション": {
+    "name": "マジックポーション",
+    "itemType": "MagicPotion",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 300,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 50,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "スーパー・マジックポーション": {
+    "name": "スーパー・マジックポーション",
+    "itemType": "SuperMagicPotion",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 100,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ハイパー・マジックポーション": {
+    "name": "ハイパー・マジックポーション",
+    "itemType": "HyperMagicPotion",
+    "pt": null,
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 1000,
+          "rate": 100
+        }
+      ]
+    }
+  },
+
+  "毒消し": {
+    "name": "毒消し",
+    "itemType": "Antidote",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 5000,
+          "rate": 100
+        },
+        {
+          "type": "Poisoned",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  }
+
+}

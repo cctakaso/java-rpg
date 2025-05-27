@@ -1,0 +1,146 @@
+{
+  "斬り":{
+    "name": "斬り",
+    "type": "Attack",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "打撃":{
+    "name": "打撃",
+    "type": "Attack",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "弓矢":{
+    "name": "弓矢",
+    "type": "Attack",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 10,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "ヒール":{
+    "name": "ヒール",
+    "type": "Heal",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ファイア":{
+    "name": "ファイア",
+    "type": "Fire",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "サンダー":{
+    "name": "サンダー",
+    "type": "Thunder",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "体当たり":{
+    "name": "体当たり",
+    "type": "Attack",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 10
+        }
+      ]
+    }
+  },
+  "斧攻撃":{
+    "name": "斧攻撃",
+    "type": "Attack",
+    "statuses": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 10
+        }
+      ]
+    }
+  }
+}

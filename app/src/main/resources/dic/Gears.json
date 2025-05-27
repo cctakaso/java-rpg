@@ -1,0 +1,135 @@
+{
+  "普通の服": {
+    "gearType": "Clothes",
+    "itemType": "Gear",
+    "name": "普通の服",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Defense",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "普通の靴": {
+    "gearType": "Shoes",
+    "itemType": "Gear",
+    "name": "普通の靴",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Defense",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "錆びた剣": {
+    "gearType": "Sword",
+    "itemType": "Gear",
+    "characterTypes": ["Gladiator"],
+    "name": "錆びた剣",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ぐん手": {
+    "gearType": "gloves",
+    "itemType": "Gear",
+    "characterTypes": ["Pubilist"],
+    "name": "ぐん手",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "伸びた弓": {
+    "gearType": "Bow",
+    "itemType": "Gear",
+    "characterTypes": ["Archer"],
+    "name": "伸びた弓",
+    "statuses": {
+      "children": [
+        {
+          "type": "Money",
+          "point": 1000,
+          "rate": 100
+        },
+        {
+          "type": "Attack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "折れた杖": {
+    "gearType": "Wand",
+    "itemType": "Gear",
+    "characterTypes": ["Wizard", "Bishop"],
+    "name": "折れた杖",
+    "statuses": {
+      "children": [
+        {
+          "type": "Attack",
+          "point": 3,
+          "rate": 100
+        },
+        {
+          "type": "MagicAttack",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "金槌": {
+    "gearType": "hammer",
+    "itemType": "Gear",
+    "characterTypes": ["Blacksmith"],
+    "name": "金槌",
+    "statuses": {
+      "children": [
+        {
+          "type": "Attack",
+          "point": 6,
+          "rate": 100
+        }
+      ]
+    }
+  }
+}
