@@ -4,7 +4,7 @@ import java.util.*;
 import rpg.types.GearType;
 
 public class Gears extends Lists{
-  public ArrayList<Gear> children;
+  private ArrayList<Gear> children;
 
   public Gears() {
     super();

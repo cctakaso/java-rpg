@@ -40,21 +40,21 @@ public class Character extends Base{
     return toPrinting(false);
   }
 
-  public Anser selectAttack(Scanner scan) {
-    Ansers ansers = attacks.toAnsers(this);
+  public Answer<Attack> selectAttack(Scanner scan) {
+    Answers<Attack> ansers = attacks.toAnswers(this);
     return ansers.printChoice(scan, getName(), true);
   }
 
-  public Anser haveAttack(Attack attack, Character attacker) {
+  public Answer<Integer> haveAttack(Attack attack, Character attacker) {
     int damage = attack.calcHealthDamage(attacker, this);
     if (attack.isHeal()) {
       int reciverHp = this.charStatus.incHealthPoint(damage);
       attacker.charStatus.decMagicPoint(attack.usedMagicPoint());
-      return new Anser(attacker.getName()+"が"+this.getName()+"に、ヒール:"+damage+"によりHP:"+reciverHp+"になりました。", Integer.valueOf(reciverHp));
+      return new Answer<Integer>(attacker.getName()+"が"+this.getName()+"に、ヒール:"+damage+"によりHP:"+reciverHp+"になりました。", Integer.valueOf(reciverHp));
     }else{
       int reciverHp = this.charStatus.decHealthPoint(damage);
       attacker.charStatus.decMagicPoint(attack.usedMagicPoint());
-      return new Anser(attacker.getName()+"が"+this.getName()+"に、攻撃:"+attack.getName()+"で"+damage+"ダメージ与えました\n"+this.getName()+"は、現在HP:"+reciverHp+"です。", Integer.valueOf(reciverHp));
+      return new Answer<Integer>(attacker.getName()+"が"+this.getName()+"に、攻撃:"+attack.getName()+"で"+damage+"ダメージ与えました\n"+this.getName()+"は、現在HP:"+reciverHp+"です。", Integer.valueOf(reciverHp));
     }
   }
 

@@ -60,42 +60,42 @@ public class Talk extends Base{
     }
   }
 
-  public Ansers makeOptions(ArrayList<String> choices, Party allyParty, Character otherCharacter) {
-    Ansers ansers = new Ansers();
+  public Answers<Item> makeOptions(ArrayList<String> choices, Party allyParty, Character otherCharacter) {
+    Answers<Item> ansers = new Answers<>();
 
     for (String choice : choices) {
       if (choice.indexOf(':')==0) {
         if (choice.equals(":buy.gears")) {
-          ansers = otherCharacter.items.toAnsers(ItemType.Gear, choice);
+          ansers = otherCharacter.items.toAnswers(ItemType.Gear, choice);
         }else if (choice.equals(":buy.items")) {
-          ansers = otherCharacter.items.toAnsers(ItemType.Item, choice);
+          ansers = otherCharacter.items.toAnswers(ItemType.Item, choice);
         }else if (choice.equals(":sale.gears")) {
-          ansers = allyParty.items.toAnsers(ItemType.Gear, choice);
+          ansers = allyParty.items.toAnswers(ItemType.Gear, choice);
         }else if (choice.equals(":sale.items")) {
-          ansers = allyParty.items.toAnsers(ItemType.Item, choice);
+          ansers = allyParty.items.toAnswers(ItemType.Item, choice);
         }else if (choice.indexOf('/')>0) {
           int n = choice.indexOf('/');
-          ansers.add(new Anser(choice.substring(n+1), null, choice.substring(0, n)));
+          ansers.add(new Answer<Item>(choice.substring(n+1), null, choice.substring(0, n)));
         }
       }else{
-        ansers.add(new Anser(choice));
+        ansers.add(new Answer<Item>(choice));
       }
     }
     return ansers;
   }
 
-  public Anser print(Scanner scan, Party allyParty, Character otherCharacter) {
-    Anser anser;
+  public Answer<Item> print(Scanner scan, Party allyParty, Character otherCharacter) {
+    Answer<Item> anser;
 
     printBefore(scan);
-    Ansers ansers = makeOptions(choices, allyParty, otherCharacter);
+    Answers<Item> ansers = makeOptions(choices, allyParty, otherCharacter);
     if (ansers.size()==0) {
       return null;
     }
     anser = ansers.printChoice(scan, null, true);
 
     if (afters.size()>0) {
-      String after = afters.get(anser.index);
+      String after = afters.get(anser.getIndex());
       if (after.charAt(0) == '>') {
         ArrayList<Base> list = (ArrayList<Base>)Adventure.getDicClones("Talks", after.substring(1));
         Talk talk = (Talk)list.get(0);

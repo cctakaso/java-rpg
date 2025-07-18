@@ -123,8 +123,8 @@ public class BattleField {
         scanner = null; //自動ランダム選択
       }
       System.err.println();
-      Anser anser = attacker.selectAttack(scanner);
-      Attack attack = (Attack)anser.object;
+      Answer anser = attacker.selectAttack(scanner);
+      Attack attack = (Attack)anser.getValue();
       if (garded_charcters.contains(attacker)) {
         attacker.charStatus.doGard(false);
       }
@@ -136,21 +136,21 @@ public class BattleField {
         if (attack.isMulti()) {
           for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
             anser = reciver.haveAttack(attack, attacker);
-            System.out.println(anser.printing);
+            System.out.println(anser.getLabel());
           }
         }else{
           anser = reciverParty.selectCharacter(scanner, false);
-          Character reciver = (Character)anser.object;
+          Character reciver = (Character)anser.getValue();
           anser = reciver.haveAttack(attack, attacker);
-          System.out.println(anser.printing);
+          System.out.println(anser.getLabel());
         }
       }else if (attack.isOffence()) {
         Party reciverParty = isAllyCharacter(attacker) ? enemyParty:allyParty;
         if (attack.isMulti()) {
           for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
             anser = reciver.haveAttack(attack, attacker);
-            System.out.println(anser.printing);
-            int reciverHp = (int)anser.object;
+            System.out.println(anser.getLabel());
+            int reciverHp = (int)anser.getValue();
             if (reciverHp==0) {
               System.out.println(reciver.getName()+"のHPがなくなり倒れました！");
               boolean isEnamy = reciver.type.isEnemyCharacter();
@@ -165,10 +165,10 @@ public class BattleField {
           }
         }else{
           anser = reciverParty.selectCharacter(scanner, false);
-          Character reciver = (Character)anser.object;
+          Character reciver = (Character)anser.getValue();
           anser = reciver.haveAttack(attack, attacker);
-          System.out.println(anser.printing);
-          int reciverHp = (int)anser.object;
+          System.out.println(anser.getLabel());
+          int reciverHp = (int)anser.getValue();
           if (reciverHp==0) {
             System.out.println(reciver.getName()+"のHPがなくなり倒れました！");
             boolean isEnamy = reciver.type.isEnemyCharacter();

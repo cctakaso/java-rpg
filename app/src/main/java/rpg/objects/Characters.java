@@ -39,20 +39,20 @@ public class Characters extends Lists{
     }
   }
 
-  public Ansers toAnsers(boolean excludeLord) {
-    Ansers list = new Ansers();
+  public Answers<Character> toAnswers(boolean excludeLord) {
+    Answers<Character> list = new Answers<>();
     for(int index = excludeLord ? 1:0; index<children.size(); index++) {
       Character one = children.get(index);
-      list.add(new Anser(one.toPrinting(), one));
+      list.add(new Answer<Character>(one.toPrinting(), one));
     }
     return list;
   }
 
-  public Ansers toAnsers(Gear gear) {
-    Ansers list = new Ansers();
+  public Answers<Character> toAnswers(Gear gear) {
+    Answers<Character> list = new Answers<>();
     for(Character one: children) {
       if (gear.isFiting(one)) {
-        list.add(new Anser(one.toWithGearPrinting(gear.getGearType()), one));
+        list.add(new Answer<Character>(one.toWithGearPrinting(gear.getGearType()), one));
       }
     }
     return list;

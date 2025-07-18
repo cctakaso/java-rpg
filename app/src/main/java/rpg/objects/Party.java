@@ -75,11 +75,11 @@ public class Party extends Base{
     "Money:"+this.charStatus.getMoney() + (isDetail ? "\nメンバー：\n" + strCharaString:"");
   }
 
-  public Anser selectCharacter(Scanner scan, boolean excludeLord) {
+  public Answer<Character> selectCharacter(Scanner scan, boolean excludeLord) {
     if (this.characters.getList().size()==1) {
-      return new Anser(null, this.characters.getList().get(0));
+      return new Answer<Character>(null, (Character)this.characters.getList().get(0));
     }
-    Ansers ansers = this.characters.toAnsers(excludeLord);
+    Answers<Character> ansers = this.characters.toAnswers(excludeLord);
     return ansers.printChoice(scan, null, false);
   }
 

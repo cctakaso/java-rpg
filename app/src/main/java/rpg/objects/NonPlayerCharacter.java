@@ -15,13 +15,13 @@ public class NonPlayerCharacter extends Character{
   }
 
   public boolean meet(Scanner scan, Party myParty) {
-    Anser anser;
+    Answer anser;
     while(true) {
       System.out.println(this.name+":");
       anser = talks.print(scan, myParty, this);
       if (anser!=null) {
-        String info = anser.infomation;
-        Item item = (Item)anser.object;
+        String info = anser.getInfo();
+        Item item = (Item)anser.getValue();
         if (info.equals(":buy.gears") || info.equals(":buy.items")) {
           if (item.getPrice() > myParty.charStatus.getMoney()) {
             System.out.println("お金が足りません："+ item.getPrice() +">"+ myParty.charStatus.getMoney());

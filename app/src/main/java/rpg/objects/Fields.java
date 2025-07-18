@@ -125,10 +125,10 @@ public class Fields extends Lists{
     int index = 0;
     for (Base one: list) {
       if (pts!=null) {
-        ((Fields)one).pt = pts.getE(index);
+        ((Fields)one).pt = pts.get(index);
       }
       if (sizes!=null) {
-        ((Fields)one).size = sizes.getE(index);
+        ((Fields)one).size = sizes.get(index);
       }
       index++;
     }

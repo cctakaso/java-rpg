@@ -47,13 +47,13 @@ public class Items extends Lists{
     items.getList().clear();
   }
 
-  public Ansers toAnsers(ItemType type, String infomation) {
-    Ansers list = new Ansers();
+  public Answers<Item> toAnswers(ItemType type, String info) {
+    Answers<Item> list = new Answers<>();
     for (Item one: children) {
       if ((type==ItemType.Item && one.getItemType().isItem()) ||
             type==ItemType.Gear && one.getItemType().isGear() ||
             type==ItemType.Money && one.getItemType().isMoney()) {
-          list.add(new Anser(one.toPrinting(), one, infomation));
+          list.add(new Answer<Item>(one.toPrinting(), one, info));
       }
     }
     return list;

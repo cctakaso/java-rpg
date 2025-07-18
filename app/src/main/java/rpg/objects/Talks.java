@@ -1,10 +1,10 @@
 package rpg.objects;
 import java.util.*;
 
-import rpg.utils.Anser;
+import rpg.utils.Answer;
 
 public class Talks extends Lists{
-  public ArrayList<Talk> children;
+  private ArrayList<Talk> children;
 
   public Talks() {
     super();
@@ -22,8 +22,8 @@ public class Talks extends Lists{
   protected void setList(List<?> children) {
     this.children = (ArrayList<Talk>)children;
   }
-  public Anser print(Scanner scan, Party allyParty, Character otherCharacter) {
-    Anser rtn = null;
+  public Answer<Item> print(Scanner scan, Party allyParty, Character otherCharacter) {
+    Answer<Item> rtn = null;
     for(Talk talk: children) {
       rtn = talk.print(scan, allyParty, otherCharacter);
       break;

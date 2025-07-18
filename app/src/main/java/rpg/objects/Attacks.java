@@ -4,7 +4,7 @@ import java.util.*;
 import rpg.utils.*;
 
 public class Attacks extends Lists{
-  ArrayList<Attack> children;
+  private ArrayList<Attack> children;
 
   public Attacks() {
     super();
@@ -23,12 +23,12 @@ public class Attacks extends Lists{
     this.children = (ArrayList<Attack>)children;
   }
 
-  public Ansers toAnsers(Character character) {
-    Ansers list = new Ansers();
-    list.add(new Anser("防御する", null));
+  public Answers<Attack> toAnswers(Character character) {
+    Answers<Attack> list = new Answers<>();
+    list.add(new Answer<Attack>("防御する", null));
     for (Attack one: children) {
       if (one.isAvailable(character)) {
-        list.add(new Anser(one.toPrinting(), one));
+        list.add(new Answer<Attack>(one.toPrinting(), one));
       }
     }
     return list;
