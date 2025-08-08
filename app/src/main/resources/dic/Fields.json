@@ -4,8 +4,8 @@
     "type": "Town",
     "size": {"x": 200, "y": 50},
     "items": {
-      "names": ["コイン","薬草"],
-      "numbers": [10, 10],
+      "names": ["コイン","薬草","ポーション"],
+      "numbers": [10, 10, 10],
       "randomPt": {"x": 200, "y": 50}
     },
     "characters": {
@@ -22,8 +22,8 @@
     "type": "Mountain",
     "size": {"x": 200, "y": 50},
     "items": {
-      "names": ["コイン","薬草"],
-      "numbers": [5, 20],
+      "names": ["コイン","薬草","ポーション"],
+      "numbers": [10, 10, 20],
       "randomPt": {"x": 200, "y": 50}
     },
     "characters": {

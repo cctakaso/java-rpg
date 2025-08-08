@@ -1,34 +1,64 @@
 package rpg.objects;
 import java.util.*;
 
-import rpg.objects.*;
 import rpg.types.*;
 import rpg.utils.*;
 
+/**
+ * キャラクターの集まりである「パーティ」を表すクラスです。
+ * パーティ全体の所持品、所持金、キャラクターの管理、およびイベント処理を担当します。
+ */
 public class Party extends Base{
+  /**
+   * パーティに所属するキャラクターのリスト
+   */
   protected Characters characters;
-  protected ArrayList<Integer> numbers;
+  /**
+   * パーティが所持するアイテムのリスト
+   */
   protected Items items;
+  /**
+   * パーティ全体のステータス（所持金など）
+   */
   protected CharStatus charStatus;
+  /**
+   * パーティに関連する会話のリスト
+   */
   protected Talks talks;
 
+  /**
+   * 指定されたキャラクターで新しいパーティを生成します。
+   * @param character 初期メンバーとなるキャラクター
+   */
   public Party(Character character) {
     this();
     addCharacter(character);
   }
 
+  /**
+   * 空のパーティを生成します。
+   */
   public Party() {
     super();
     this.characters = new Characters();
-    this.numbers = new ArrayList<Integer>();
     this.items = new Items();
     this.charStatus = new CharStatus();
     this.talks = new Talks();
   }
 
+  /**
+   * パーティの人数を返します。
+   * @return パーティに所属するキャラクターの数
+   */
   public int size() {
     return this.characters.getList().size();
   }
+
+  /**
+   * パーティにアイテムを追加します。
+   * アイテムが通貨の場合は所持金に加算し、それ以外はアイテムリストに追加します。
+   * @param item 追加するアイテム
+   */
   public void addItem(Item item) {
     if (item.isMoney()) {
       this.charStatus.addMoney(item.getStatuses().getPoint(StatusType.Money));
@@ -37,22 +67,37 @@ public class Party extends Base{
     }
   }
 
+  /**
+   * パーティに新しいキャラクターを追加します。
+   * キャラクターのステータスと所持品はパーティ全体のものに統合されます。
+   * @param character 追加するキャラクター
+   */
   public void addCharacter(Character character) {
     this.characters.add(character);
     this.charStatus.merge(character.charStatus);
     this.items.transfer(character.items);
   }
 
+  /**
+   * このパーティのクローンを作成します。
+   * @return パーティの新しいインスタンス
+   */
   public Party clone() {
     return this.clone(0, null);
   }
 
+  /**
+   * このパーティのクローンを、指定された番号とランダムな位置で作成します。
+   * @param num クローン番号
+   * @param randomPt ランダムな位置
+   * @return パーティの新しいインスタンス
+   */
+  @SuppressWarnings("unchecked")
   public Party clone(int num, Pt randomPt) {
     Party copy = null;
     try {
       copy = (Party)super.clone(num, randomPt);
       copy.characters = (Characters)this.characters.clone();
-      copy.numbers = (ArrayList<Integer>)numbers.clone();
       copy.items = (Items)this.items.clone();
     }catch (Exception e){
       e.printStackTrace();
@@ -60,21 +105,37 @@ public class Party extends Base{
     return copy;
   }
 
+  /**
+   * パーティのリーダーの名前を取得します。
+   * @return リーダーのキャラクター名
+   */
   public String getLeaderName() {
     return ((Base)this.characters.getList().get(0)).getName();
   }
 
-  public String toPrinting(boolean isDetail) {
+  /**
+   * パーティの情報を文字列として返します。
+   * @param isDetail 詳細情報を表示するかどうか
+   * @return フォーマットされたパーティ情報
+   */
+  @SuppressWarnings("unchecked")
+  public String toString(boolean isDetail) {
     String strCharaString = "";
     if (isDetail) {
       for (Character one: (ArrayList<Character>)this.characters.getList()) {
-        strCharaString += one.toPrinting(true);
+        strCharaString += one.toString(true);
       }
     }
     return this.name+"("+this.pt.x+","+this.pt.y+")" +
-    "Money:"+this.charStatus.getMoney() + (isDetail ? "\nメンバー：\n" + strCharaString:"");
+    " Money:"+this.charStatus.getMoney() + "\nItems:"+this.items.toString() + (isDetail ? "\nメンバー：\n" + strCharaString:"");
   }
 
+  /**
+   * パーティ内のキャラクターを選択させます。
+   * @param scan ユーザー入力用のScanner
+   * @param excludeLord リーダーを除外するかどうか
+   * @return 選択されたキャラクターを含むAnswerオブジェクト
+   */
   public Answer<Character> selectCharacter(Scanner scan, boolean excludeLord) {
     if (this.characters.getList().size()==1) {
       return new Answer<Character>(null, (Character)this.characters.getList().get(0));
@@ -83,8 +144,13 @@ public class Party extends Base{
     return ansers.printChoice(scan, null, false);
   }
 
+  /**
+   * イベントを処理します。
+   * @param scan ユーザー入力用のScanner
+   * @param event 発生したイベント
+   * @return イベント処理が正常に終了した場合はtrue
+   */
   public boolean event(Scanner scan, Event event) {
-    ArrayList<?> removeList;
     int size;
     switch (event.getType()) {
       case EventType.ChangeField:
@@ -102,7 +168,7 @@ public class Party extends Base{
               int num = scan.nextInt();
               if (num == 1) {
                 addItem(item);
-                System.out.println(this.items.toPrinting());
+                System.out.println(this.items.toString());
                 break;
               }else if (num==0) {
                 break;
@@ -135,15 +201,23 @@ public class Party extends Base{
     return true;
   }
 
+  /**
+   * このパーティが敵パーティかどうかを判定します。
+   * @return リーダーが敵キャラクターの場合はtrue
+   */
   public boolean isEnemyParty() {
     if (this.characters == null || this.characters.getList().isEmpty()) {
       return false;
     }
-    // TODO:リーダーが敵なら敵パーティとしておく
+    // リーダーが敵なら敵パーティとみなす
     Character character = this.characters.children.get(0);
     return character.type.isEnemyCharacter();
   }
 
+  /**
+   * このパーティが仲間パーティかどうかを判定します。
+   * @return リーダーが仲間キャラクターの場合はtrue
+   */
   public boolean isCrewParty() {
     if (this.characters == null || this.characters.getList().isEmpty()) {
       return false;
@@ -152,6 +226,10 @@ public class Party extends Base{
     return character.type.isCrewCharacter();
   }
 
+  /**
+   * このパーティがNPCパーティかどうかを判定します。
+   * @return リーダーがNPCキャラクターの場合はtrue
+   */
   public boolean isNpcParty() {
     if (this.characters == null || this.characters.getList().isEmpty()) {
       return false;
@@ -160,13 +238,21 @@ public class Party extends Base{
     return character.type.isNpcCharacter();
   }
 
+  /**
+   * 他のパーティとの遭遇イベントを処理します。
+   * @param scan ユーザー入力用のScanner
+   * @param party 遭遇したパーティ
+   * @return イベント処理が正常に終了した場合はtrue
+   */
+  @SuppressWarnings("unchecked")
   private boolean doCharacterEvent(Scanner scan, Party party) {
     System.out.println("パーティ："+party.name+"が現れました。");
     for (Character character: (ArrayList<Character>)party.characters.getList()) {
-      System.out.println(character.toPrinting());
-      System.out.println(character.charStatus.toPrinting());
+      System.out.println(character.toString());
+      System.out.println(character.charStatus.toString());
     }
     Character xcharacter = new EnemyCharacter(((ArrayList<Character>)party.characters.getList()).get(0));
+    // 敵パーティの場合、戦闘を開始
     if (party.isEnemyParty()) {
       if (xcharacter.meet(scan, this)) {
         BattleField battleField = new BattleField(this, party);
@@ -178,15 +264,22 @@ public class Party extends Base{
     return true;
   }
 
+  /**
+   * 他のキャラクターとの遭遇イベントを処理します。
+   * @param scan ユーザー入力用のScanner
+   * @param character 遭遇したキャラクター
+   * @return イベント処理が正常に終了した場合はtrue
+   */
   private boolean doCharacterEvent(Scanner scan, Character character) {
     Character xcharacter;
+    // キャラクターのタイプに応じて処理を分岐
     if (character.type.isCrewCharacter()) {
       xcharacter = new CrewCharacter(character);
       xcharacter.meet(scan, this);
     }else if (character.type.isEnemyCharacter()) {
       xcharacter = new EnemyCharacter(character);
       System.out.println(xcharacter.name+"が現れました。");
-      System.out.println(this.charStatus.toPrinting());
+      System.out.println(this.charStatus.toString());
       if (xcharacter.meet(scan, this)) {
         BattleField battleField = new BattleField(this, xcharacter);
         battleField.start(scan);
@@ -200,6 +293,13 @@ public class Party extends Base{
     return true;
   }
 
+  /**
+   * パーティの移動処理を行います。
+   * @param scan ユーザー入力用のScanner
+   * @param parentPt 親（フィールドなど）の原点座標
+   * @param parentSize 親（フィールドなど）のサイズ
+   * @return 移動後の座標。移動しない場合はnull。
+   */
   public Pt walk(Scanner scan, Pt parentPt, Size parentSize) {
     Pt pt;
     Defs.Key key;
@@ -221,6 +321,7 @@ public class Party extends Base{
         System.out.println("正しい番号を入力して下さい");
       }
       pt = this.pt.clone().moveKey(key);
+      // 移動先が範囲内かチェック
       if (!parentSize.isWithinArea(parentPt, pt)) {
         System.out.println("範囲外です。");
         continue;
@@ -234,6 +335,11 @@ public class Party extends Base{
     return pt;
   }
 
+  /**
+   * パーティ全体の合計経験値を取得します。
+   * @return 合計経験値
+   */
+  @SuppressWarnings("unchecked")
   public int getTotalExperience() {
     int ex = 0;
     ArrayList<Character>lst = (ArrayList<Character>)this.characters.getList();
@@ -243,6 +349,11 @@ public class Party extends Base{
     return ex;
   }
 
+  /**
+   * パーティの各メンバーに均等に経験値を加算します。
+   * @param ex 加算する経験値
+   */
+  @SuppressWarnings("unchecked")
   public void addAveExperience(int ex) {
     for (Character one: (ArrayList<Character>)this.characters.getList()) {
       one.addExperience(ex);

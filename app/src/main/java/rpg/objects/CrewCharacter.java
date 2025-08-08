@@ -1,25 +1,54 @@
 package rpg.objects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
-import rpg.types.ItemType;
-import rpg.utils.*;
 
+/**
+ * クルーキャラクターを表すクラス。
+ * <p>
+ * クルーキャラクターは、キャラクターの基本的なプロパティを持ち、
+ * パーティに参加することができます。
+ * </p>
+ */
 public class CrewCharacter extends Character{
+  /**
+   * クルーキャラクターを指定して初期化します。
+   * <p>
+   * 引数として渡されたCharacterオブジェクトのプロパティをコピーして、
+   * 新しいクルーキャラクターを作成します。
+   * </p>
+   * @param character コピー元のCharacterオブジェクト
+   */
   public CrewCharacter(Character character) {
     this();
     super.copy(character);
   }
+
+  /**
+   * デフォルトコンストラクタ。
+   * <p>
+   * クルーキャラクターのプロパティを初期化します。
+   * </p>
+   */
   public CrewCharacter() {
   }
 
+  /**
+   * クルーキャラクターと出会う処理を行います。
+   * <p>
+   * キャラクターとの出会いをシミュレートし、プレイヤーに選択肢を提示します。
+   * プレイヤーがキャラクターを仲間にするかどうかを選択できます。
+   * </p>
+   * @param scan 入力を受け付けるScannerオブジェクト
+   * @param myParty プレイヤーのパーティ
+   * @return 出会いの結果（true: 仲間になった、false:
+   * 出会いを拒否した）
+   */
   public boolean meet(Scanner scan, Party myParty) {
 
     System.out.println(this.name+"と出会いました。");
     this.talks.print(scan, myParty, this);
-    System.out.println(this.charStatus.toPrinting());
+    System.out.println(this.charStatus.toString());
     System.out.println("1:仲間になる  0:バイバイする");
     while(true) {
       try{

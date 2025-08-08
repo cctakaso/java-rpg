@@ -1,24 +1,35 @@
 package rpg.objects;
 
 import java.util.*;
-
-import rpg.types.FieldType;
 import rpg.utils.*;
 import rpg.types.*;
 
+/**
+ * フィールドを表すクラス。
+ * <p>
+ * フィールドは、ゲーム内のマップやエリアを表し、フィールドの種類（FieldType）、
+ * サイズ（Size）、アイテム、キャラクター、パーティなどの情報を保持します。
+ * </p>
+ */
 public class Fields extends Lists{
-  protected FieldType type;
-  protected Size size;
-  protected Items items;
-  protected Characters characters;
-  protected Parties parties;
-  protected Talks talks;
-  protected ArrayList<Fields> children;
-  protected DicList<Size> sizes;
-  protected DicList<Pt> pts;
+  protected FieldType type; // フィールドの種類
+  protected Size size;      // フィールドのサイズ
+  protected Items items;      // フィールドに存在するアイテムのリスト
+  protected Characters characters;  // フィールドに存在するキャラクターのリスト
+  protected Parties parties;    // フィールドに存在するパーティのリスト
+  protected Talks talks;        // フィールドに関連する会話のリスト
+  protected ArrayList<Fields> children;   // フィールドの子フィールドのリスト
+  protected DicList<Size> sizes;          // フィールドのサイズの辞書リスト
+  protected DicList<Pt> pts;      // フィールドの座標の辞書リスト
 
-  protected static int UNIT = 10;
+  protected static int UNIT = 10; // フィールドの単位サイズ
 
+  /**
+   * デフォルトコンストラクタ。
+   * <p>
+   * フィールドのプロパティを初期化します。
+   * </p>
+   */
   public Fields() {
     super();
     this.size = new Size();
@@ -29,41 +40,100 @@ public class Fields extends Lists{
     this.children = new ArrayList<Fields>();
     this.sizes = new DicList<Size>();
     this.pts = new DicList<Pt>();
-
   }
 
-  public Talks getTalks() {
-    return this.talks;
-  }
+  /**
+   * 新たにフィールズインスタンスを取得します。
+   * <p>
+   * フィールド群の取得。
+   * </p>
+   * @return フィールズインスタンス
+   */
 
   protected Lists getNewInstance() {
     return new Fields();
   }
+
+  /**
+   * フィールドのサイズを取得します。
+   * <p>
+   * フィールドのサイズは、フィールドの幅と高さを表します。
+   * </p>
+   * @return フィールドのサイズ
+   */
   public Size getSize() {
     return this.size;
   }
 
+  /**
+   * フィールドのリストを取得します。
+   * <p>
+   * フィールドのリストは、フィールドオブジェクトのArrayListとして保持されます。
+   * </p>
+   * @return フィールドのリスト
+   */
+  @Override
   public List<?> getList() {
     return children;
   }
 
+  /**
+   * フィールドのリストを設定します。
+   * <p>
+   * 引数として渡されたリストを、フィールドのリストとして設定します。
+   * </p>
+   * @param children フィールドのリスト
+   */
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Fields>)children;
   }
 
-  public void toPrinting(Party myParty) {
+  /**
+   * フィールドの種類を取得します。
+   * @return フィールドの種類
+   */
+  public FieldType getType() {
+    return this.type;
+  }
+
+  /**
+   * フィールドの会話を取得します。
+   * @return フィールドの会話
+   */
+  public Talks getTalks() {
+    return this.talks;
+  }
+
+  /**
+   * フィールドのマップを表示します。
+   * <p>
+   * フィールドを文字列として表示します。
+   * </p>
+   */
+  public void toString(Party myParty) {
     char[][] area = new char[this.size.y/UNIT][this.size.x/UNIT];
-    area = toPrinting(myParty, new Pt(), area);
+    area = toString(myParty, new Pt(), area);
     area[myParty.pt.y/UNIT][myParty.pt.x/UNIT] = 'M';
     String mapStr = "";
     for(int y=0; y<area.length; y++) {
       mapStr += new String(area[y]) + "\n";
     }
-    System.out.println(mapStr);
+    System.out.print(mapStr);
     System.out.println("M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ");
   }
 
-  public char[][] toPrinting(Party myParty, Pt org, char[][] area) {
+  /**
+   * フィールドのマップを文字列として取得します。
+   * <p>
+   * フィールドを文字列として表現し、指定されたパーティの位置を考慮します。
+   * </p>
+   * @param myParty プレイヤーのパーティ
+   * @param org フィールドの原点座標
+   * @param area マップの文字列配列
+   * @return マップの文字列配列
+   */
+  public char[][] toString(Party myParty, Pt org, char[][] area) {
     org = this.pt.getAbsolutePt(org);
     for(int y=org.y/UNIT; y<(org.y+this.size.y)/UNIT; y++) {
       for(int x=org.x/UNIT; x<(org.x+this.size.x)/UNIT; x++) {
@@ -110,35 +180,33 @@ public class Fields extends Lists{
     }
 
     for(Fields fields:this.children) {
-      fields.toPrinting(myParty, org, area);
+      fields.toString(myParty, org, area);
     }
     return area;
   }
 
-  /* 
-  public void SetFromDic() {
-    super.SetFromDic();
-    List<Base> list = (List<Base>)getList();
-    if (list.size()==0) {
-      return;
-    }
-    int index = 0;
-    for (Base one: list) {
-      if (pts!=null) {
-        ((Fields)one).pt = pts.get(index);
-      }
-      if (sizes!=null) {
-        ((Fields)one).size = sizes.get(index);
-      }
-      index++;
-    }
-  }
-  */
 
+  /**
+   * フィールドのクローンを作成します。
+   * <p>
+   * フィールドクローンの識別番号とランダムポイントを持つ新しいFieldsオブジェクトを返します。
+   * </p>
+   * @return 新しいFieldsオブジェクト
+   */
   public Fields clone() {
     return this.clone(0, null);
   }
 
+  /**
+   * フィールドのクローンを作成します。
+   * <p>
+   * フィールドの種類、サイズ、アイテム、キャラクター、パーティ、会話などを
+   * 保持した新しいFieldsオブジェクトを返します。
+   * </p>
+   * @param num クローンの番号（識別用）
+   * @param randomPt ランダムな位置（座標）
+   * @return 新しいFieldsオブジェクト
+   */
   public Fields clone(int num, Pt randomPt) {
     Fields copy = null;
     try {
@@ -155,6 +223,14 @@ public class Fields extends Lists{
     return copy;
   }
 
+  /**
+   * フィールドのヒット判定を行います。
+   * <p>
+   * 指定された座標がフィールド内に存在するかどうかを判定します。
+   * </p>
+   * @param pt 判定する座標
+   * @return ヒットしたフィールドと原点座標、文字列表現を含むマップ
+   */
   public Map<String, Object>  hitField(Pt pt) {
     Fields hitField = this;
     Pt orginPt = new Pt(0,0);
@@ -177,11 +253,19 @@ public class Fields extends Lists{
     return Map.ofEntries(
       Map.entry("hitField", hitField),
       Map.entry("orginPt", orginPt),
-      Map.entry("toPrinting", hitField.name + "("+orginPt.x+","+orginPt.y+")-("+(orginPt.x+hitField.size.x)+","+(orginPt.y+hitField.size.y)+")")
+      Map.entry("toString", hitField.name + "("+orginPt.x+","+orginPt.y+")-("+(orginPt.x+hitField.size.x)+","+(orginPt.y+hitField.size.y)+")")
     );
   }
 
-
+  /**
+   * イベントをフィールドから削除します。
+   * <p>
+   * 指定された座標と原点座標に基づいて、イベントをフィールドから削除します。
+   * </p>
+   * @param pt イベントが発生した座標
+   * @param orginPt イベントの原点座標
+   * @param event 削除するイベント
+   */
   public void removeEvent(Pt pt, Pt orginPt, Event event) {
     Pt localPt = pt.getLocalPt(orginPt);
     switch (event.getType()) {
@@ -202,6 +286,16 @@ public class Fields extends Lists{
 
   }
 
+  /**
+   * フィールドのヒットイベントを取得します。
+   * <p>
+   * 指定された座標と原点座標に基づいて、フィールド内のヒットイベントを取得します。
+   * </p>
+   * @param mParty プレイヤーのパーティ
+   * @param pt ヒット判定する座標
+   * @param orginPt イベントの原点座標
+   * @return ヒットしたイベントのリスト
+   */
   public List<Event> getHitEvents(Party mParty, Pt pt, Pt orginPt) {
     List<Event> eventLst = new ArrayList<Event>();
     Pt localPt = pt.getLocalPt(orginPt);
@@ -235,10 +329,27 @@ public class Fields extends Lists{
     return eventLst.size()>0 ? eventLst:null;
   }
 
+  /**
+   * フィールドの原点座標を取得します。
+   * <p>
+   * フィールドの原点座標は、フィールドの位置を示す座標です。
+   * </p>
+   * @param orginPt 原点座標
+   * @return フィールドの原点座標
+   */
   private Pt getAbsolutePt(Pt orginPt) {
     return this.pt.getAbsolutePt(orginPt);
   }
 
+  /**
+   * フィールドのヒット判定を行います。
+   * <p>
+   * 指定された座標がフィールド内に存在するかどうかを判定します。
+   * </p>
+   * @param pt 判定する座標
+   * @param parent 親フィールドの座標
+   * @return ヒットした場合はtrue、そうでない場合はfalse
+   */
   private boolean isHitPt(Pt pt, Pt parent) {
     if (parent != null) {
       pt = new Pt(pt.x - parent.x, pt.y - parent.y);

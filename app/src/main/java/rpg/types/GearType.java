@@ -1,4 +1,8 @@
 package rpg.types;
+
+/**
+ * 装備種類を定義する列挙型(Enum)。
+ */
 public enum GearType{
   Clothes(1),  //服
   Cloak(2),    //マント
@@ -11,8 +15,17 @@ public enum GearType{
   Wand(9),     //杖
   hammer(10);  //金槌
 
+  /**
+   * フィールドタイプに対応する整数ID。
+   */
   public int id; // フィールドの定義
+
+  /**
+   * Enumのコンストラクタ。
+   * @param id フィールドタイプに割り当てるID
+   */
   private GearType(int id) { // コンストラクタの定義
     this.id = id;
   }
+
 }
