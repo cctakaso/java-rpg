@@ -11,7 +11,7 @@ public class Talks extends Lists{
   /**
    * Talkオブジェクトを格納するリスト
    */
-  private ArrayList<Talk> children;
+  protected ArrayList<Talk> children;
 
   /**
    * Talksの新しいインスタンスを生成します。

@@ -14,13 +14,13 @@ import rpg.utils.*;
  * </p>
  */
 public class BattleField {
-  private Party allyParty;  // 味方パーティ
-  private Party enemyParty; // 敵パーティ
-  private ArrayList<Character> characters;  // 戦闘に参加するキャラクターのリスト
-  private ArrayList<Integer> agility;       // 各キャラクターの敏捷性に基づく行動順序
-  private ArrayList<Integer> agilityCounter;  // 各キャラクターの行動回数カウンター
-  private int timer;          // 戦闘のタイマー
-  private int enemyAveExperience; // 敵の平均経験値
+  protected Party allyParty;  // 味方パーティ
+  protected Party enemyParty; // 敵パーティ
+  protected ArrayList<Character> characters;  // 戦闘に参加するキャラクターのリスト
+  protected ArrayList<Integer> agility;       // 各キャラクターの敏捷性に基づく行動順序
+  protected ArrayList<Integer> agilityCounter;  // 各キャラクターの行動回数カウンター
+  protected int timer;          // 戦闘のタイマー
+  protected int enemyAveExperience; // 敵の平均経験値
 
   /**
    * 味方パーティの平均経験値を敵パーティに追加します。

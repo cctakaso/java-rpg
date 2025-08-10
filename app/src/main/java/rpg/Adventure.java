@@ -67,7 +67,6 @@ public class Adventure {
   @SuppressWarnings("unchecked")
   public static void start(String title) {
     System.out.println(title+"を始めます。");
-    Scanner scan = new Scanner(System.in);
 
     // マップデータからプレイヤーのパーティーとフィールド情報を取得
     Party myParty = (Party)map.get("Parties", "勇者パーティ");
@@ -75,63 +74,67 @@ public class Adventure {
 
     Fields myField = null; // プレイヤーが現在いるフィールド
 
-    // ゲームのメインループ。プレイヤーが終了を選択するまで続く。
-    do {
-      System.out.println();
-      // 現在位置を含めてマップ全体を描画
-      allFields.toString(myParty);
 
-      // プレイヤーの現在座標がどのフィールドに属しているか判定
-      Map<String, Object> hitResult = allFields.hitField(myParty.getPt());
-      Fields tmpField = (Fields)hitResult.get("hitField");
+    //Scanner scan = new Scanner(System.in);
+    try (Scanner scan = new Scanner(System.in)) {
+      // ゲームのメインループ。プレイヤーが終了を選択するまで続く。
+      do {
+        System.out.println();
+        // 現在位置を含めてマップ全体を描画
+        allFields.toString(myParty);
 
-      // もし、前のターンと違うフィールドに侵入した場合
-      if (tmpField != myField) {
-        // 前のフィールドに離脱時のイベントがあれば実行
-        if (myField != null) {
+        // プレイヤーの現在座標がどのフィールドに属しているか判定
+        Map<String, Object> hitResult = allFields.hitField(myParty.getPt());
+        Fields tmpField = (Fields)hitResult.get("hitField");
+
+        // もし、前のターンと違うフィールドに侵入した場合
+        if (tmpField != myField) {
+          // 前のフィールドに離脱時のイベントがあれば実行
+          if (myField != null) {
+            ArrayList<Talk> talks = (ArrayList<Talk>)myField.getTalks().getList();
+            if (talks!=null && talks.size()>0) {
+              talks.get(0).printAfter(scan);
+            }
+          }
+          myField = tmpField; // 現在のフィールドを更新
+          // 新しいフィールドに侵入時のイベントがあれば実行
           ArrayList<Talk> talks = (ArrayList<Talk>)myField.getTalks().getList();
           if (talks!=null && talks.size()>0) {
-            talks.get(0).printAfter(scan);
+            talks.get(0).printBefore(scan);
           }
         }
-        myField = tmpField; // 現在のフィールドを更新
-        // 新しいフィールドに侵入時のイベントがあれば実行
-        ArrayList<Talk> talks = (ArrayList<Talk>)myField.getTalks().getList();
-        if (talks!=null && talks.size()>0) {
-          talks.get(0).printBefore(scan);
-        }
-      }
 
-      // フィールドの情報を表示
-      System.out.println((String)hitResult.get("toString"));
+        // フィールドの情報を表示
+        System.out.println((String)hitResult.get("toString"));
 
-      // 現在座標で発生するイベントを取得・実行
-      Pt orginPt = (Pt)hitResult.get("orginPt");
-      List<Event> events = myField.getHitEvents(myParty, myParty.getPt(), orginPt);
-      if (events != null) {
-        for (Event event: events) {
-          System.out.println();
-          // イベントを実行し、もしイベントが消費されるタイプならマップから削除
-          if (myParty.event(scan, event)) {
-            myField.removeEvent(myParty.getPt(), orginPt, event);
+        // 現在座標で発生するイベントを取得・実行
+        Pt orginPt = (Pt)hitResult.get("orginPt");
+        List<Event> events = myField.getHitEvents(myParty, myParty.getPt(), orginPt);
+        if (events != null) {
+          for (Event event: events) {
+            System.out.println();
+            // イベントを実行し、もしイベントが消費されるタイプならマップから削除
+            if (myParty.event(scan, event)) {
+              myField.removeEvent(myParty.getPt(), orginPt, event);
+            }
           }
         }
-      }
 
-      // プレイヤーのステータスを表示
-      System.out.println();
-      System.out.println(myParty.toString(true));
-      
-      // プレイヤーからの移動入力を待つ
-      Pt pt = myParty.walk(scan, allFields.getPt(), allFields.getSize());
-      
-      // もし移動先がnullなら、プレイヤーがゲーム終了を選択したと判断
-      if (pt == null) {
-        System.out.println("冒険を終了します。");
-        break; // ループを抜ける
-      }
-      // プレイヤーの座標を更新
-      myParty.setPt(pt);
-    } while(true);
+        // プレイヤーのステータスを表示
+        System.out.println();
+        System.out.println(myParty.toString(true));
+
+        // プレイヤーからの移動入力を待つ
+        Pt pt = myParty.walk(scan, allFields.getPt(), allFields.getSize());
+
+        // もし移動先がnullなら、プレイヤーがゲーム終了を選択したと判断
+        if (pt == null) {
+          System.out.println("冒険を終了します。");
+          break; // ループを抜ける
+        }
+        // プレイヤーの座標を更新
+        myParty.setPt(pt);
+      } while(true);
+    }
   }
 }

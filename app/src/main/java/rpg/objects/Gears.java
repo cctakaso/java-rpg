@@ -9,7 +9,7 @@ import rpg.types.GearType;
  * </p>
  */
 public class Gears extends Lists{
-  private ArrayList<Gear> children; // 装備品のリスト
+  protected ArrayList<Gear> children; // 装備品のリスト
 
   /**
    * デフォルトコンストラクタ。

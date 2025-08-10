@@ -11,7 +11,7 @@ import rpg.utils.*;
  * </p>
  */
 public class Attacks extends Lists{
-  private ArrayList<Attack> children; // 攻撃のリスト
+  protected ArrayList<Attack> children; // 攻撃のリスト
 
   /**
    * デフォルトコンストラクタ。
