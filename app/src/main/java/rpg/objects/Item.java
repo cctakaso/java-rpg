@@ -1,7 +1,6 @@
 package rpg.objects;
 import java.util.ArrayList;
 
-import rpg.types.CharacterType;
 import rpg.types.ItemType;
 import rpg.types.StatusType;
 import rpg.utils.Pt;

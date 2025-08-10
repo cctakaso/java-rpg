@@ -141,12 +141,12 @@ public class Character extends Base{
    * <p>
    * キャラクターが使用可能な攻撃をリストから選択し、選択された攻撃を返します。
    * </p>
-   * @param scan 入力を受け付けるスキャナー
+   * @param scanner 入力を受け付けるスキャナー
    * @return 選択された攻撃
    */
-  public Answer<Attack> selectAttack(Scanner scan) {
+  public Answer<Attack> selectAttack(Scanner scanner) {
     Answers<Attack> ansers = attacks.toAnswers(this);
-    return ansers.printChoice(scan, getName(), true);
+    return ansers.printChoice(scanner, getName(), true);
   }
 
   /**
@@ -236,7 +236,7 @@ public class Character extends Base{
    * @param party 判定するパーティ
    * @return 所属している場合はtrue、そうでなければfalse
    */
-  public boolean meet(Scanner scan, Party myParty) {
+  public boolean meet(Scanner scanner, Party myParty) {
     return false;
   }
 

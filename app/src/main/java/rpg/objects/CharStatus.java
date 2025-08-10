@@ -51,7 +51,7 @@ public class CharStatus extends Base{
    * </p>
    * @return キャラクターの能力値のリスト
    */
-  public ArrayList<Integer> getStatues() {
+  protected ArrayList<Integer> getStatues() {
     return this.statues;
   }
 
@@ -62,7 +62,7 @@ public class CharStatus extends Base{
    * </p>
    * @return キャラクターの能力値の割合のリスト
    */
-  public ArrayList<Integer> getStatuesRate() {
+  protected ArrayList<Integer> getStatuesRate() {
     return this.statuesRate;
   }
 

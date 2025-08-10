@@ -1,5 +1,7 @@
 package rpg.objects;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -39,21 +41,21 @@ public class CrewCharacter extends Character{
    * キャラクターとの出会いをシミュレートし、プレイヤーに選択肢を提示します。
    * プレイヤーがキャラクターを仲間にするかどうかを選択できます。
    * </p>
-   * @param scan 入力を受け付けるScannerオブジェクト
+   * @param scanner 入力を受け付けるScannerオブジェクト
    * @param myParty プレイヤーのパーティ
    * @return 出会いの結果（true: 仲間になった、false:
    * 出会いを拒否した）
    */
-  public boolean meet(Scanner scan, Party myParty) {
+  public boolean meet(Scanner scanner, Party myParty) {
 
     System.out.println(this.name+"と出会いました。");
-    this.talks.print(scan, myParty, this);
+    this.talks.print(scanner, myParty, this);
     System.out.println(this.charStatus.toString());
     System.out.println("1:仲間になる  0:バイバイする");
     while(true) {
       try{
         System.out.print(myParty.getLeaderName()+">");
-        int num = scan.nextInt();
+        int num = scanner.nextInt();
         if (num == 1) {
           myParty.addCharacter(this);
           System.out.println(this.name+"が仲間になりました。");
@@ -61,7 +63,17 @@ public class CrewCharacter extends Character{
         }else if (num==0) {
           break;
         }
-      }catch (Exception e){}
+      }catch (InputMismatchException ex){
+        scanner.nextLine(); // 入力バッファをクリア
+      } catch (NoSuchElementException e) {
+        System.out.println("入力がありません。もう一度入力してください。");
+        //scanner.next(); // 無効な入力をスキップ
+        System.exit(-1);
+      }catch(Exception ex) {
+        ex.printStackTrace();
+        System.err.println(ex.toString());
+        System.exit(-1);
+      }
       System.out.println("正しい番号を入力して下さい");
     }
     return true;

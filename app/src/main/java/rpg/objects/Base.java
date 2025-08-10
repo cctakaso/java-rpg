@@ -2,8 +2,6 @@ package rpg.objects;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import rpg.objects.*;
-import rpg.types.*;
 import rpg.utils.*;
 
 /**

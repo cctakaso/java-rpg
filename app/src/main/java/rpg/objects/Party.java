@@ -132,25 +132,25 @@ public class Party extends Base{
 
   /**
    * パーティ内のキャラクターを選択させます。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param excludeLord リーダーを除外するかどうか
    * @return 選択されたキャラクターを含むAnswerオブジェクト
    */
-  public Answer<Character> selectCharacter(Scanner scan, boolean excludeLord) {
+  public Answer<Character> selectCharacter(Scanner scanner, boolean excludeLord) {
     if (this.characters.getList().size()==1) {
       return new Answer<Character>(null, (Character)this.characters.getList().get(0));
     }
     Answers<Character> ansers = this.characters.toAnswers(excludeLord);
-    return ansers.printChoice(scan, null, false);
+    return ansers.printChoice(scanner, null, false);
   }
 
   /**
    * イベントを処理します。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param event 発生したイベント
    * @return イベント処理が正常に終了した場合はtrue
    */
-  public boolean event(Scanner scan, Event event) {
+  public boolean event(Scanner scanner, Event event) {
     int size;
     switch (event.getType()) {
       case EventType.ChangeField:
@@ -165,7 +165,7 @@ public class Party extends Base{
           while(true) {
             try{
               System.out.print(this.getLeaderName()+">");
-              int num = scan.nextInt();
+              int num = scanner.nextInt();
               if (num == 1) {
                 addItem(item);
                 System.out.println(this.items.toString());
@@ -173,7 +173,17 @@ public class Party extends Base{
               }else if (num==0) {
                 break;
               }
-            }catch (Exception e){}
+            }catch (InputMismatchException ex){
+              scanner.nextLine(); // 入力バッファをクリア
+            } catch (NoSuchElementException e) {
+              System.out.println("入力がありません。もう一度入力してください。");
+              //scanner.next(); // 無効な入力をスキップ
+              System.exit(-1);
+            }catch(Exception ex) {
+              ex.printStackTrace();
+              System.err.println(ex.toString());
+              System.exit(-1);
+            }
             System.out.println("正しい番号を入力して下さい");
           }
         }
@@ -182,7 +192,7 @@ public class Party extends Base{
         size = event.getCharacters().size();
         for(int index=size-1; index>=0; index--) {
           Character character = (Character)event.getCharacters().getList().get(index);
-          doCharacterEvent(scan, character);
+          doCharacterEvent(scanner, character);
           System.out.println();
         }
         break;
@@ -190,7 +200,7 @@ public class Party extends Base{
         size = event.getParties().size();
         for(int index=size-1; index>=0; index--) {
           Party party = (Party)event.getParties().getList().get(index);
-          doCharacterEvent(scan, party);
+          doCharacterEvent(scanner, party);
           System.out.println();
         }
         break;
@@ -240,12 +250,12 @@ public class Party extends Base{
 
   /**
    * 他のパーティとの遭遇イベントを処理します。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param party 遭遇したパーティ
    * @return イベント処理が正常に終了した場合はtrue
    */
   @SuppressWarnings("unchecked")
-  private boolean doCharacterEvent(Scanner scan, Party party) {
+  private boolean doCharacterEvent(Scanner scanner, Party party) {
     System.out.println("パーティ："+party.name+"が現れました。");
     for (Character character: (ArrayList<Character>)party.characters.getList()) {
       System.out.println(character.toString());
@@ -254,39 +264,39 @@ public class Party extends Base{
     Character xcharacter = new EnemyCharacter(((ArrayList<Character>)party.characters.getList()).get(0));
     // 敵パーティの場合、戦闘を開始
     if (party.isEnemyParty()) {
-      if (xcharacter.meet(scan, this)) {
+      if (xcharacter.meet(scanner, this)) {
         BattleField battleField = new BattleField(this, party);
-        battleField.start(scan);
+        battleField.start(scanner);
       }
     }else{
-      return doCharacterEvent(scan, xcharacter);
+      return doCharacterEvent(scanner, xcharacter);
     }
     return true;
   }
 
   /**
    * 他のキャラクターとの遭遇イベントを処理します。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param character 遭遇したキャラクター
    * @return イベント処理が正常に終了した場合はtrue
    */
-  private boolean doCharacterEvent(Scanner scan, Character character) {
+  private boolean doCharacterEvent(Scanner scanner, Character character) {
     Character xcharacter;
     // キャラクターのタイプに応じて処理を分岐
     if (character.type.isCrewCharacter()) {
       xcharacter = new CrewCharacter(character);
-      xcharacter.meet(scan, this);
+      xcharacter.meet(scanner, this);
     }else if (character.type.isEnemyCharacter()) {
       xcharacter = new EnemyCharacter(character);
       System.out.println(xcharacter.name+"が現れました。");
       System.out.println(this.charStatus.toString());
-      if (xcharacter.meet(scan, this)) {
+      if (xcharacter.meet(scanner, this)) {
         BattleField battleField = new BattleField(this, xcharacter);
-        battleField.start(scan);
+        battleField.start(scanner);
       }
     }else if (character.type.isNpcCharacter()) {
       xcharacter = new NonPlayerCharacter(character);
-      xcharacter.meet(scan, this);
+      xcharacter.meet(scanner, this);
     }else{
       return false;
     }
@@ -295,12 +305,12 @@ public class Party extends Base{
 
   /**
    * パーティの移動処理を行います。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param parentPt 親（フィールドなど）の原点座標
    * @param parentSize 親（フィールドなど）のサイズ
    * @return 移動後の座標。移動しない場合はnull。
    */
-  public Pt walk(Scanner scan, Pt parentPt, Size parentSize) {
+  public Pt walk(Scanner scanner, Pt parentPt, Size parentSize) {
     Pt pt;
     Defs.Key key;
     System.out.println("どちらへ行きますか？");
@@ -309,14 +319,21 @@ public class Party extends Base{
       while(true) {
         try{
           System.out.print(this.getLeaderName()+">");
-          int num = scan.nextInt();
+          int num = scanner.nextInt();
           key = Defs.getDirection(num);
           if (key != Defs.Key.Error) {
             break;
           }
+        }catch (InputMismatchException ex){
+          scanner.nextLine(); // 入力バッファをクリア
+        } catch (NoSuchElementException e) {
+          System.out.println("入力がありません。もう一度入力してください。");
+          //scanner.next(); // 無効な入力をスキップ
+          System.exit(-1);
         }catch(Exception ex) {
           ex.printStackTrace();
           System.err.println(ex.toString());
+          System.exit(-1);
         }
         System.out.println("正しい番号を入力して下さい");
       }

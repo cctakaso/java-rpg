@@ -1,7 +1,6 @@
 package rpg.objects;
 
 import java.util.*;
-
 import rpg.utils.*;
 
 /**

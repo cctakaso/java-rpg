@@ -12,7 +12,7 @@ import rpg.utils.*;
  * </p>
  */
 public class Items extends Lists{
-  public ArrayList<Item> children;    // アイテムのリスト
+  protected ArrayList<Item> children;    // アイテムのリスト
 
   /**
    * デフォルトコンストラクタ。

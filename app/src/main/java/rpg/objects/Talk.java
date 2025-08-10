@@ -84,9 +84,9 @@ public class Talk extends Base{
 
   /**
    * 選択肢の前の会話文を表示します。
-   * @param scan ユーザー入力（現在は未使用）
+   * @param scanner ユーザー入力（現在は未使用）
    */
-  public void printBefore(Scanner scan) {
+  public void printBefore(Scanner scanner) {
     for (String before : befores) {
       System.out.println(before);
     }
@@ -94,9 +94,9 @@ public class Talk extends Base{
 
   /**
    * 選択肢の後の会話文を表示します。
-   * @param scan ユーザー入力（現在は未使用）
+   * @param scanner ユーザー入力（現在は未使用）
    */
-  public void printAfter(Scanner scan) {
+  public void printAfter(Scanner scanner) {
     for (String after : afters) {
       System.out.println(after);
     }
@@ -154,20 +154,20 @@ public class Talk extends Base{
 
   /**
    * 会話を実行し、プレイヤーの選択を取得します。
-   * @param scan ユーザー入力用のScanner
+   * @param scanner ユーザー入力用のScanner
    * @param allyParty プレイヤーのパーティ
    * @param otherCharacter 会話相手のキャラクター
    * @return プレイヤーの選択に対応するAnswerオブジェクト
    */
-  public Answer<Item> print(Scanner scan, Party allyParty, Character otherCharacter) {
+  public Answer<Item> print(Scanner scanner, Party allyParty, Character otherCharacter) {
     Answer<Item> anser;
 
-    printBefore(scan);
+    printBefore(scanner);
     Answers<Item> ansers = makeOptions(choices, allyParty, otherCharacter);
     if (ansers.size()==0) {
       return null;
     }
-    anser = ansers.printChoice(scan, null, true);
+    anser = ansers.printChoice(scanner, null, true);
 
     // 選択後の処理
     if (afters.size()>0) {
@@ -181,7 +181,7 @@ public class Talk extends Base{
       if (after.charAt(0) == '>') {
         ArrayList<Base> list = (ArrayList<Base>)Adventure.getDicClones("Talks", after.substring(1));
         Talk talk = (Talk)list.get(0);
-        anser = talk.print(scan, allyParty, otherCharacter);
+        anser = talk.print(scanner, allyParty, otherCharacter);
       }else{
         System.out.println(after);
       }

@@ -29,22 +29,26 @@ public class EnemyCharacter extends Character{
    * 敵キャラクターとの出会いをシミュレートし、プレイヤーに選択肢を提示します。
    * プレイヤーが敵キャラクターと戦うかどうかを選択できます。
    * </p>
-   * @param scan 入力を受け付けるScannerオブジェクト
+   * @param scanner 入力を受け付けるScannerオブジェクト
    * @param myParty プレイヤーのパーティ
    * @return 出会いの結果（true: 戦う、false: 逃げる）
    */
-  public boolean meet(Scanner scan, Party myParty) {
-    this.talks.print(scan, myParty, this);
+  public boolean meet(Scanner scanner, Party myParty) {
+    this.talks.print(scanner, myParty, this);
     System.out.println("1:戦う  0:逃げる");
     int num=0;
     while(true) {
       try{
         System.out.print(myParty.getLeaderName()+">");
-        num = scan.nextInt();
+        num = scanner.nextInt();
         if (num ==1 || num == 0) {
           break;
         }
-      }catch (Exception e){}
+      }catch (Exception e){
+        e.printStackTrace();
+        System.err.println(e.getMessage());
+        //scanner.nextLine(); // 入力バッファをクリア
+      }
       System.out.println("番号が違います。");
     }
     return num==1;

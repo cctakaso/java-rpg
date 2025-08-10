@@ -1,8 +1,6 @@
 package rpg.objects;
 import java.util.*;
 
-import rpg.objects.BattleField.CharacterComparator;
-import rpg.types.AttackType;
 import rpg.types.StatusType;
 import rpg.utils.*;
 
@@ -212,10 +210,10 @@ public class BattleField {
    * <p>
    * 戦闘を開始し、キャラクターの行動を順次処理します。
    * </p>
-   * @param scan 入力を受け付けるスキャナー
+   * @param scanner 入力を受け付けるスキャナー
    * @return 戦闘が終了した場合はtrue、それ以外はfalse
    */
-  public boolean start(Scanner scan) {
+  public boolean start(Scanner scanner) {
     // 戦闘を開始し、キャラクターの行動を順次処理
     // キャラクターの行動を順次処理
     ArrayList<Character> garded_charcters = new ArrayList<Character>();
@@ -223,15 +221,15 @@ public class BattleField {
     while(isLoop) {
       // 次のキャラクターを取得
       // 次のキャラクターを取得し、行動を選択
-      Scanner scanner;
+      Scanner scan;
       Character attacker = getNextFighter();
       if (attacker == this.allyParty.characters.getList().get(0)) {
-        scanner = scan;
+        scan = scanner;
       }else{
-        scanner = null; //自動ランダム選択
+        scan = null; //自動ランダム選択
       }
       System.err.println();
-      Answer anser = attacker.selectAttack(scanner);
+      Answer anser = attacker.selectAttack(scan);
       Attack attack = (Attack)anser.getValue();
       if (garded_charcters.contains(attacker)) {
         attacker.charStatus.doGard(false);

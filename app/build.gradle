@@ -39,6 +39,12 @@ application {
     mainClass = 'rpg.App'
 }
 
+
+
+run {
+    standardInput = System.in
+}
+
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
 }
