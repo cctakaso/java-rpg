@@ -36,7 +36,11 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'java_rpg.App'
+    mainClass = 'rpg.App'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
 }
 
 tasks.named('test') {

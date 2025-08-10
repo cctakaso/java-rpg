@@ -30,7 +30,7 @@ public class NonPlayerCharacter extends Character{
    * @return 対話が正常に終了した場合はtrue
    */
   public boolean meet(Scanner scan, Party myParty) {
-    Answer anser;
+    Answer<?> anser;
     while(true) {
       System.out.println(this.name+":");
       // NPCとの会話を表示し、プレイヤーの応答を取得
