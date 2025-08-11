@@ -2,7 +2,7 @@ package rpg;
 
 import java.util.*;
 
-import rpg.objects.*;
+import rpg.model.objects.*;
 import rpg.utils.*;
 
 /**
@@ -33,6 +33,15 @@ public class Adventure {
     System.out.println("initialize end");
   }
 
+  /**
+   * データ辞書から、指定されたタイプのオブジェクトのクローンを取得します。
+   * @param type オブジェクトのタイプ（例: "Characters", "Items"）
+   * @param name オブジェクトの名前
+   * @return 生成されたオブジェクトのリスト
+   */
+  public static Base getDicClone(String type, String name) {
+    return dic.getClone(type, name);
+  }
 
   /**
    * データ辞書から、指定されたタイプのオブジェクトのクローンを取得します。

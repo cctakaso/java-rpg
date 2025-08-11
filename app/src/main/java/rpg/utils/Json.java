@@ -13,19 +13,19 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
+import rpg.model.objects.Attack;
+import rpg.model.objects.Base;
+import rpg.model.objects.Character;
+import rpg.model.objects.Fields;
+import rpg.model.objects.Gear;
+import rpg.model.objects.Item;
+import rpg.model.objects.Party;
+import rpg.model.objects.Talk;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-
-import rpg.objects.Character;
-import rpg.objects.Fields;
-import rpg.objects.Gear;
-import rpg.objects.Item;
-import rpg.objects.Attack;
-import rpg.objects.Talk;
-import rpg.objects.Party;
-import rpg.objects.Base;
 
 /**
  * JSONデータの読み込みと解析（デシリアライズ）を担当するユーティリティクラス。

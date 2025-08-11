@@ -1,5 +1,5 @@
 package rpg.utils;
-import rpg.types.*;
+import rpg.model.types.*;
 
 /**
  * 2次元座標（ポイント）を表現するクラス。

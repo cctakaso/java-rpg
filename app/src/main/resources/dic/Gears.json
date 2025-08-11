@@ -3,7 +3,7 @@
     "gearType": "Clothes",
     "itemType": "Gear",
     "name": "普通の服",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Money",
@@ -11,7 +11,7 @@
           "rate": 100
         },
         {
-          "type": "Defense",
+          "type": "Defence",
           "point": 10,
           "rate": 100
         }
@@ -22,7 +22,7 @@
     "gearType": "Shoes",
     "itemType": "Gear",
     "name": "普通の靴",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Money",
@@ -30,7 +30,7 @@
           "rate": 100
         },
         {
-          "type": "Defense",
+          "type": "Defence",
           "point": 10,
           "rate": 100
         }
@@ -42,7 +42,7 @@
     "itemType": "Gear",
     "characterTypes": ["Gladiator"],
     "name": "錆びた剣",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Money",
@@ -62,7 +62,7 @@
     "itemType": "Gear",
     "characterTypes": ["Pubilist"],
     "name": "ぐん手",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Money",
@@ -82,7 +82,7 @@
     "itemType": "Gear",
     "characterTypes": ["Archer"],
     "name": "伸びた弓",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Money",
@@ -102,7 +102,7 @@
     "itemType": "Gear",
     "characterTypes": ["Wizard", "Bishop"],
     "name": "折れた杖",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Attack",
@@ -122,7 +122,7 @@
     "itemType": "Gear",
     "characterTypes": ["Blacksmith"],
     "name": "金槌",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "Attack",

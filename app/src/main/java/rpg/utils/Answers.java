@@ -87,6 +87,7 @@ public class Answers<T>{
     }
     // scanがnullでなければ、生成した文字列を表示
     if (scanner!=null) {
+      System.out.println("次のどれを選びますか？");
       System.out.println(str);
     }
     // 実際の選択処理を呼び出す
@@ -108,7 +109,6 @@ public class Answers<T>{
       choice = random.nextInt(this.size());
     }else if (this.size()>0){
       // ユーザーに入力を促す
-      System.out.println("次のどれを選びますか？");
       while(true) {
         try{
           System.out.print(name!=null ? name+">":">");

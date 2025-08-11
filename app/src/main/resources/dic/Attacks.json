@@ -2,7 +2,7 @@
   "斬り":{
     "name": "斬り",
     "type": "Attack",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -17,10 +17,28 @@
       ]
     }
   },
+  "防御する":{
+    "name": "防御する",
+    "type": "Protect",
+    "conditions": {
+      "children": [
+        {
+          "type": "Defence",
+          "point": 30,
+          "rate": 100
+        },
+        {
+          "type": "MagicDefence",
+          "point": 30,
+          "rate": 100
+        }
+      ]
+    }
+  },
   "打撃":{
     "name": "打撃",
     "type": "Attack",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -38,7 +56,7 @@
   "弓矢":{
     "name": "弓矢",
     "type": "Attack",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -56,7 +74,7 @@
   "ヒール":{
     "name": "ヒール",
     "type": "Heal",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -74,7 +92,7 @@
   "ファイア":{
     "name": "ファイア",
     "type": "Fire",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -92,7 +110,7 @@
   "サンダー":{
     "name": "サンダー",
     "type": "Thunder",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -110,7 +128,7 @@
   "体当たり":{
     "name": "体当たり",
     "type": "Attack",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",
@@ -128,7 +146,7 @@
   "斧攻撃":{
     "name": "斧攻撃",
     "type": "Attack",
-    "statuses": {
+    "conditions": {
       "children": [
         {
           "type": "HealthPoint",

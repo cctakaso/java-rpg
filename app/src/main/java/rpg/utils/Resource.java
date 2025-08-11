@@ -1,8 +1,9 @@
 package rpg.utils;
 import java.lang.reflect.Field;
 import java.util.*;
-import rpg.objects.Lists;
-import rpg.objects.Base;
+
+import rpg.model.objects.Base;
+import rpg.model.objects.Lists;
 
 /**
  * ゲームリソースの読み込みと初期化を管理するクラス。
