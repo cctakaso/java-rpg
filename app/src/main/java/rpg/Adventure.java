@@ -30,7 +30,7 @@ public class Adventure {
     Resource.load(dic, "/dic");
     // 指定されたシナリオのマップデータを読み込む
     Resource.load(map, path);
-    System.out.println("initialize end");
+    //System.out.println("initialize end");
   }
 
   /**

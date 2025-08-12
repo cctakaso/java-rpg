@@ -45,7 +45,8 @@ public class Characters extends Lists{
    * </p>
    * @return キャラクターのリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Character> getList() {
     return children;
   }
 
@@ -70,6 +71,8 @@ public class Characters extends Lists{
    * </p>
    * @param children キャラクターのリスト
    */
+  @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Character>)children;
   }

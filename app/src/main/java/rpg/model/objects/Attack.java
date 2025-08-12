@@ -78,11 +78,12 @@ public class Attack extends Base{
   }
 
   /**
-   * 攻撃の詳細を文字列として返します。
+   * 攻撃が使用可能かどうかを判定します。
    * <p>
-   * 攻撃の種類とステータスを含む文字列を返します。
+   * キャラクターのマジックポイントが、攻撃に必要なマジックポイント以上であれば使用可能とみなします。
    * </p>
-   * @return 攻撃の詳細を表す文字列
+   * @param character 攻撃を行うキャラクター
+   * @return 使用可能かどうか
    */
   public boolean isAvailable(Character character) {
     return character.charStatus.getMagicPoint() >= usedMagicPoint();
@@ -99,6 +100,7 @@ public class Attack extends Base{
   public String toString(boolean isDetail) {
     return super.toString() + (isDetail ? ("["+ this.type + ":" + this.conditions.toString() + "]"):"");
   }
+
 
   /**
    * 使用する魔法ポイントを取得します。
@@ -285,5 +287,7 @@ public class Attack extends Base{
     }
     return 0;
   }
+
+
 
 }

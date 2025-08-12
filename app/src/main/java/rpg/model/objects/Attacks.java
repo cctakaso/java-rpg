@@ -41,7 +41,8 @@ public class Attacks extends Lists{
    * </p>
    * @return 攻撃のリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Attack> getList() {
     return children;
   }
 
@@ -52,6 +53,8 @@ public class Attacks extends Lists{
    * </p>
    * @param children 攻撃のリスト
    */
+  @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Attack>)children;
   }

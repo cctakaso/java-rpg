@@ -40,7 +40,8 @@ public class Gears extends Lists{
    * </p>
    * @return 装備品のリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Gear> getList() {
     return children;
   }
 
@@ -51,6 +52,8 @@ public class Gears extends Lists{
    * </p>
    * @param children 装備品のリスト
    */
+  @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Gear>)children;
   }

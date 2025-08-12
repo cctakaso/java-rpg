@@ -26,7 +26,7 @@ public class App {
      */
     public static void main(String[] args) {
         // 基本的な挨拶メッセージを表示
-        System.out.println(new App().getGreeting());
+        //System.out.println(new App().getGreeting());
 
         // 1. ゲームデータの初期化
         // Adventureクラスに、使用するマップデータの場所を教えて、ゲームの準備をさせる

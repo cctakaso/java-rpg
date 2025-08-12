@@ -70,6 +70,7 @@ public class Gear extends Item {
    * @param randomPt ランダムな座標（使用されない）
    * @return 新しいGearオブジェクト
    */
+  @SuppressWarnings("unchecked")
   public Gear clone(int num, Pt randomPt) {
     Gear copy = null;
     try {

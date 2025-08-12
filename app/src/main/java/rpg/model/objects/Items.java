@@ -43,7 +43,8 @@ public class Items extends Lists{
    * </p>
    * @return アイテムのリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Item> getList() {
     return children;
   }
 
@@ -55,6 +56,8 @@ public class Items extends Lists{
    * </p>
    * @param item 追加するアイテム
    */
+  @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Item>)children;
   }

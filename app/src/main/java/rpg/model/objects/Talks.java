@@ -34,7 +34,8 @@ public class Talks extends Lists{
    * 管理しているTalkのリストを返します。
    * @return Talkオブジェクトのリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Talk> getList() {
     return children;
   }
 
@@ -43,6 +44,7 @@ public class Talks extends Lists{
    * @param children 設定するTalkオブジェクトのリスト
    */
   @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Talk>)children;
   }

@@ -36,7 +36,8 @@ public class Conditions extends Lists{
    * 管理しているStatusのリストを返します。
    * @return Statusオブジェクトのリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Condition> getList() {
     return children;
   }
 
@@ -45,6 +46,7 @@ public class Conditions extends Lists{
    * @param children 設定するStatusオブジェクトのリスト
    */
   @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Condition>)children;
   }

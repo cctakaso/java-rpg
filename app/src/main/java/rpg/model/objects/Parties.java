@@ -33,7 +33,8 @@ public class Parties extends Lists{
    * 管理しているPartyのリストを返します。
    * @return Partyオブジェクトのリスト
    */
-  public List<?> getList() {
+  @Override
+  public List<Party> getList() {
     return children;
   }
 
@@ -42,6 +43,7 @@ public class Parties extends Lists{
    * @param children 設定するPartyオブジェクトのリスト
    */
   @SuppressWarnings("unchecked")
+  @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Party>)children;
   }
@@ -56,7 +58,7 @@ public class Parties extends Lists{
   public Lists getHitInstance(Party mParty, Pt pt) {
     try {
       Lists lsts = getNewInstance();
-      List<Base> lst = (List<Base>)getList();
+      List<Party> lst = getList();
       for(Base one: lst) {
         // 自分自身のパーティは除外して、指定座標にいるパーティを検索
         if (one != mParty && one.pt.isEquals(pt)) {

@@ -190,6 +190,7 @@ public class CharStatus extends Base{
    * @param randomPt ランダムな位置（座標）
    * @return 新しいCharacterオブジェクト
    */
+  @SuppressWarnings("unchecked")
   @Override
   public CharStatus clone(int num, Pt randomPt) {
     CharStatus copy = null;

@@ -74,7 +74,7 @@ public class Fields extends Lists{
    * @return フィールドのリスト
    */
   @Override
-  public List<?> getList() {
+  public List<Fields> getList() {
     return children;
   }
 
@@ -85,6 +85,7 @@ public class Fields extends Lists{
    * </p>
    * @param children フィールドのリスト
    */
+  @SuppressWarnings("unchecked")
   @Override
   protected void setList(List<?> children) {
     this.children = (ArrayList<Fields>)children;

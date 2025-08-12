@@ -101,7 +101,7 @@ public class Json {
       Type type = getTypeFromClassName(className);
       // 実際にJSONファイルを読み込み、オブジェクトに変換
       HashMap<String, Base> map = Json.getMapfromJson(type, pathName+"/"+fileName);
-      System.out.println(map);
+      //System.out.println(map);
       // 読み込んだデータを、クラス名をキーとして全体のデータマップに格納
       datas.put(className, map);
     }
@@ -114,6 +114,8 @@ public class Json {
    * @param fileName 読み込むJSONファイルのリソースパス
    * @return JSONから生成されたHashMap。失敗した場合はnull。
    */
+  @SuppressWarnings("unchecked")
+  // Gsonを使ってJSONファイルを読み込み、HashMap<String, Base>を生成する
 	private static HashMap<String, Base> getMapfromJson(Type type, String fileName) {
     // try-with-resources構文で、ストリームが自動的にクローズされるようにする
     try (InputStream is = Json.class.getResourceAsStream(fileName);
@@ -123,6 +125,7 @@ public class Json {
   			gson = new Gson();
 	  	}
       // Gsonのメイン機能。JSONリーダーと型情報を渡してデシリアライズを実行。
+      // ここで、JSONファイルの内容をHashMap<String, Base>に変換
       HashMap<String, Base> obj = (HashMap<String, Base>)gson.fromJson(reader, type);
       return obj;
     } catch (Exception ex) {

@@ -63,9 +63,8 @@ public abstract class Lists extends Base{
    * @param index 削除する要素のインデックス
    * @return 削除された要素
    */
-  public Base remove(int index) {
-    List<Base> list = (List<Base>)getList();
-    return list.remove(index);
+  public Object remove(int index) {
+    return getList().remove(index);
   }
 
   /**
@@ -73,6 +72,7 @@ public abstract class Lists extends Base{
    * @param target 削除する対象のインスタンス
    * @return 削除されたインスタンス。見つからない場合はnull。
    */
+  @SuppressWarnings("unchecked")
   public Base remove(Base target) {
     List<Base> list = (List<Base>)getList();
     int index = 0;
@@ -90,6 +90,7 @@ public abstract class Lists extends Base{
    * リストに要素を追加します。
    * @param one 追加する要素
    */
+  @SuppressWarnings("unchecked")
   protected void add(Base one) {
     List<Base> list = (List<Base>)getList();
     list.add(one);
@@ -99,9 +100,9 @@ public abstract class Lists extends Base{
    * ターゲットリストに含まれるインスタンスを現在のリストから削除します。
    * @param targetLsts 削除対象のインスタンスを含むListsオブジェクト
    */
+  @SuppressWarnings("unchecked")
   public void removeHitInstance(Lists targetLsts) {
     try {
-      Lists lsts = getNewInstance();
       List<Base> lst = (List<Base>)getList();
       List<Base> targetLst = (List<Base>)targetLsts.getList();
       for(Base one: targetLst) {
@@ -117,6 +118,7 @@ public abstract class Lists extends Base{
    * @param pt 検索する座標
    * @return 指定された座標に存在するインスタンスを含む新しいListsオブジェクト。見つからない場合はnull。
    */
+  @SuppressWarnings("unchecked")
   public Lists getHitInstance(Pt pt) {
     try {
       Lists lsts = getNewInstance();
@@ -137,6 +139,7 @@ public abstract class Lists extends Base{
    * このListsオブジェクトのディープコピーを作成します。
    * @return このオブジェクトのクローン
    */
+  @SuppressWarnings("unchecked")
   @Override
   public Lists clone() {
     Lists copy = null;
@@ -161,6 +164,7 @@ public abstract class Lists extends Base{
    * namesフィールドに設定された名前とnumbersフィールドに設定された数量を使って、
    * Adventureクラスの辞書からオブジェクトをクローンし、リストに追加します。
    */
+  @SuppressWarnings("unchecked")
   public void SetFromDic() {
     List<Base> list = (List<Base>)getList();
     if (this.names == null) {
@@ -205,6 +209,7 @@ public abstract class Lists extends Base{
    * リフレクションを使用して、このクラスの他のフィールド値をリスト内の各オブジェクトに設定します。
    * DicList型のフィールドを検出し、その内容をリスト内の対応するオブジェクトのフィールドに設定します。
    */
+  @SuppressWarnings("unchecked")
   private void SetOtherFields() {
     List<Base> listDst = (List<Base>)getList();
     Class<?> cls = this.getClass();
