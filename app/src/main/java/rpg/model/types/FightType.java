@@ -11,13 +11,13 @@ public enum FightType {
   Escape(4);     //逃げる
 
   /**
-   * フィールドタイプに対応する整数ID。
+   * 戦闘タイプに対応する整数ID。
    */
   public int id; // フィールドの定義
 
   /**
    * Enumのコンストラクタ。
-   * @param id フィールドタイプに割り当てるID
+   * @param id 戦闘タイプに割り当てるID
    */
   private FightType(int id) { // コンストラクタの定義
     this.id = id;

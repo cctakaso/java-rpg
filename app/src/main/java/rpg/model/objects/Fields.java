@@ -44,11 +44,8 @@ public class Fields extends Lists{
   }
 
   /**
-   * 新たにフィールズインスタンスを取得します。
-   * <p>
-   * フィールド群の取得。
-   * </p>
-   * @return フィールズインスタンス
+   * このクラスの新しいインスタンスを生成します。
+   * @return 新しいFieldsインスタンス
    */
 
   protected Lists getNewInstance() {
@@ -110,7 +107,8 @@ public class Fields extends Lists{
   /**
    * フィールドのマップを表示します。
    * <p>
-   * フィールドを文字列として表示します。
+   * フィールドを文字列として表示し、プレイヤーの現在位置やフィールド上のオブジェクトを記号で表現します。
+   * 凡例: M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ
    * </p>
    */
   public void toString(Party myParty) {
@@ -189,9 +187,10 @@ public class Fields extends Lists{
 
 
   /**
-   * フィールドのクローンを作成します。
+   * このFieldsオブジェクトのクローンを作成します。
    * <p>
-   * フィールドクローンの識別番号とランダムポイントを持つ新しいFieldsオブジェクトを返します。
+   * フィールドの種類、サイズ、アイテム、キャラクター、パーティ、会話などを
+   * 保持した新しいFieldsオブジェクトを返します。
    * </p>
    * @return 新しいFieldsオブジェクト
    */
@@ -200,7 +199,7 @@ public class Fields extends Lists{
   }
 
   /**
-   * フィールドのクローンを作成します。
+   * このFieldsオブジェクトのクローンを、指定された番号とランダムな位置で作成します。
    * <p>
    * フィールドの種類、サイズ、アイテム、キャラクター、パーティ、会話などを
    * 保持した新しいFieldsオブジェクトを返します。
@@ -231,7 +230,10 @@ public class Fields extends Lists{
    * 指定された座標がフィールド内に存在するかどうかを判定します。
    * </p>
    * @param pt 判定する座標
-   * @return ヒットしたフィールドと原点座標、文字列表現を含むマップ
+   * @return ヒットしたフィールドと原点座標、文字列表現を含むマップ。
+   *         マップのキー: "hitField" (ヒットしたFieldsオブジェクト),
+   *         "orginPt" (ヒットしたフィールドの原点座標),
+   *         "toString" (ヒットしたフィールドの文字列表現)
    */
   public Map<String, Object>  hitField(Pt pt) {
     Fields hitField = this;
@@ -255,7 +257,7 @@ public class Fields extends Lists{
     return Map.ofEntries(
       Map.entry("hitField", hitField),
       Map.entry("orginPt", orginPt),
-      Map.entry("toString", hitField.name + "("+orginPt.x+","+orginPt.y+")-("+(orginPt.x+hitField.size.x)+","+(orginPt.y+hitField.size.y)+")")
+      Map.entry("toString", hitField.name + "("+orginPt.x+","+orginPt.y+")-" + "("+(orginPt.x+hitField.size.x)+","+(orginPt.y+hitField.size.y)+")")
     );
   }
 
@@ -263,6 +265,7 @@ public class Fields extends Lists{
    * イベントをフィールドから削除します。
    * <p>
    * 指定された座標と原点座標に基づいて、イベントをフィールドから削除します。
+   * EventType.ChangeField の場合は、フィールド上のオブジェクトは削除されません。
    * </p>
    * @param pt イベントが発生した座標
    * @param orginPt イベントの原点座標

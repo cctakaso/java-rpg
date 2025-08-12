@@ -34,7 +34,7 @@ public enum ItemType {
 
   /**
    * Enumのコンストラクタ。
-   * @param id フィールドタイプに割り当てるID
+   * @param id アイテムタイプに割り当てるID
    */
   private ItemType(int id) { // コンストラクタの定義
     this.id = id;

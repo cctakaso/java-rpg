@@ -6,11 +6,8 @@ import rpg.Adventure;
 import rpg.utils.*;
 
 /**
- * 攻撃を表すクラス。
- * <p>
- * 攻撃の種類（AttackType）とステータス（Statuses）を持ち、
- * 攻撃の詳細やダメージ計算などの機能を提供します。
- * </p>
+ * 複数の攻撃（Attack）を管理するためのリストクラスです。
+ * Listsクラスを継承し、キャラクターが使用できる攻撃のコレクションを扱います。
  */
 public class Attacks extends Lists{
   protected ArrayList<Attack> children; // 攻撃のリスト
@@ -27,8 +24,11 @@ public class Attacks extends Lists{
   }
 
   /**
-   * 攻撃の種類を取得します。
-   * @return 攻撃の種類
+   * 新たにAttacksインスタンスを取得します。
+   * <p>
+   * 攻撃のリストを管理するための新しいインスタンスを返します。
+   * </p>
+   * @return Attacksインスタンス
    */
   protected Lists getNewInstance() {
     return new Attacks();
@@ -60,11 +60,12 @@ public class Attacks extends Lists{
   }
 
   /**
-   * 攻撃のリストに攻撃を追加します。
+   * キャラクターが選択可能な攻撃のリストをAnswers形式で取得します。
    * <p>
-   * 引数として渡されたAttackオブジェクトを、攻撃のリストに追加します。
+   * 防御の選択肢を含め、キャラクターが使用可能な攻撃をAnswersオブジェクトとして返します。
    * </p>
-   * @param attack 追加する攻撃
+   * @param character 攻撃を選択するキャラクター
+   * @return 選択可能な攻撃を含むAnswersオブジェクト
    */
   public Answers<Attack> toAnswers(Character character) {
     Answers<Attack> list = new Answers<>();

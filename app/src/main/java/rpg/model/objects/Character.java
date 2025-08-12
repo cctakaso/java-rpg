@@ -244,13 +244,13 @@ public class Character extends Base{
   }
 
   /**
-   * キャラクターが特定のパーティに所属しているかどうかを判定します。
+   * キャラクターとの遭遇イベントを処理します。
    * <p>
-   * キャラクターが指定されたパーティに所属している場合はtrueを返し、
-   * そうでない場合はfalseを返します。
+   * このメソッドは、キャラクターが他のパーティと遭遇した際のイベント処理を行います。
    * </p>
-   * @param party 判定するパーティ
-   * @return 所属している場合はtrue、そうでなければfalse
+   * @param scanner ユーザー入力用のScanner
+   * @param myParty 自身のパーティ
+   * @return イベント処理が正常に終了した場合はtrue
    */
   public boolean meet(Scanner scanner, Party myParty) {
     return false;

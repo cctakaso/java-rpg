@@ -44,7 +44,7 @@ public enum CharacterType {
   Boniface(33),   //宿屋の主人
   Priest(34),     //神父
   Blacksmith(35), //鍛冶屋
-  NpcMac(35);     // NpcMaxの誤記か。NPCのIDの最大値を示すマーカー
+  NpcMac(35);     // NPCのIDの最大値を示すマーカー
 
   /**
    * キャラクター種別に対応する整数ID。

@@ -13,18 +13,9 @@ import java.util.*;
  * </p>
  */
 public class CharStatus extends Base{
-  // ステータスの割合（100が通常、0が無効）
-  // ステータスの割合は、ステータスの種類に応じて
-  // 変化することがあります（例：防御時に上昇する防御力や魔法防御力など）。
-  // ステータスの種類は、StatusTypeで定義されている定数を使用します。
-  protected ArrayList<Integer> condarray; // キャラクターのステータス
-  protected ArrayList<Integer> condarrayRate; // キャラクターのステータス
-  // レベルに関する情報を管理するLevelオブジェクト
-  // レベルは、キャラクターの成長や経験値に基づいて変化します。
-  // レベルアップ時に能力値やステータスが増加することがあります。
-  // Levelクラスは、レベルに関する詳細な情報を提供します。
-  // レベルの成長や経験値の管理、レベルアップ時の処理などを行います。
-  protected Level level;  // キャラクターのレベル
+  protected ArrayList<Integer> condarray; // キャラクターのステータス基本値
+  protected ArrayList<Integer> condarrayRate; // キャラクターのステータス割合（100が通常、0が無効）
+  protected Level level;  // キャラクターのレベルと経験値に関する情報
 
   /**
    * デフォルトコンストラクタ。
@@ -73,9 +64,14 @@ public class CharStatus extends Base{
     return this.level;
   }
 
+  /**
+   * 防御時のステータスを設定します。
+   * <p>
+   * 攻撃がある場合は防御力を上げ、ない場合は通常の防御力を設定します。
+   * </p>
+   * @param attack 防御に関連する攻撃（nullの場合は通常の防御）
+   */
   public void doProtect(Attack attack) {
-    // 攻撃がある場合は防御力を上げ、ない場合は
-    // 通常の防御力を設定します。
     if (attack == null) {
       this.condarrayRate.set(ConditionType.Defence.id, Condition.INITIAL_RATE);
       this.condarrayRate.set(ConditionType.MagicDefence.id, Condition.INITIAL_RATE);
@@ -87,17 +83,6 @@ public class CharStatus extends Base{
       }
     }
   }
-
-
-  /*
-    // 防御時のステータスを設定
-    // 攻撃がある場合は防御力を上げ、ない場合は
-    // 通常の防御力を設定します。
-    boolean a = attack != null && attack.isAvailable(this);
-    this.condarrayRate.set(ConditionType.Attack.id, a ? 20:10);
-    this.condarrayRate.set(ConditionType.MagicAttack.id, a ? 20:10
-
-   */
 
   public void setReset() {
     this.condarrayRate = new ArrayList<Integer>(Arrays.asList(100,100,100,100,100,100,100,100,  10,10,10,10,10,10,10,10,10));
@@ -134,11 +119,11 @@ public class CharStatus extends Base{
   }
 
   /**
-   * キャラクターの文字列表現を返します。
+   * キャラクターの状態異常の文字列表現を返します。
    * <p>
-   * キャラクターの名前と位置（座標）を含む文字列を返します。
+   * 現在の状態異常とその値を含む文字列を返します。
    * </p>
-   * @return キャラクターの文字列表現
+   * @return 状態異常の文字列表現
    */
   public String toPrintingEx() {
     String str = "";
@@ -169,26 +154,24 @@ public class CharStatus extends Base{
   }
 
   /**
-   * キャラクターのクローンを作成します。
+   * このCharStatusオブジェクトのクローンを作成します。
    * <p>
-   * キャラクターの名前、位置、タイプ、会話、ステータス、装備、アイテム、攻撃を
-   * 保持した新しいCharacterオブジェクトを返します。
+   * ステータス配列、ステータス割合配列、レベルを保持した新しいCharStatusオブジェクトを返します。
    * </p>
-   * @return 新しいCharacterオブジェクト
+   * @return 新しいCharStatusオブジェクト
    */
   public CharStatus clone() {
     return this.clone(0, null);
   }
 
   /**
-   * キャラクターのクローンを作成します。
+   * このCharStatusオブジェクトのクローンを、指定された番号とランダムな位置で作成します。
    * <p>
-   * キャラクターの名前、位置、タイプ、会話、ステータス、装備、アイテム、攻撃を
-   * 保持した新しいCharacterオブジェクトを返します。
+   * ステータス配列、ステータス割合配列、レベルを保持した新しいCharStatusオブジェクトを返します。
    * </p>
    * @param num クローンの番号（識別用）
    * @param randomPt ランダムな位置（座標）
-   * @return 新しいCharacterオブジェクト
+   * @return 新しいCharStatusオブジェクト
    */
   @SuppressWarnings("unchecked")
   @Override

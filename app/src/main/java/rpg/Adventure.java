@@ -34,10 +34,10 @@ public class Adventure {
   }
 
   /**
-   * データ辞書から、指定されたタイプのオブジェクトのクローンを取得します。
+   * データ辞書から、指定されたタイプのオブジェクトのクローンを単体で取得します。
    * @param type オブジェクトのタイプ（例: "Characters", "Items"）
    * @param name オブジェクトの名前
-   * @return 生成されたオブジェクトのリスト
+   * @return 生成されたオブジェクト
    */
   public static Base getDicClone(String type, String name) {
     return dic.getClone(type, name);

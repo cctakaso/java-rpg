@@ -39,11 +39,11 @@ public abstract class Base implements Cloneable, Reflection{
   }
 
   /**
-   * オブジェクトの名前を設定します。
+   * オブジェクトの位置（座標）を取得します。
    * <p>
-   * オブジェクトの名前は、ゲーム内での識別や表示に使用されます。
+   * オブジェクトの位置は、ゲーム内での配置や移動に使用されます。
    * </p>
-   * @param name オブジェクトの名前
+   * @return オブジェクトの位置（座標）
    */
   public Pt getPt() {
     return this.pt;
@@ -60,6 +60,10 @@ public abstract class Base implements Cloneable, Reflection{
     this.pt = pt;
   }
 
+  /**
+   * オブジェクトの名前を文字列として返します。
+   * @return オブジェクトの名前
+   */
   public String toString() {
     return this.name;
   }
@@ -80,6 +84,7 @@ public abstract class Base implements Cloneable, Reflection{
     }catch (Exception e){
       e.printStackTrace();
     }
+
     return copy;
   }
 
@@ -105,6 +110,7 @@ public abstract class Base implements Cloneable, Reflection{
     }catch (Exception e){
       e.printStackTrace();
     }
+
     return copy;
   }
 
@@ -121,88 +127,69 @@ public abstract class Base implements Cloneable, Reflection{
   }
 
   /**
-   * オブジェクトのクラス階層をスキャンします。
+   * オブジェクトのクラス階層をスキャンし、リフレクションを用いて関連付けを解決します。
    * <p>
-   * リフレクションを用いて、オブジェクトが持つフィールドを動的に検査し、
-   * 特定の型（Listsなど）であれば、追加の初期化処理（SetFromDic）を呼び出します。
-   * これにより、JSONファイル内ではIDでしか無かった関連が、実際のオブジェクト参照に解決されます。
+   * フィールドが {@code Lists} 型であれば {@code SetFromDic} を呼び出し、
+   * {@code Reflection} インターフェースを実装していれば再帰的に {@code scanClasses} を呼び出します。
+   * これにより、JSONファイル内のIDと実際のオブジェクト参照を解決します。
    * </p>
    */
   public void scanClasses() {
-    // このオブジェクトのクラスを取得
-    // rpg.objectsパッケージに属するクラスであれば、親クラスを遡ってスキャンを続ける
-    // もしオブジェクトがListsのインスタンスであれば、辞書からのデータ設定処理
-    // を実行します。これにより、JSONファイル内ではIDでしか無かった関連が
-    // 実際のオブジェクト参照に解決されます。
-    // もしオブジェクトがReflectionインターフェースを実装している場合、
-    // scanClassesメソッドを呼び出します。
-    // これにより、オブジェクトのフィールドをスキャンし、
-    // 特定の型（Listsなど）であれば、追加の初期化処理（SetFromDic）を呼び出します。
-    // これにより、
-    // JSONファイル内ではIDでしか無かった関連が、実際のオbジェクト参照に解決されます。
-    // これにより、オブジェクトのフィールドを動的に検査し、
-    // 特定の型（Listsなど）であれば、追加の初期化処理（SetFromDic）を呼び出します。
-    // これに
     Class<?> cls = this.getClass();
-    while(cls != null && cls.getPackageName() == "rpg.model.objects") {
-      // rpg.objectsパッケージに属するクラスであれば、フィールドをスキャン
+    // rpg.model.objectsパッケージに属するクラスであれば、親クラスを遡ってスキャンを続ける
+    while(cls != null && cls.getPackageName().startsWith("rpg.model.objects")) { // パッケージ名の比較をより堅牢に
       this.scanClass(cls);
       cls = cls.getSuperclass();
     }
     // もしこのオブジェクトがListsのインスタンスであれば、辞書からのデータ設定処理を実行
-    // これにより、JSONファイル内ではIDでしか無かった関連が
-    // 実際のオブジェクト参照に解決されます。
     if (this instanceof Lists) {
       ((Lists)this).SetFromDic();
     }
   }
 
   /**
-   * 指定されたクラスのフィールドをスキャンします。
-   * <p>
-   * リフレクションを用いて、クラスが持つフィールドを動的に検査し、
-   * 特定の型（Listsなど）であれば、追加の初期化処理（SetFromDic）を呼び出します。
-   * </p>
-   * @param cls スキャン対象のクラス
-   */
-  public void scanClass(Class<?> cls) {
-    // クラスが持つすべてのフィールドを取得
-    Field[] fields = cls.getDeclaredFields();
-    for (Field field: fields) {
-      // フィールドがLists型なら、辞書からのデータ設定処理を実行
-      // もしフィールドがList型なら、そのリスト内の各要素に
-      // 対して再帰的にスキャンを実行します。
-      // その他のオブジェクトなら、そのオブジェクトに対して再帰的に
-      // スキャンを実行します。
-      // これにより、JSONファイル内ではIDでしか無かった関連が
-      // 実際のオブジェクト参照に解決されます。
-      // もしフィールドがReflectionインターフェースを実装している場合
-      // scanClassesメソッドを呼び出します。
-      try {
-        //if (!field.getDeclaredAnnotations().equals("rpg.objects.Characters")) {
-        //  continue;
-        //}
-        Object val = field.get(this);
-        if (val == null) {
-        }else if (val instanceof Lists) {
-          ((Lists)val).SetFromDic();
-        }else if (val instanceof List) {
-          for(Object son: (List)val) {
-            if (son instanceof Reflection) {
-              ((Reflection)son).scanClasses();
-            }
-          }
-        }else{
-          if (val instanceof Reflection) {
-            ((Reflection)val).scanClasses();
+ * 指定されたクラスのフィールドをスキャンします。
+ * <p>
+ * リフレクションを用いて、クラスが持つフィールドを動的に検査し、
+ * 特定の型（Listsなど）であれば、追加の初期化処理（SetFromDic）を呼び出します。
+ * </p>
+ * @param cls スキャン対象のクラス
+ */
+public void scanClass(Class<?> cls) {
+  Field[] fields = cls.getDeclaredFields();
+  for (Field field: fields) {
+    try {
+      Object val = field.get(this);
+      if (val == null) {
+        // 何もしない
+      } else if (val instanceof Lists) {
+        // Lists型ならデータ設定処理を実行
+        ((Lists)val).SetFromDic();
+      } else if (val instanceof List) {
+        // List型なら各要素に対して再帰的にスキャンを実行
+        for(Object son: (List)val) {
+          if (son instanceof Reflection) {
+            ((Reflection)son).scanClasses();
           }
         }
-      }catch(Exception ex) {
-        ex.printStackTrace();
-        System.err.println(ex.toString());
+      } else {
+        // その他のオブジェクトでReflectionインターフェースを実装していればスキャンを実行
+        if (val instanceof Reflection) {
+          ((Reflection)val).scanClasses();
+        }
       }
+
+    }catch(Exception ex) {
+
+      ex.printStackTrace();
+
+      System.err.println(ex.toString());
+
     }
+
   }
+
+}
 
 
 }

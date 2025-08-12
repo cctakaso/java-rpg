@@ -356,7 +356,6 @@ public class Party extends Base{
    * パーティ全体の合計経験値を取得します。
    * @return 合計経験値
    */
-  @SuppressWarnings("unchecked")
   public int getTotalExperience() {
     int ex = 0;
     ArrayList<Character>lst = (ArrayList<Character>)this.characters.getList();

@@ -16,13 +16,13 @@ public enum GearType{
   hammer(10);  //金槌
 
   /**
-   * フィールドタイプに対応する整数ID。
+   * 装備タイプに対応する整数ID。
    */
   public int id; // フィールドの定義
 
   /**
    * Enumのコンストラクタ。
-   * @param id フィールドタイプに割り当てるID
+   * @param id 装備タイプに割り当てるID
    */
   private GearType(int id) { // コンストラクタの定義
     this.id = id;

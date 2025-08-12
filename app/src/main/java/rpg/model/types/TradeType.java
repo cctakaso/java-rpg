@@ -11,13 +11,13 @@ public enum TradeType {
   sale(1);      //売る
 
   /**
-   * フィールドタイプに対応する整数ID。
+   * 取引タイプに対応する整数ID。
    */
   public int id; // フィールドの定義
 
   /**
    * Enumのコンストラクタ。
-   * @param id フィールドタイプに割り当てるID
+   * @param id 取引タイプに割り当てるID
    */
   private TradeType(int id) { // コンストラクタの定義
     this.id = id;

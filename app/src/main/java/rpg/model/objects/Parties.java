@@ -54,7 +54,6 @@ public class Parties extends Lists{
    * @param pt 検索する座標
    * @return 条件に一致するパーティを含む新しいListsオブジェクト。見つからない場合はnull。
    */
-  @SuppressWarnings("unchecked")
   public Lists getHitInstance(Party mParty, Pt pt) {
     try {
       Lists lsts = getNewInstance();

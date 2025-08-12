@@ -20,6 +20,12 @@ public class EnemyCharacter extends Character{
     this();
     super.copy(character);
   }
+  /**
+   * デフォルトコンストラクタ。
+   * <p>
+   * 敵キャラクターのプロパティを初期化します。
+   * </p>
+   */
   public EnemyCharacter() {
   }
 

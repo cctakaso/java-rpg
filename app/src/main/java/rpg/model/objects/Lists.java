@@ -98,6 +98,10 @@ public abstract class Lists extends Base{
 
   /**
    * ターゲットリストに含まれるインスタンスを現在のリストから削除します。
+   * <p>
+   * 削除中に例外が発生した場合は、処理を中断し、エラーを無視します。
+   * これは、例えば削除対象のインスタンスが既にリストに存在しない場合などに発生し得ます。
+   * </p>
    * @param targetLsts 削除対象のインスタンスを含むListsオブジェクト
    */
   @SuppressWarnings("unchecked")
@@ -115,6 +119,9 @@ public abstract class Lists extends Base{
 
   /**
    * 指定された座標に存在するインスタンスのリストを取得します。
+   * <p>
+   * 検索中に例外が発生した場合は、処理を中断し、エラーを無視します。
+   * </p>
    * @param pt 検索する座標
    * @return 指定された座標に存在するインスタンスを含む新しいListsオブジェクト。見つからない場合はnull。
    */
@@ -189,7 +196,9 @@ public abstract class Lists extends Base{
           // Adventureの辞書からオブジェクトをクローン
           List<Base> objs = Adventure.getDicClones(type, name, this.numbers!=null ? this.numbers.get(index):1, this.randomPt);
           if (objs == null) {
-            // 特殊ケース：Itemsが見つからない場合、Gearsも検索する（商人が利用する場合など）
+            // 特殊ケース：Itemsが見つからない場合、Gearsも検索する。
+            // これは、例えば商人がアイテムとしてギアを販売する場合など、
+            // ItemsとGearsが相互に関連するデータとして扱われることを想定しています。
             if (type.equals("Items")) {
               objs = Adventure.getDicClones("Gears", name, this.numbers!=null ? this.numbers.get(index):1, this.randomPt);
             }
@@ -207,7 +216,10 @@ public abstract class Lists extends Base{
 
   /**
    * リフレクションを使用して、このクラスの他のフィールド値をリスト内の各オブジェクトに設定します。
+   * <p>
    * ArrayList<?>型のフィールドを検出し、その内容をリスト内の対応するオブジェクトのフィールドに設定します。
+   * この際、スーパークラスのフィールドも考慮して検索を行います。
+   * </p>
    */
   @SuppressWarnings("unchecked")
   private void SetOtherFields() {

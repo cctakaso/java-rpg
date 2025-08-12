@@ -49,7 +49,7 @@ public enum AttackType {
   Thundara(34),     // サンダラ
   Blizzara(35),     // ブリザラ
   Firaga(36),       // ファイガ
-  Thundaga(37),     // サンガー (サンダガの誤記か)
+  Thundaga(37),     // サンダガ
   Blizzaga(38),     // ブリザガ
   Death(39),        // デス (即死)
   MagicMultiOffenceMax(39),

@@ -66,7 +66,8 @@ public class Resource {
    */
   static void scanClasses(Object obj) {
     Class<?> cls = obj.getClass();
-    // rpg.objectsパッケージに属するクラスである限り、親クラスを遡ってスキャンを続ける
+    // rpg.objectsパッケージに属するクラスである限り、親クラスを遡ってスキャンを続ける。
+    // 注意: パッケージ名の文字列比較はリファクタリングに弱い可能性があります。
     while(cls != null && cls.getPackageName() == "rpg.objects") {
       scanClass(obj, cls);
       cls = cls.getSuperclass();
@@ -95,7 +96,7 @@ public class Resource {
           // フィールドがLists型なら、辞書からのデータ設定処理を実行
           ((Lists)val).SetFromDic();
         }else if (val instanceof List) {
-          // フィールドがList型なら、そのリスト内の各要素に対して再帰的にスキャンを実行
+          // フィールドがList型（例: List<Base>）なら、そのリスト内の各要素に対して再帰的にスキャンを実行
           for(Object son: (List)val) {
             scanClasses(son);
           }

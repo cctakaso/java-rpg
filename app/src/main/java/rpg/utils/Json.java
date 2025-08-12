@@ -66,7 +66,7 @@ public class Json {
       }else if (className.equals("Parties")) {
         type = new TypeToken<HashMap<String, Party>>(){}.getType();
       }
-    }catch(Exception e){ // 本来は具体的な例外をキャッチすべき
+    }catch(Exception e){ // ClassNotFoundException など、より具体的な例外をキャッチすべきですが、ここでは汎用的に処理します。
       e.printStackTrace();
     }
     return type;
@@ -90,6 +90,8 @@ public class Json {
                 .map(path -> path.getFileName().toString())
                 .collect(Collectors.toList());
     } catch (IOException | URISyntaxException e) {
+        // フォルダの読み込み中にエラーが発生した場合、RuntimeExceptionをスローして呼び出し元に通知します。
+        // これは、リソースパスが不正であるか、ファイルシステムへのアクセスに問題がある場合に発生します。
         throw new RuntimeException("Error reading folder: " + pathName, e);
     }
 
@@ -129,6 +131,8 @@ public class Json {
       HashMap<String, Base> obj = (HashMap<String, Base>)gson.fromJson(reader, type);
       return obj;
     } catch (Exception ex) {
+        // JSONのパース中にエラーが発生した場合、スタックトレースを出力し、nullを返します。
+        // これは、JSONファイルの形式が不正であるか、指定された型と一致しない場合に発生します。
         ex.printStackTrace();
     }
     return null;

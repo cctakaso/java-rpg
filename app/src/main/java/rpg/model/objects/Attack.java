@@ -237,11 +237,11 @@ public class Attack extends Base{
   }
 
   /**
-   * 攻撃の種類が魔法防御かどうかを判定します。
+   * 攻撃の種類が魔法系かどうかを判定します。
    * <p>
-   * 攻撃の種類が魔法防御の場合、魔法防御とみなします。
+   * 攻撃の種類が魔法防御または魔法攻撃の場合、魔法系とみなします。
    * </p>
-   * @return 魔法防御かどうか
+   * @return 魔法系かどうか
    */
   public boolean isMagic() {
     return isMagicDefence() ||  isMagicalOffence();

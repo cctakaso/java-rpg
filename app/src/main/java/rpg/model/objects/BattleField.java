@@ -73,13 +73,10 @@ public class BattleField {
   }
 
   /**
-   * 戦闘フィールドのコンストラクタ。
+   * 戦闘フィールドの内部状態を初期化します。
    * <p>
-   * 味方パーティと敵キャラクターのリストを指定して、戦闘フィールドを初期化します。
-   * 敵キャラクターは敵パーティに追加されます。
+   * キャラクターリストの構築、敏捷性に基づく行動順序の計算、タイマーの初期化などを行います。
    * </p>
-   * @param allyParty 味方パーティ
-   * @param enemyCharacters 敵キャラクターのリスト
    */
   private void initialize() {
     this.characters = buildCharacters();
@@ -89,13 +86,7 @@ public class BattleField {
     this.timer = 0;
 
     for (int i=0; i<this.characters.size(); i++) {
-      // 各キャラクターの敏捷性に基づいて行動順序を計算
-      // 敏捷性の逆数を計算し、行動順序を設定
-      // 敏捷性が高いほど、行動順序が早くなるように設定
-      // 敏捷性の最大値を基準に、行動順序を計算
-      // 敏捷性の逆数を計算し、行動順序を設定
-      // 敏捷性が高いほど、行動順序が早くなるように設定
-      // 敏捷性の最大値
+      // 各キャラクターの敏捷性に基づいて行動順序を計算し、設定
       Character character = this.characters.get(i);
       int one = character.charStatus.getConditions().get(ConditionType.Agility.id)*character.charStatus.getConditionsRate().get(ConditionType.Agility.id);
       this.agility.add(max/one);
@@ -135,11 +126,9 @@ public class BattleField {
 
 
   /**
-   * 戦闘フィールドに参加するキャラクターのリストを取得します。
-   * <p>
-   * 戦闘に参加するキャラクターのリストを返します。
-   * </p>
-   * @return 戦闘に参加するキャラクターのリスト
+   * 指定されたキャラクターが味方パーティに属しているかどうかを判定します。
+   * @param character 判定対象のキャラクター
+   * @return 味方パーティに属していればtrue、そうでなければfalse
    */
   private boolean isAllyCharacter(Character character) {
     return allyParty.characters.getList().contains(character);
@@ -152,34 +141,10 @@ public class BattleField {
    * </p>
    * @return 次に行動するキャラクター
    */
-  /*
-  10, 15, 40, 45, 70
-  700/10, 700/15, 700/40, 700/45, 700/70
-  70, 46, 17, 15, 10
-   0   0   0   0   0
-   0   0   0   0   1
-   0   0   0   1   1
-   0   0   1   1   1
-   0   0   1   1   2
-   0   0   1   2   2
-          1    2   2
-
-  10  15  17  20  30
-  10->15->17->10->15
-  */
    private Character getNextFighter() {
     int index = -1;
     int delta = 10000;
-    // 敏捷性に基づいて次のキャラクターを決定
-    // 敏捷性の逆数を計算し、最小の値を持つキャラクターを選択
-    // 敏捷性が高いほど、行動順序が早くなるように設定
-    // 敏捷性の最大値を基準に、行動順序を計算
-    // 敏捷性の逆数を計算し、最小の値を持つキャラクターを選択
-    // 敏捷性が高いほど、行動順序が早くなるように設定
-    // 敏捷性の最大値を基準に、行動順序を計算
-    // 敏捷性の逆数を計算し, 最小の値を持つキャラクターを選択
-    // 敏捷性が高いほど、行動順序が早くなるように設定
-    // 敏捷性の最大値を基準に、行動順序を計算
+    // 敏捷性に基づいて次のキャラクターを決定し、タイマーと行動回数を更新
     for (int i=0; i<this.agility.size(); i++) {
       int time = this.agility.get(i)*this.agilityCounter.get(i);
       if (time >= this.timer && time - this.timer < delta) {
@@ -187,11 +152,8 @@ public class BattleField {
         index = i;
       }
     }
-    // 次のキャラクターを取得し、タイマーを更新
     this.timer = this.agility.get(index)*this.agilityCounter.get(index);
-    // 行動回数を更新
     this.agilityCounter.set(index, this.agilityCounter.get(index)+1);
-    // 次のキャラクターを返す
     return this.characters.get(index);
   }
 
@@ -205,23 +167,6 @@ public class BattleField {
    * @return 戦闘が続行可能であればtrue、そうでなければfalse
    */
   private boolean removeFighter(Character character) {
-    // キャラクターが倒れた場合、戦闘フィールドから削除
-    // 戦闘が続行可能かどうかを返す
-
-    /*
-    boolean isEnamy = character.type.isEnemyCharacter();
-
-    if (isEnamy) {
-      // 敵キャラクターが倒れた場合、敵パーティから削除
-      // 敵パーティのキャラクターリストから削除
-      ArrayList<Character> list = (ArrayList<Character>)this.enemyParty.characters.getList();
-      list.remove(character);
-      if (list.size()==0) {
-        return false; //End Fight
-      }
-    }
-    */
-    // キャラクターが倒れた場合、パーティから削除
     for (int index=0; index<this.characters.size(); index++) {
       Character one = this.characters.get(index);
       if (one == character) {
@@ -231,13 +176,14 @@ public class BattleField {
         break;
       }
     }
-    return isOneParyGone(); //continue Fight
+    return isOneParyGone();
   }
 
+  /**
+   * いずれかのパーティのキャラクターが全て倒れたかどうかを判定します。
+   * @return いずれかのパーティのキャラクターが全て倒れた場合はtrue、そうでなければfalse
+   */
   private boolean isOneParyGone() {
-    // 戦闘フィールドに参加しているパーティのキャラクターが全て倒れたかどうかを確認
-    // 味方パーティのキャラクターが全て倒れた場合、trueを返す
-    // 敵パーティのキャラクターが全て倒れた場合、falseを返す
     int allyCount = 0;
     int enemyCount = 0;
     for (int index=0; index<this.characters.size(); index++) {
@@ -260,13 +206,9 @@ public class BattleField {
    * @return 戦闘が終了した場合はtrue、それ以外はfalse
    */
   public boolean start(Scanner scanner) {
-    // 戦闘を開始し、キャラクターの行動を順次処理
-    // キャラクターの行動を順次処理
     ArrayList<Character> protected_charcters = new ArrayList<Character>();
     boolean isLoop = true;
     while(isLoop) {
-      // 次のキャラクターを取得
-      // 次のキャラクターを取得し、行動を選択
       Scanner scan;
       Character attacker = getNextFighter();
       if (attacker == this.allyParty.characters.getList().get(0)) {
@@ -287,7 +229,6 @@ public class BattleField {
         anser = attacker.haveAttack(attack, attacker);
         System.out.println(anser.getLabel());
       }else if (attack.isHeal()) {
-        // 攻撃が回復系の場合、味方キャラクターを回復
         Party reciverParty = isAllyCharacter(attacker) ? allyParty:enemyParty;
         if (attack.isAffectParty()) {
           for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
@@ -295,10 +236,6 @@ public class BattleField {
             System.out.println(anser.getLabel());
           }
         }else{
-          // 単体攻撃の場合、回復対象のキャラクターを選択
-          // 敵キャラクターを選択する場合、敵パーティから選択
-          // 味方キャラクターを選択する場合、味方パーティから選択
-          // 回復対象のキャラクターを選択し、回復処理を実行
           System.out.println(attacker.getName()+"が、"+attack.getName()+"を使用します。");
           anser = reciverParty.selectCharacter(scan, false);
           Character reciver = (Character)anser.getValue();
@@ -306,11 +243,6 @@ public class BattleField {
           System.out.println(anser.getLabel());
         }
       }else if (attack.isOffence()) {
-        // 攻撃が攻撃系の場合、敵キャラクターを攻撃
-        // 攻撃対象のキャラクターを選択
-        // 敵キャラクターを選択する場合、敵パーティから選択
-        // 味方キャラクターを選択する場合、味方パーティから選択
-        // 攻撃対象のキャラクターを選択し、攻撃処理を実行
         Party reciverParty = isAllyCharacter(attacker) ? enemyParty:allyParty;
         if (attack.isAffectParty()) {
           for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
@@ -359,5 +291,4 @@ public class BattleField {
     }
     return true;
   }
-
 }

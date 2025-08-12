@@ -26,6 +26,19 @@ public class Event {
    * イベントの種類を未設定にし、関連する情報を初期化します。
    * </p>
    */
+  public Event() {
+    this.type = null;
+    this.field = null;
+    this.items = null;
+    this.characters = null;
+    this.parties = null;
+    this.orginPt = null;
+  }
+
+  /**
+   * イベントの種類を取得します。
+   * @return イベントの種類
+   */
   public EventType getType() {
     return this.type;
   }
@@ -39,8 +52,8 @@ public class Event {
   }
 
   /**
-   * イベントが発生したフィールドを設定します。
-   * @param field イベントが発生したフィールド
+   * イベントに関連するアイテムのリストを取得します。
+   * @return イベントに関連するアイテムのリスト
    */
   public Items getItems() {
     return this.items;

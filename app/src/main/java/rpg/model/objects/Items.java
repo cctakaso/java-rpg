@@ -49,12 +49,11 @@ public class Items extends Lists{
   }
 
   /**
-   * アイテムをリストに追加します。
+   * アイテムのリストを設定します。
    * <p>
-   * 引数として渡されたItemオブジェクトを、アイテムのリストに追加します。
-   * 同じ種類のアイテムが既に存在する場合は、その数量を増やします。
+   * 引数として渡されたリストを、アイテムのリストとして設定します。
    * </p>
-   * @param item 追加するアイテム
+   * @param children アイテムのリスト
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -62,6 +61,14 @@ public class Items extends Lists{
     this.children = (ArrayList<Item>)children;
   }
 
+  /**
+   * Baseオブジェクトをリストに追加します。
+   * <p>
+   * 引数として渡されたBaseオブジェクトがItemのインスタンスであれば、
+   * Itemとしてリストに追加します。
+   * </p>
+   * @param one 追加するBaseオブジェクト
+   */
   protected void add(Base one) {
     super.add(one);
     if (one instanceof Item) {
@@ -188,11 +195,12 @@ public class Items extends Lists{
   }
 
   /**
-   * アイテムのリストから指定されたアイテムを削除します。
+   * アイテムのリストから指定された名前のアイテムを検索します。
    * <p>
-   * 指定されたアイテムをリストから削除します。
+   * 指定された名前のアイテムをリストから検索し、最初に見つかったアイテムを返します。
    * </p>
-   * @param item 削除するアイテム
+   * @param name 検索するアイテムの名前
+   * @return 見つかったアイテム、見つからない場合はnull
    */
   private Item findItem(String name) {
     for(Item one: children) {

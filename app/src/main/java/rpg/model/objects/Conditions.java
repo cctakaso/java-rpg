@@ -6,17 +6,17 @@ import java.util.List;
 import rpg.model.types.ConditionType;
 
 /**
- * 複数のStatusオブジェクトを管理するためのリストクラスです。
+ * 複数のConditionオブジェクトを管理するためのリストクラスです。
  * Listsクラスを継承し、キャラクターの全ステータスなどを表現するために使用されます。
  */
 public class Conditions extends Lists{
   /**
-   * Statusオブジェクトを格納するリスト
+   * Conditionオブジェクトを格納するリスト
    */
   public ArrayList<Condition> children;
 
   /**
-   * Statusesの新しいインスタンスを生成します。
+   * Conditionsの新しいインスタンスを生成します。
    * 内部のchildrenリストを初期化します。
    */
   public Conditions() {
@@ -25,8 +25,8 @@ public class Conditions extends Lists{
   }
 
   /**
-   * Statusesクラスの新しいインスタンスを返します。
-   * @return 新しいStatusesインスタンス
+   * Conditionsクラスの新しいインスタンスを返します。
+   * @return 新しいConditionsインスタンス
    */
   protected Lists getNewInstance() {
     return new Conditions();
@@ -91,9 +91,9 @@ public class Conditions extends Lists{
   }
 
   /**
-   * 指定されたステータスタイプのStatusオブジェクトをリストから検索して返します。
+   * 指定されたステータスタイプのConditionオブジェクトをリストから検索して返します。
    * @param st 検索するステータスのタイプ
-   * @return 見つかったStatusオブジェクト。見つからない場合はnull。
+   * @return 見つかったConditionオブジェクト。見つからない場合はnull。
    */
   private Condition getCondition(ConditionType st) {
     for (Condition condition: children) {

@@ -50,7 +50,7 @@ public enum ConditionType {
   /**
    * ステータスの種類をIDから取得します。
    * @param id ステータスのID
-   * @return 対応するStatusType
+   * @return 対応するConditionType
    */
   public static ConditionType valueOf(int id) {
     ConditionType[] values = ConditionType.values();
