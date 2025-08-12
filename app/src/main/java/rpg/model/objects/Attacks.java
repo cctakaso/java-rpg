@@ -65,7 +65,7 @@ public class Attacks extends Lists{
    */
   public Answers<Attack> toAnswers(Character character) {
     Answers<Attack> list = new Answers<>();
-    Attack attack = (Attack)Adventure.getDicClone("Attacks", "防御する");
+    Attack attack = (Attack)Adventure.getDicClone("Attacks", "プロテクト");
     list.add(new Answer<Attack>("防御する", attack));
     for (Attack one: children) {
       if (one.isAvailable(character)) {

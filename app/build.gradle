@@ -41,8 +41,9 @@ application {
 
 
 
-run {
+tasks.named('run') {
     standardInput = System.in
+    //logging.level = LogLevel.QUIET
 }
 
 tasks.withType(JavaCompile) {

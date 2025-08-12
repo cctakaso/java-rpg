@@ -117,6 +117,17 @@ public class Character extends Base{
   }
 
   /**
+   * キャラクターのヘルスポイントを取得します。
+   * <p>
+   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
+   * </p>
+   * @return ヘルスポイント
+   */
+  public int getHealthPoint() {
+    return this.charStatus.getHealthPoint();
+  }
+
+  /**
    * キャラクターの詳細を文字列として返します。
    * <p>
    * キャラクターの名前、タイプ、装備の詳細を含む文字列を返します。

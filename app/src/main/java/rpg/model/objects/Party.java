@@ -192,16 +192,16 @@ public class Party extends Base{
         size = event.getCharacters().size();
         for(int index=size-1; index>=0; index--) {
           Character character = (Character)event.getCharacters().getList().get(index);
-          doCharacterEvent(scanner, character);
-          System.out.println();
+          return doCharacterEvent(scanner, character);
         }
         break;
       case EventType.HitParties:
         size = event.getParties().size();
         for(int index=size-1; index>=0; index--) {
           Party party = (Party)event.getParties().getList().get(index);
-          doCharacterEvent(scanner, party);
-          System.out.println();
+          if (!doCharacterEvent(scanner, party)) {
+            return false; // ゲームオーバー
+          }
         }
         break;
       default:
@@ -266,7 +266,7 @@ public class Party extends Base{
     if (party.isEnemyParty()) {
       if (xcharacter.meet(scanner, this)) {
         BattleField battleField = new BattleField(this, party);
-        battleField.start(scanner);
+        return battleField.start(scanner);
       }
     }else{
       return doCharacterEvent(scanner, xcharacter);
@@ -292,13 +292,13 @@ public class Party extends Base{
       System.out.println(this.charStatus.toString());
       if (xcharacter.meet(scanner, this)) {
         BattleField battleField = new BattleField(this, xcharacter);
-        battleField.start(scanner);
+        return battleField.start(scanner);
       }
     }else if (character.type.isNpcCharacter()) {
       xcharacter = new NonPlayerCharacter(character);
       xcharacter.meet(scanner, this);
     }else{
-      return false;
+      throw new IllegalArgumentException("Unknown character type: " + character.type);
     }
     return true;
   }

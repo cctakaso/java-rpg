@@ -75,6 +75,7 @@ public class Adventure {
    */
   @SuppressWarnings("unchecked")
   public static void start(String title) {
+    boolean isGaming = true; // ゲームが進行中かどうかのフラグ
     System.out.println(title+"を始めます。");
 
     // マップデータからプレイヤーのパーティーとフィールド情報を取得
@@ -91,6 +92,22 @@ public class Adventure {
         System.out.println();
         // 現在位置を含めてマップ全体を描画
         allFields.toString(myParty);
+
+        // プレイヤーのステータスを表示
+        System.out.println();
+        System.out.println(myParty.toString(true));
+
+        // プレイヤーからの移動入力を待つ
+        Pt pt = myParty.walk(scan, allFields.getPt(), allFields.getSize());
+
+        // もし移動先がnullなら、プレイヤーがゲーム終了を選択したと判断
+        if (pt == null) {
+          System.out.println("冒険を終了します。");
+          break; // ループを抜ける
+        }
+        // プレイヤーの座標を更新
+        myParty.setPt(pt);
+
 
         // プレイヤーの現在座標がどのフィールドに属しているか判定
         Map<String, Object> hitResult = allFields.hitField(myParty.getPt());
@@ -125,25 +142,15 @@ public class Adventure {
             // イベントを実行し、もしイベントが消費されるタイプならマップから削除
             if (myParty.event(scan, event)) {
               myField.removeEvent(myParty.getPt(), orginPt, event);
+            }else {
+              System.out.println("ゲーム終了！");
+              isGaming = false; // ゲーム終了フラグを立てる
+              break; // イベント処理を中断
             }
           }
         }
 
-        // プレイヤーのステータスを表示
-        System.out.println();
-        System.out.println(myParty.toString(true));
-
-        // プレイヤーからの移動入力を待つ
-        Pt pt = myParty.walk(scan, allFields.getPt(), allFields.getSize());
-
-        // もし移動先がnullなら、プレイヤーがゲーム終了を選択したと判断
-        if (pt == null) {
-          System.out.println("冒険を終了します。");
-          break; // ループを抜ける
-        }
-        // プレイヤーの座標を更新
-        myParty.setPt(pt);
-      } while(true);
+      } while(isGaming);
     }
   }
 }

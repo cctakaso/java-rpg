@@ -175,7 +175,9 @@ public class Characters extends Lists{
     Answers<Character> list = new Answers<>();
     for(int index = excludeLord ? 1:0; index<children.size(); index++) {
       Character one = children.get(index);
-      list.add(new Answer<Character>(one.toString(), one));
+      if (one.getHealthPoint()>0){
+        list.add(new Answer<Character>(one.toString(), one));
+      }
     }
     return list;
   }

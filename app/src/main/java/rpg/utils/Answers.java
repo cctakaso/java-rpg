@@ -87,6 +87,7 @@ public class Answers<T>{
     }
     // scanがnullでなければ、生成した文字列を表示
     if (scanner!=null) {
+      System.out.println();
       System.out.println("次のどれを選びますか？");
       System.out.println(str);
     }

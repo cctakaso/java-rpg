@@ -277,6 +277,17 @@ public class CharStatus extends Base{
   }
 
   /**
+   * キャラクターのヘルスポイントを取得します。
+   * <p>
+   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
+   * </p>
+   * @return ヘルスポイント
+   */
+  public int getHealthPoint() {
+    return this.level.getHealthPoint(condarray, condarrayRate);
+  }
+
+  /**
    * キャラクターのヘルスポイントを増加させます。
    * <p>
    * 指定された量だけキャラクターのヘルスポイントを増加させます。

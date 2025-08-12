@@ -17,20 +17,20 @@
       ]
     }
   },
-  "防御する":{
-    "name": "防御する",
+  "プロテクト":{
+    "name": "プロテクト",
     "type": "Protect",
     "conditions": {
       "children": [
         {
           "type": "Defence",
           "point": 30,
-          "rate": 100
+          "rate": 200
         },
         {
           "type": "MagicDefence",
           "point": 30,
-          "rate": 100
+          "rate": 200
         }
       ]
     }

@@ -82,10 +82,7 @@ public class BattleField {
    * @param enemyCharacters 敵キャラクターのリスト
    */
   private void initialize() {
-    this.characters = new ArrayList<Character>();
-    this.characters.addAll((ArrayList<Character>)this.allyParty.characters.getList());
-    this.characters.addAll((ArrayList<Character>)this.enemyParty.characters.getList());
-    Collections.sort(this.characters, new CharacterComparator());
+    this.characters = buildCharacters();
     this.agility = new ArrayList<Integer>(this.characters.size());
     this.agilityCounter = new ArrayList<Integer>(this.characters.size());
     int max = this.characters.get(0).charStatus.getConditions().get(ConditionType.Agility.id)*this.characters.get(0).charStatus.getConditionsRate().get(ConditionType.Agility.id);
@@ -106,6 +103,36 @@ public class BattleField {
     }
     this.enemyAveExperience = enemyParty.getTotalExperience()/allyParty.size();
   }
+
+  /**
+   * 戦闘フィールドに参加するキャラクターのリストを取得します。
+   * <p>
+   * 戦闘フィールドに参加しているキャラクターのリストを返します。
+   * </p>
+   * @return 戦闘フィールドに参加するキャラクターのリスト
+   */
+  private ArrayList<Character> buildCharacters() {
+    // 戦闘フィールドに参加するキャラクターを設定
+    ArrayList<Character> characters = new ArrayList<Character>();
+    ArrayList<Character> list = (ArrayList<Character>)this.allyParty.characters.getList();
+    for(Character character: list) {
+      //if (character.charStatus.getConditionsRate().get(ConditionType.HealthPoint.id) > 0) {
+      if (character.getHealthPoint()>0){
+        characters.add(character);
+      }
+    }
+    list = (ArrayList<Character>)this.enemyParty.characters.getList();
+    for(Character character: list) {
+      //if (character.charStatus.getConditionsRate().get(ConditionType.HealthPoint.id) > 0) {
+      if (character.getHealthPoint()>0){
+        characters.add(character);
+      }
+    }
+    Collections.sort(characters, new CharacterComparator());
+    return characters;
+  }
+
+
 
   /**
    * 戦闘フィールドに参加するキャラクターのリストを取得します。
@@ -180,7 +207,10 @@ public class BattleField {
   private boolean removeFighter(Character character) {
     // キャラクターが倒れた場合、戦闘フィールドから削除
     // 戦闘が続行可能かどうかを返す
+
+    /*
     boolean isEnamy = character.type.isEnemyCharacter();
+
     if (isEnamy) {
       // 敵キャラクターが倒れた場合、敵パーティから削除
       // 敵パーティのキャラクターリストから削除
@@ -190,8 +220,8 @@ public class BattleField {
         return false; //End Fight
       }
     }
-    // 味方キャラクターが倒れた場合、味方パーティから削除
-    // キャラクターが味方キャラクターであれば、味方パーティから削除
+    */
+    // キャラクターが倒れた場合、パーティから削除
     for (int index=0; index<this.characters.size(); index++) {
       Character one = this.characters.get(index);
       if (one == character) {
@@ -201,9 +231,25 @@ public class BattleField {
         break;
       }
     }
-    return true; //continue Fight
+    return isOneParyGone(); //continue Fight
   }
 
+  private boolean isOneParyGone() {
+    // 戦闘フィールドに参加しているパーティのキャラクターが全て倒れたかどうかを確認
+    // 味方パーティのキャラクターが全て倒れた場合、trueを返す
+    // 敵パーティのキャラクターが全て倒れた場合、falseを返す
+    int allyCount = 0;
+    int enemyCount = 0;
+    for (int index=0; index<this.characters.size(); index++) {
+      Character one = this.characters.get(index);
+      if (one.type.isEnemyCharacter()) {
+        enemyCount++;
+      }else{
+        allyCount++;
+      }
+    }
+    return allyCount==0 || enemyCount==0;
+  }
 
   /**
    * 戦闘を開始します。
@@ -228,11 +274,12 @@ public class BattleField {
       }else{
         scan = null; //自動ランダム選択
       }
-      System.err.println();
+      //System.err.println();
       Answer<?> anser = attacker.selectAttack(scan);
       Attack attack = (Attack)anser.getValue();
       if (protected_charcters.contains(attacker)) {
         attacker.charStatus.doProtect(null);
+        protected_charcters.remove(attacker);
       }
       if (attack.isPhysicalDefence()) {
         attacker.charStatus.doProtect(attack);
@@ -252,7 +299,8 @@ public class BattleField {
           // 敵キャラクターを選択する場合、敵パーティから選択
           // 味方キャラクターを選択する場合、味方パーティから選択
           // 回復対象のキャラクターを選択し、回復処理を実行
-          anser = reciverParty.selectCharacter(scanner, false);
+          System.out.println(attacker.getName()+"が、"+attack.getName()+"を使用します。");
+          anser = reciverParty.selectCharacter(scan, false);
           Character reciver = (Character)anser.getValue();
           anser = reciver.haveAttack(attack, attacker);
           System.out.println(anser.getLabel());
@@ -271,10 +319,14 @@ public class BattleField {
             int reciverHp = (int)anser.getValue();
             if (reciverHp==0) {
               System.out.println(reciver.getName()+"のHPがなくなり倒れました！");
-              boolean isEnamy = reciver.type.isEnemyCharacter();
-              if (!removeFighter(reciver)) {
+              if (reciver.getName().equals("勇者")) {
+                System.out.println("勇者が倒れたため、ゲームオーバーです。");
+                return false; //ゲームオーバー
+              }
+              if (removeFighter(reciver)) {
                 this.addAveExperience();
                 System.err.println();
+                boolean isEnamy = reciver.type.isEnemyCharacter();
                 System.out.println(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
                 isLoop = false;
                 break;
@@ -282,17 +334,21 @@ public class BattleField {
             }
           }
         }else{
-          anser = reciverParty.selectCharacter(scanner, false);
+          anser = reciverParty.selectCharacter(scan, false);
           Character reciver = (Character)anser.getValue();
           anser = reciver.haveAttack(attack, attacker);
           System.out.println(anser.getLabel());
           int reciverHp = (int)anser.getValue();
           if (reciverHp==0) {
             System.out.println(reciver.getName()+"のHPがなくなり倒れました！");
-            boolean isEnamy = reciver.type.isEnemyCharacter();
-            if (!removeFighter(reciver)) {
+            if (reciver.getName().equals("勇者")) {
+              System.out.println("勇者が倒れたため、ゲームオーバーです。");
+              return false; //ゲームオーバー
+            }
+            if (removeFighter(reciver)) {
               this.addAveExperience();
               System.err.println();
+              boolean isEnamy = reciver.type.isEnemyCharacter();
               System.out.println(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
               isLoop = false;
               break;
