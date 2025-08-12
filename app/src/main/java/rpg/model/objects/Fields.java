@@ -20,8 +20,8 @@ public class Fields extends Lists{
   protected Parties parties;    // フィールドに存在するパーティのリスト
   protected Talks talks;        // フィールドに関連する会話のリスト
   protected ArrayList<Fields> children;   // フィールドの子フィールドのリスト
-  protected DicList<Size> sizes;          // フィールドのサイズの辞書リスト
-  protected DicList<Pt> pts;      // フィールドの座標の辞書リスト
+  protected ArrayList<Size> sizes;          // フィールドのサイズの辞書リスト
+  protected ArrayList<Pt> pts;      // フィールドの座標の辞書リスト
 
   protected static int UNIT = 10; // フィールドの単位サイズ
 
@@ -39,8 +39,8 @@ public class Fields extends Lists{
     this.parties = new Parties();
     this.talks = new Talks();
     this.children = new ArrayList<Fields>();
-    this.sizes = new DicList<Size>();
-    this.pts = new DicList<Pt>();
+    this.sizes = new ArrayList<Size>();
+    this.pts = new ArrayList<Pt>();
   }
 
   /**

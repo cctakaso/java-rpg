@@ -207,7 +207,7 @@ public abstract class Lists extends Base{
 
   /**
    * リフレクションを使用して、このクラスの他のフィールド値をリスト内の各オブジェクトに設定します。
-   * DicList型のフィールドを検出し、その内容をリスト内の対応するオブジェクトのフィールドに設定します。
+   * ArrayList<?>型のフィールドを検出し、その内容をリスト内の対応するオブジェクトのフィールドに設定します。
    */
   @SuppressWarnings("unchecked")
   private void SetOtherFields() {
@@ -217,11 +217,11 @@ public abstract class Lists extends Base{
     for (Field field: fields) {
       try{
         Object val = field.get(this);
-        // フィールドがDicListのインスタンスかチェック
-        if (val instanceof DicList) {
+        // フィールドがArrayListのインスタンスかチェック
+        if (val instanceof ArrayList) {
           // 対応する宛先フィールド名を取得（例：talks -> talk）
           String dstFieldName = field.getName().substring(0, field.getName().length()-1);
-          DicList listSrc = (DicList)val;
+          ArrayList<?> listSrc = (ArrayList<?>)val;
           Class<?> dstCls = cls;
           Field dstField = null;
           // スーパークラスを含めて宛先フィールドを検索
