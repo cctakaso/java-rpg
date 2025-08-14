@@ -47,12 +47,39 @@ public class Party extends Base{
   }
 
   /**
+   * パーティのキャラクタリストを返します。
+   * @return パーティに所属するキャラクタリスト
+   */
+  public List<Character> getCharactersList() {
+    return this.characters.getList();
+  }
+
+  /**
    * パーティの人数を返します。
    * @return パーティに所属するキャラクターの数
    */
   public int size() {
     return this.characters.getList().size();
   }
+
+
+  /**
+   * キャラクターのステータスを取得します。
+   * @return キャラクターのステータス
+   */
+  public CharStatus getCharStatus() {
+    return this.charStatus;
+  }
+
+
+  /**
+   * パーティのアイテムリストを取得します。
+   * @return アイテムのリスト
+   */
+  public Items getItems() {
+    return this.items;
+  }
+
 
   /**
    * パーティにアイテムを追加します。
@@ -92,7 +119,6 @@ public class Party extends Base{
    * @param randomPt ランダムな位置
    * @return パーティの新しいインスタンス
    */
-  @SuppressWarnings("unchecked")
   public Party clone(int num, Pt randomPt) {
     Party copy = null;
     try {
@@ -145,73 +171,6 @@ public class Party extends Base{
   }
 
   /**
-   * イベントを処理します。
-   * @param scanner ユーザー入力用のScanner
-   * @param event 発生したイベント
-   * @return イベント処理が正常に終了した場合はtrue
-   */
-  public boolean event(Scanner scanner, Event event) {
-    int size;
-    switch (event.getType()) {
-      case EventType.ChangeField:
-        System.out.println(event.getField().name+"に入りました。");
-        break;
-      case EventType.HitItems:
-        size = event.getItems().size();
-        for(int index=size-1; index>=0; index--) {
-          Item item = (Item)event.getItems().getList().get(index);
-          System.out.println(item.name+"を見つけました。");
-          System.out.println("1:拾う  0:捨てる");
-          while(true) {
-            try{
-              System.out.print(this.getLeaderName()+">");
-              int num = scanner.nextInt();
-              if (num == 1) {
-                addItem(item);
-                System.out.println(this.items.toString());
-                break;
-              }else if (num==0) {
-                break;
-              }
-            }catch (InputMismatchException ex){
-              scanner.nextLine(); // 入力バッファをクリア
-            } catch (NoSuchElementException e) {
-              System.out.println("入力がありません。もう一度入力してください。");
-              //scanner.next(); // 無効な入力をスキップ
-              System.exit(-1);
-            }catch(Exception ex) {
-              ex.printStackTrace();
-              System.err.println(ex.toString());
-              System.exit(-1);
-            }
-            System.out.println("正しい番号を入力して下さい");
-          }
-        }
-        break;
-      case EventType.HitCharacters:
-        size = event.getCharacters().size();
-        for(int index=size-1; index>=0; index--) {
-          Character character = (Character)event.getCharacters().getList().get(index);
-          return doCharacterEvent(scanner, character);
-        }
-        break;
-      case EventType.HitParties:
-        size = event.getParties().size();
-        for(int index=size-1; index>=0; index--) {
-          Party party = (Party)event.getParties().getList().get(index);
-          if (!doCharacterEvent(scanner, party)) {
-            return false; // ゲームオーバー
-          }
-        }
-        break;
-      default:
-        break;
-    }
-
-    return true;
-  }
-
-  /**
    * このパーティが敵パーティかどうかを判定します。
    * @return リーダーが敵キャラクターの場合はtrue
    */
@@ -248,109 +207,6 @@ public class Party extends Base{
     return character.type.isNpcCharacter();
   }
 
-  /**
-   * 他のパーティとの遭遇イベントを処理します。
-   * @param scanner ユーザー入力用のScanner
-   * @param party 遭遇したパーティ
-   * @return イベント処理が正常に終了した場合はtrue
-   */
-  @SuppressWarnings("unchecked")
-  private boolean doCharacterEvent(Scanner scanner, Party party) {
-    System.out.println("パーティ："+party.name+"が現れました。");
-    for (Character character: (ArrayList<Character>)party.characters.getList()) {
-      System.out.println(character.toString());
-      System.out.println(character.charStatus.toString());
-    }
-    Character xcharacter = new EnemyCharacter(((ArrayList<Character>)party.characters.getList()).get(0));
-    // 敵パーティの場合、戦闘を開始
-    if (party.isEnemyParty()) {
-      if (xcharacter.meet(scanner, this)) {
-        BattleField battleField = new BattleField(this, party);
-        return battleField.start(scanner);
-      }
-    }else{
-      return doCharacterEvent(scanner, xcharacter);
-    }
-    return true;
-  }
-
-  /**
-   * 他のキャラクターとの遭遇イベントを処理します。
-   * @param scanner ユーザー入力用のScanner
-   * @param character 遭遇したキャラクター
-   * @return イベント処理が正常に終了した場合はtrue
-   */
-  private boolean doCharacterEvent(Scanner scanner, Character character) {
-    Character xcharacter;
-    // キャラクターのタイプに応じて処理を分岐
-    if (character.type.isCrewCharacter()) {
-      xcharacter = new CrewCharacter(character);
-      xcharacter.meet(scanner, this);
-    }else if (character.type.isEnemyCharacter()) {
-      xcharacter = new EnemyCharacter(character);
-      System.out.println(xcharacter.name+"が現れました。");
-      System.out.println(this.charStatus.toString());
-      if (xcharacter.meet(scanner, this)) {
-        BattleField battleField = new BattleField(this, xcharacter);
-        return battleField.start(scanner);
-      }
-    }else if (character.type.isNpcCharacter()) {
-      xcharacter = new NonPlayerCharacter(character);
-      xcharacter.meet(scanner, this);
-    }else{
-      throw new IllegalArgumentException("Unknown character type: " + character.type);
-    }
-    return true;
-  }
-
-  /**
-   * パーティの移動処理を行います。
-   * @param scanner ユーザー入力用のScanner
-   * @param parentPt 親（フィールドなど）の原点座標
-   * @param parentSize 親（フィールドなど）のサイズ
-   * @return 移動後の座標。移動しない場合はnull。
-   */
-  public Pt walk(Scanner scanner, Pt parentPt, Size parentSize) {
-    Pt pt;
-    Defs.Key key;
-    System.out.println("どちらへ行きますか？");
-    while(true) {
-      System.out.println("4:西  8:北  6:東  2:南  0:終了");
-      while(true) {
-        try{
-          System.out.print(this.getLeaderName()+">");
-          int num = scanner.nextInt();
-          key = Defs.getDirection(num);
-          if (key != Defs.Key.Error) {
-            break;
-          }
-        }catch (InputMismatchException ex){
-          scanner.nextLine(); // 入力バッファをクリア
-        } catch (NoSuchElementException e) {
-          System.out.println("入力がありません。もう一度入力してください。");
-          //scanner.next(); // 無効な入力をスキップ
-          System.exit(-1);
-        }catch(Exception ex) {
-          ex.printStackTrace();
-          System.err.println(ex.toString());
-          System.exit(-1);
-        }
-        System.out.println("正しい番号を入力して下さい");
-      }
-      pt = this.pt.clone().moveKey(key);
-      // 移動先が範囲内かチェック
-      if (!parentSize.isWithinArea(parentPt, pt)) {
-        System.out.println("範囲外です。");
-        continue;
-      }
-      if (key == Defs.Key.End) {
-        return null;
-      }
-      break;
-    }
-
-    return pt;
-  }
 
   /**
    * パーティ全体の合計経験値を取得します。
@@ -369,7 +225,6 @@ public class Party extends Base{
    * パーティの各メンバーに均等に経験値を加算します。
    * @param ex 加算する経験値
    */
-  @SuppressWarnings("unchecked")
   public void addAveExperience(int ex) {
     for (Character one: (ArrayList<Character>)this.characters.getList()) {
       one.addExperience(ex);

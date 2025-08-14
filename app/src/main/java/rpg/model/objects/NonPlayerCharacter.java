@@ -2,6 +2,8 @@ package rpg.model.objects;
 
 import java.util.*;
 import java.util.regex.Pattern;
+
+import rpg.App;
 import rpg.utils.*;
 
 /**
@@ -32,7 +34,7 @@ public class NonPlayerCharacter extends Character{
   public boolean meet(Scanner scan, Party myParty) {
     Answer<?> anser;
     while(true) {
-      System.out.println(this.name+":");
+      App.view.printMessage(this.name+":");
       // NPCとの会話を表示し、プレイヤーの応答を取得
       anser = talks.print(scan, myParty, this);
       if (anser!=null) {
@@ -41,7 +43,7 @@ public class NonPlayerCharacter extends Character{
         // アイテム購入処理
         if (info.equals(":buy.gears") || info.equals(":buy.items")) {
           if (item.getPrice() > myParty.charStatus.getMoney()) {
-            System.out.println("お金が足りません："+ item.getPrice() +">"+ myParty.charStatus.getMoney());
+            App.view.printMessage("お金が足りません："+ item.getPrice() +">"+ myParty.charStatus.getMoney());
             continue;
           }
           myParty.addItem(item);
@@ -65,14 +67,14 @@ public class NonPlayerCharacter extends Character{
               if (ssplit[0].equals("pay")) {
                 if (ssplit[1].equals("potion")) {
                   if (myParty.items.decItem("ポーション", 1)==null) {
-                    System.out.println("水（ポーション）がありません！");
+                    App.view.printMessage("水（ポーション）がありません！");
                     break;
                   }
                 }else{
                   int money = Util.valueOf(ssplit[1]);
                   if (money>0) { //money?
                     if (money > myParty.charStatus.getMoney()) {
-                      System.out.println("お金が足りません："+ money +">"+ myParty.charStatus.getMoney());
+                      App.view.printMessage("お金が足りません："+ money +">"+ myParty.charStatus.getMoney());
                       continue;
                     }
                     myParty.charStatus.decMoney(money);
@@ -88,7 +90,7 @@ public class NonPlayerCharacter extends Character{
                     Item gettenItem = (Item)this.items.getList().remove(rand.nextInt(this.items.getList().size()));
                     myParty.addItem(gettenItem);
                     this.items.decItem(gettenItem, 1);
-                    System.out.println(gettenItem.toString());
+                    App.view.printMessage(gettenItem.toString());
                   }
                 } else{
                   int money = Util.valueOf(ssplit[1]);

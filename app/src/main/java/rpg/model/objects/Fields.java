@@ -104,14 +104,46 @@ public class Fields extends Lists{
     return this.talks;
   }
 
+
+  /**
+   * フィールドのアイテムを取得します。
+   * @return フィールドのアイテム
+   */
+  public Items getItems() {
+    return this.items;
+  } 
+  /**
+   * フィールドのキャラクターを取得します。
+   * @return フィールドのキャラクター
+   */
+  public Characters getCharacters() {
+    return this.characters;
+  } 
+  /**
+   * フィールドのパーティを取得します。
+   * @return フィールドのパーティ
+   */
+  public Parties getParties() {
+    return this.parties;
+  }
+  /**
+   * フィールドの種類を設定します。
+   * @param type フィールドの種類
+   */
+  public void setType(FieldType type) {
+    this.type = type;
+  }
+
   /**
    * フィールドのマップを表示します。
    * <p>
    * フィールドを文字列として表示し、プレイヤーの現在位置やフィールド上のオブジェクトを記号で表現します。
    * 凡例: M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ
    * </p>
+   * @param myParty 勇者パーティ
+   * @return マップの文字列配列
    */
-  public void toString(Party myParty) {
+  public String toString(Party myParty) {
     char[][] area = new char[this.size.y/UNIT][this.size.x/UNIT];
     area = toString(myParty, new Pt(), area);
     area[myParty.pt.y/UNIT][myParty.pt.x/UNIT] = 'M';
@@ -119,8 +151,7 @@ public class Fields extends Lists{
     for(int y=0; y<area.length; y++) {
       mapStr += new String(area[y]) + "\n";
     }
-    System.out.print(mapStr);
-    System.out.println("M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ");
+    return mapStr+"M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ";
   }
 
   /**
@@ -232,21 +263,21 @@ public class Fields extends Lists{
    * @param pt 判定する座標
    * @return ヒットしたフィールドと原点座標、文字列表現を含むマップ。
    *         マップのキー: "hitField" (ヒットしたFieldsオブジェクト),
-   *         "orginPt" (ヒットしたフィールドの原点座標),
+   *         "hitPt" (ヒットしたフィールドの原点座標),
    *         "toString" (ヒットしたフィールドの文字列表現)
    */
   public Map<String, Object>  hitField(Pt pt) {
     Fields hitField = this;
-    Pt orginPt = new Pt(0,0);
-    if (!hitField.isHitPt(pt, orginPt)) {
+    Pt hitPt = new Pt(0,0);
+    if (!hitField.isHitPt(pt, hitPt)) {
       return null;
     }
     ArrayList<Fields> lst = children;
     while(lst!=null || lst.size()>0) {
       for(Fields one : lst) {
-        if (one.isHitPt(pt, orginPt)) {
+        if (one.isHitPt(pt, hitPt)) {
           hitField = one;
-          orginPt = one.getAbsolutePt(orginPt);
+          hitPt = one.getAbsolutePt(hitPt);
           lst = one.children;
           break;
         }
@@ -256,8 +287,8 @@ public class Fields extends Lists{
     //Java 9
     return Map.ofEntries(
       Map.entry("hitField", hitField),
-      Map.entry("orginPt", orginPt),
-      Map.entry("toString", hitField.name + "("+orginPt.x+","+orginPt.y+")-" + "("+(orginPt.x+hitField.size.x)+","+(orginPt.y+hitField.size.y)+")")
+      Map.entry("hitPt", hitPt),
+      Map.entry("toString", hitField.name + "("+hitPt.x+","+hitPt.y+")-" + "("+(hitPt.x+hitField.size.x)+","+(hitPt.y+hitField.size.y)+")")
     );
   }
 
@@ -268,11 +299,11 @@ public class Fields extends Lists{
    * EventType.ChangeField の場合は、フィールド上のオブジェクトは削除されません。
    * </p>
    * @param pt イベントが発生した座標
-   * @param orginPt イベントの原点座標
+   * @param hitPt イベントの原点座標
    * @param event 削除するイベント
    */
-  public void removeEvent(Pt pt, Pt orginPt, Event event) {
-    Pt localPt = pt.getLocalPt(orginPt);
+  public void removeEvent(Pt pt, Pt hitPt, Event event) {
+    Pt localPt = pt.getLocalPt(hitPt);
     switch (event.getType()) {
       case EventType.ChangeField:
         break;
@@ -298,12 +329,12 @@ public class Fields extends Lists{
    * </p>
    * @param mParty プレイヤーのパーティ
    * @param pt ヒット判定する座標
-   * @param orginPt イベントの原点座標
+   * @param hitPt イベントの原点座標
    * @return ヒットしたイベントのリスト
    */
-  public List<Event> getHitEvents(Party mParty, Pt pt, Pt orginPt) {
+  public List<Event> getHitEvents(Party mParty, Pt pt, Pt hitPt) {
     List<Event> eventLst = new ArrayList<Event>();
-    Pt localPt = pt.getLocalPt(orginPt);
+    Pt localPt = pt.getLocalPt(hitPt);
     //if (!isHitPt(localPt, null)) {
     //  eventLst.add(Event.newEventChangeField(hitField(pt)));
     //  return eventLst;
@@ -339,11 +370,11 @@ public class Fields extends Lists{
    * <p>
    * フィールドの原点座標は、フィールドの位置を示す座標です。
    * </p>
-   * @param orginPt 原点座標
+   * @param hitPt 原点座標
    * @return フィールドの原点座標
    */
-  private Pt getAbsolutePt(Pt orginPt) {
-    return this.pt.getAbsolutePt(orginPt);
+  private Pt getAbsolutePt(Pt hitPt) {
+    return this.pt.getAbsolutePt(hitPt);
   }
 
   /**

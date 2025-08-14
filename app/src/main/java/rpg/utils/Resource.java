@@ -25,7 +25,7 @@ public class Resource {
     Json.getMapFromResouceJsons(dic, pathName);
     // 2. 読み込んだデータ間の関連付けなどを解決する
     buildScan(dic);
-    //System.out.println("Dic.load end");
+    //App.view.printMessage("Dic.load end");
   }
 
   //-----------------------------------------//

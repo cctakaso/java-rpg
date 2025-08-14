@@ -15,22 +15,109 @@ import rpg.utils.*;
  */
 public class Adventure {
   // ゲーム全体で共有されるデータ辞書（キャラクター、アイテム等のマスターデータ）
-  static Dic dic;
+  static Dic dic = new Dic();
   // 現在の冒険で使われるマップデータ
-  static Dic map;
+  static Dic map = new Dic();
+  private String title; // 冒険のタイトル
+  private Fields fields; // ゲームのフィールド（マップ）を保持する
+  private Party party; // ゲームのパーティ情報を保持する
+  private Fields nowField; // プレイヤーが現在いるフィールド
+  private Pt nowPt; // イベントが発生した元の座標
 
   /**
    * ゲームのデータ辞書（キャラクター、アイテムなど）を初期化します。
    * @param path マップデータのパス
    */
-  public static void initialize(String path) {
-    dic = new Dic();
-    map = new Dic();
-    // マスターデータを読み込む
-    Resource.load(dic, "/dic");
-    // 指定されたシナリオのマップデータを読み込む
-    Resource.load(map, path);
-    //System.out.println("initialize end");
+  public Adventure(String title, String path) {
+
+    setTitle(title); // 冒険のタイトルを設定
+    dic.load("/dictionary"); // データ辞書を初期化
+    //map = new Dic();  // 指定されたシナリオのマップデータを読み込む
+    map.load(path); // データ辞書を初期化
+
+    // マップデータからプレイヤーのパーティーとフィールド情報を取得
+    setFields((Fields)map.get("Fields", "adventure map"));
+    setParty((Party)map.get("Parties", "hero Party"));
+  }
+
+  /**
+   * 冒険のタイトルを取得します。
+   * @return 冒険のタイトル
+   */
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * 冒険のタイトルを設定します。
+   * @param title 冒険のタイトル
+   */
+  public void setTitle(String title) {
+    this.title = title; // 冒険のタイトルを設定
+  }
+
+  /**
+   * ゲーム全体のフィールドを取得します
+   * @return フィールド
+   */
+  public Fields getFields() {
+    return fields;
+  }
+  /**
+   * ゲーム全体のフィールドを設定します
+   * @param fields フィールド
+   */
+  public void setFields(Fields fields) {
+    this.fields = fields; // 現在のフィールドを設定
+  }
+
+
+  /**
+   * ゲームの主役パーティを取得します
+   * @return 主役パーティ
+   */
+  public Party getParty() {
+    return party;
+  }
+
+  /**
+   * ゲームの主役パーティを設定します
+   * @param 主役パーティ
+   */
+  public void setParty(Party party) {
+    this.party = party; // 主役パーティを設定
+  }
+
+  /**
+   * 現在フィールドを取得します。
+   * @return 現在のフィールド
+   */
+  public Fields getNowField() {
+    return nowField; // 現在のフィールドを取得
+  }
+
+  /**
+   * 現在の座標を取得します。
+   * @return 現在の座標
+   */
+  public Pt getNowPt() {
+    return nowPt; // 現在の座標を取得
+  }
+
+  /**
+   * 現在のフィールドを設定します。
+   * @param nowField 現在のフィールド
+   */
+  public void setNowField(Fields nowField) {
+    this.nowField = nowField; // 現在のフィールドを設定
+  }
+
+  /**
+   * 現在の座標を設定します。
+   * @param nowPt 現在の座標
+   */
+  public void setNowPt(Pt nowPt) {
+    this.nowPt = nowPt; // 現在の座標を設定
   }
 
   /**
@@ -65,92 +152,4 @@ public class Adventure {
     return dic.getClones(type, name, number, randomPt);
   }
 
-  /**
-   * ゲームのメインループを開始します。
-   * <p>
-   * マップの表示、プレイヤーの移動、イベントの発生と処理など、
-   * ゲームの主要なサイクルを制御します。
-   * </p>
-   * @param title ゲームのタイトル
-   */
-  @SuppressWarnings("unchecked")
-  public static void start(String title) {
-    boolean isGaming = true; // ゲームが進行中かどうかのフラグ
-    System.out.println(title+"を始めます。");
-
-    // マップデータからプレイヤーのパーティーとフィールド情報を取得
-    Party myParty = (Party)map.get("Parties", "勇者パーティ");
-    Fields allFields = (Fields)map.get("Fields", "全体マップ");
-
-    Fields myField = null; // プレイヤーが現在いるフィールド
-
-
-    //Scanner scan = new Scanner(System.in);
-    try (Scanner scan = new Scanner(System.in)) {
-      // ゲームのメインループ。プレイヤーが終了を選択するまで続く。
-      do {
-        System.out.println();
-        // 現在位置を含めてマップ全体を描画
-        allFields.toString(myParty);
-
-        // プレイヤーのステータスを表示
-        System.out.println();
-        System.out.println(myParty.toString(true));
-
-        // プレイヤーからの移動入力を待つ
-        Pt pt = myParty.walk(scan, allFields.getPt(), allFields.getSize());
-
-        // もし移動先がnullなら、プレイヤーがゲーム終了を選択したと判断
-        if (pt == null) {
-          System.out.println("冒険を終了します。");
-          break; // ループを抜ける
-        }
-        // プレイヤーの座標を更新
-        myParty.setPt(pt);
-
-
-        // プレイヤーの現在座標がどのフィールドに属しているか判定
-        Map<String, Object> hitResult = allFields.hitField(myParty.getPt());
-        Fields tmpField = (Fields)hitResult.get("hitField");
-
-        // もし、前のターンと違うフィールドに侵入した場合
-        if (tmpField != myField) {
-          // 前のフィールドに離脱時のイベントがあれば実行
-          if (myField != null) {
-            ArrayList<Talk> talks = (ArrayList<Talk>)myField.getTalks().getList();
-            if (talks!=null && talks.size()>0) {
-              talks.get(0).printAfter(scan);
-            }
-          }
-          myField = tmpField; // 現在のフィールドを更新
-          // 新しいフィールドに侵入時のイベントがあれば実行
-          ArrayList<Talk> talks = (ArrayList<Talk>)myField.getTalks().getList();
-          if (talks!=null && talks.size()>0) {
-            talks.get(0).printBefore(scan);
-          }
-        }
-
-        // フィールドの情報を表示
-        System.out.println((String)hitResult.get("toString"));
-
-        // 現在座標で発生するイベントを取得・実行
-        Pt orginPt = (Pt)hitResult.get("orginPt");
-        List<Event> events = myField.getHitEvents(myParty, myParty.getPt(), orginPt);
-        if (events != null) {
-          for (Event event: events) {
-            System.out.println();
-            // イベントを実行し、もしイベントが消費されるタイプならマップから削除
-            if (myParty.event(scan, event)) {
-              myField.removeEvent(myParty.getPt(), orginPt, event);
-            }else {
-              System.out.println("ゲーム終了！");
-              isGaming = false; // ゲーム終了フラグを立てる
-              break; // イベント処理を中断
-            }
-          }
-        }
-
-      } while(isGaming);
-    }
-  }
 }

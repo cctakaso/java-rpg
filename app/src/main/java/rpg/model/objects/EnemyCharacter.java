@@ -2,6 +2,8 @@ package rpg.model.objects;
 
 import java.util.Scanner;
 
+import rpg.App;
+
 /**
  * 敵キャラクターを表すクラス。
  * <p>
@@ -41,7 +43,7 @@ public class EnemyCharacter extends Character{
    */
   public boolean meet(Scanner scanner, Party myParty) {
     this.talks.print(scanner, myParty, this);
-    System.out.println("1:戦う  0:逃げる");
+    App.view.printMessage("1:戦う  0:逃げる");
     int num=0;
     while(true) {
       try{
@@ -50,12 +52,12 @@ public class EnemyCharacter extends Character{
         if (num ==1 || num == 0) {
           break;
         }
-      }catch (Exception e){
-        e.printStackTrace();
-        System.err.println(e.getMessage());
+      }catch (Exception ex){
+        ex.printStackTrace();
+        System.err.println(ex.getMessage());
         //scanner.nextLine(); // 入力バッファをクリア
       }
-      System.out.println("番号が違います。");
+      App.view.printMessage("番号が違います。");
     }
     return num==1;
   }

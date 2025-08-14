@@ -1,7 +1,9 @@
 package rpg.utils;
 import java.util.*;
 
+import rpg.App;
 import rpg.model.objects.Base;
+import rpg.utils.Resource;
 
 /**
  * ゲーム内の様々なデータ（マスターデータ）を管理するための辞書クラス。
@@ -13,6 +15,17 @@ import rpg.model.objects.Base;
  * </p>
  */
 public class Dic extends HashMap<String, HashMap<String, Base>>{
+
+  /**
+   * 指定されたパスからリソースを読み込み、辞書を初期化します。
+   * <p>
+   * このコンストラクタは、特定のパスからゲームのマスターデータを読み込むために使用されます。
+   * </p>
+   * @param path 読み込むリソースのパス
+   */
+  public void load(String path) {
+    Resource.load(this, path);
+  }
 
   /**
    * 辞書から指定されたタイプの特定の名前を持つオブジェクト（プロトタイプ）を取得し、
@@ -57,9 +70,9 @@ public class Dic extends HashMap<String, HashMap<String, Base>>{
    */
   public List<Base> getClones(String type, String name, int number, Pt randomPt) {
     // デバッグ用のブレークポイント
-    if (type == "Parties") {
-      System.out.println();
-    }
+    //if (type == "Parties") {
+    //  App.view.printMessage();
+    //}
     List<Base> list = new ArrayList<Base>();
     try {
       // まず、辞書から元となるオブジェクト（プロトタイプ）を取得

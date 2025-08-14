@@ -1,4 +1,6 @@
 package rpg.utils;
+
+import rpg.App;
 import java.util.*;
 
 /**
@@ -87,9 +89,9 @@ public class Answers<T>{
     }
     // scanがnullでなければ、生成した文字列を表示
     if (scanner!=null) {
-      System.out.println();
-      System.out.println("次のどれを選びますか？");
-      System.out.println(str);
+      App.view.printMessage();
+      App.view.printMessage("次のどれを選びますか？");
+      App.view.printMessage(str);
     }
     // 実際の選択処理を呼び出す
     return choice(scanner, name, isPutTaileZero);
@@ -125,7 +127,7 @@ public class Answers<T>{
         }catch (InputMismatchException ex){
           scanner.nextLine(); // 入力バッファをクリア
         } catch (NoSuchElementException e) {
-          System.out.println("入力がありません。もう一度入力してください。");
+          App.view.printMessage("入力がありません。もう一度入力してください。");
           scanner.next(); // 無効な入力をスキップ
           System.exit(-1);
         }catch(Exception ex) {
@@ -133,7 +135,7 @@ public class Answers<T>{
           System.err.println(ex.toString());
           System.exit(-1);
         }
-        System.out.println("正しい番号を入力して下さい");
+        App.view.printMessage("正しい番号を入力して下さい");
       }
     }
     return this.get(choice);

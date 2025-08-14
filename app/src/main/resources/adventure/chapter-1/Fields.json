@@ -1,6 +1,6 @@
 {
-  "全体マップ":{
-    "name": "全体マップ",
+  "adventure map":{
+    "name": "冒険マップ",
     "type": "Prairie",
     "pt": {"x": 0, "y":0},
     "size": {"x": 600, "y": 150},

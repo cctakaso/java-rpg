@@ -2,6 +2,7 @@ package rpg.model.objects;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import rpg.App;
 import rpg.Adventure;
 import rpg.model.types.ItemType;
 import rpg.utils.*;
@@ -88,7 +89,7 @@ public class Talk extends Base{
    */
   public void printBefore(Scanner scanner) {
     for (String before : befores) {
-      System.out.println(before);
+      App.view.printMessage(before);
     }
   }
 
@@ -98,7 +99,7 @@ public class Talk extends Base{
    */
   public void printAfter(Scanner scanner) {
     for (String after : afters) {
-      System.out.println(after);
+      App.view.printMessage(after);
     }
   }
 
@@ -183,7 +184,7 @@ public class Talk extends Base{
         Talk talk = (Talk)list.get(0);
         anser = talk.print(scanner, allyParty, otherCharacter);
       }else{
-        System.out.println(after);
+        App.view.printMessage(after);
       }
     }
 

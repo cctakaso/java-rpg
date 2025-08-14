@@ -61,6 +61,7 @@ public class Character extends Base{
   public Talks getTalks() {
     return this.talks;
   }
+
   /**
    * キャラクターのステータスを取得します。
    * @return キャラクターのステータス
@@ -68,6 +69,7 @@ public class Character extends Base{
   public CharStatus getCharStatus() {
     return this.charStatus;
   }
+
   /**
    * キャラクターの装備を取得します。
    * @return キャラクターの装備

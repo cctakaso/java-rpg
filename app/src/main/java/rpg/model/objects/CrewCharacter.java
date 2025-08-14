@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import rpg.App;
 
 /**
  * クルーキャラクターを表すクラス。
@@ -48,17 +49,17 @@ public class CrewCharacter extends Character{
    */
   public boolean meet(Scanner scanner, Party myParty) {
 
-    System.out.println(this.name+"と出会いました。");
+    App.view.printMessage(this.name+"と出会いました。");
     this.talks.print(scanner, myParty, this);
-    System.out.println(this.charStatus.toString());
-    System.out.println("1:仲間になる  0:バイバイする");
+    App.view.printMessage(this.charStatus.toString());
+    App.view.printMessage("1:仲間になる  0:バイバイする");
     while(true) {
       try{
         System.out.print(myParty.getLeaderName()+">");
         int num = scanner.nextInt();
         if (num == 1) {
           myParty.addCharacter(this);
-          System.out.println(this.name+"が仲間になりました。");
+          App.view.printMessage(this.name+"が仲間になりました。");
           break;
         }else if (num==0) {
           break;
@@ -66,7 +67,7 @@ public class CrewCharacter extends Character{
       }catch (InputMismatchException ex){
         scanner.nextLine(); // 入力バッファをクリア
       } catch (NoSuchElementException e) {
-        System.out.println("入力がありません。もう一度入力してください。");
+        App.view.printMessage("入力がありません。もう一度入力してください。");
         //scanner.next(); // 無効な入力をスキップ
         System.exit(-1);
       }catch(Exception ex) {
@@ -74,7 +75,7 @@ public class CrewCharacter extends Character{
         System.err.println(ex.toString());
         System.exit(-1);
       }
-      System.out.println("正しい番号を入力して下さい");
+      App.view.printMessage("正しい番号を入力して下さい");
     }
     return true;
   }

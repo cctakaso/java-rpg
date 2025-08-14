@@ -103,7 +103,7 @@ public class Json {
       Type type = getTypeFromClassName(className);
       // 実際にJSONファイルを読み込み、オブジェクトに変換
       HashMap<String, Base> map = Json.getMapfromJson(type, pathName+"/"+fileName);
-      //System.out.println(map);
+      //App.view.printMessage(map);
       // 読み込んだデータを、クラス名をキーとして全体のデータマップに格納
       datas.put(className, map);
     }

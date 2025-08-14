@@ -2,6 +2,7 @@ package rpg.model.objects;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import rpg.App;
 import rpg.Adventure;
 import rpg.utils.*;
 
@@ -187,7 +188,7 @@ public abstract class Lists extends Base{
         int index = 0;
         if (this.names != null && this.numbers != null) {
           if (this.names.size() != this.numbers.size()) {
-            System.out.println("Error: count unmatch > numbers != names");
+            App.view.printMessage("Error: count unmatch > numbers != names");
           }
         }
         for (String name: this.names) {
@@ -241,14 +242,29 @@ public abstract class Lists extends Base{
             try{
               dstField = dstCls.getDeclaredField(dstFieldName);
             }catch(Exception ex) {
+              if  (dstCls == Object.class) {
+                //System.err.println("Error: Field " + dstFieldName + " not found in " + cls.getName());
+                break; // Objectクラスまで到達したら終了
+              }
               dstCls = dstCls.getSuperclass();
             }
           }
+          if (dstField == null) {
+            //System.err.println("Error: Field " + dstFieldName + " not found in " + cls.getName());
+            continue; // フィールドが見つからない場合はスキップ
+          }else{
+            //System.err.println("go: Field " + dstFieldName + " found in " + cls.getName());
+          }
+          dstField.setAccessible(true); // privateフィールドにアクセス可能にする
           int index=0;
           // ソースリストの各要素を宛先オブジェクトのフィールドに設定
           for(Object srcObj:listSrc) {
-            Object dstObj = listDst.get(index++);
-            dstField.set(dstObj, srcObj);
+            try {
+              Object dstObj = listDst.get(index++);
+              dstField.set(dstObj, srcObj);
+            }catch(Exception ex) {
+              //System.err.println("error: Field " + srcObj.toString());
+            }
           }
         }
       }catch(Exception ex) {

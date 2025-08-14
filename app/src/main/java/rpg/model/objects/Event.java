@@ -19,7 +19,7 @@ public class Event {
   private Characters characters;  // イベントが発生したキャラクターのリスト
   private Parties parties;  // イベントが発生したパーティのリスト
 
-  private Pt orginPt; // イベントが発生した元の座標
+  private Pt hitPt; // イベントが発生した元の座標
   /**
    * デフォルトコンストラクタ。
    * <p>
@@ -32,7 +32,7 @@ public class Event {
     this.items = null;
     this.characters = null;
     this.parties = null;
-    this.orginPt = null;
+    this.hitPt = null;
   }
 
   /**
@@ -87,7 +87,7 @@ public class Event {
   public static Event newEventChangeField(Map<String, Object> map) {
     Event one = new Event();
     one.type = EventType.ChangeField;
-    one.orginPt = (Pt)map.get("orginPt");
+    one.hitPt = (Pt)map.get("hitPt");
     one.field = (Fields)map.get("hitField");
     return one;
   }

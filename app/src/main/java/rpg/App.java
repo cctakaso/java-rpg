@@ -1,4 +1,8 @@
 package rpg;
+
+import rpg.controller.console.Controller;
+import rpg.view.console.View;
+
 /**
  * RPGアプリケーションのメインクラス。
  * <p>
@@ -8,6 +12,11 @@ package rpg;
  */
 
 public class App {
+    public static final String VERSION = "0.1.0"; // アプリケーションのバージョン
+    public static final String NAME = "Java RPG Adventure"; // アプリケーションの名前
+    public static View view = null;   // ビューのインスタンス
+    public static Controller controller = null;   // コントローラーのインスタンス
+
     /**
      * アプリケーションの挨拶メッセージを返します。
      * @return 挨拶文字列 "Hello World!"
@@ -26,18 +35,28 @@ public class App {
      */
     public static void main(String[] args) {
         // 基本的な挨拶メッセージを表示
-        //System.out.println(new App().getGreeting());
+        //App.view.printMessage(new App().getGreeting());
+        if (view == null) {
+            view = View.get();   // ビューのインスタンスを取得
+        }
+        if (controller == null) {
+            controller = Controller.get();   // コントローラーのインスタンスを取得
+        }
+
 
         // 1. ゲームデータの初期化
-        // Adventureクラスに、使用するマップデータの場所を教えて、ゲームの準備をさせる
-        Adventure.initialize("/map/vol.1");
-        System.out.println("let's start!");
+        // Adventureクラスに、ゲームのタイトルと使用するマップデータの場所を教えて、ゲームの準備をさせる
+        Adventure adventure = new Adventure("冒険の書・第一章", "/adventure/chapter-1");
+        App.view.printMessage("let's start!");
+
+        App.view.initialize(adventure); // ビューの初期化
+        App.controller.initialize(adventure); // コントローラーの初期化
 
         // 2. ゲームのメインループを開始
-        // Adventureクラスに、ゲームのタイトルを渡して、冒険を開始させる
-        Adventure.start("冒険の書・第一章");
+        App.controller.startGame(); // ゲーム開始のメソッドを呼び出し
+
 
         // ゲームループが終了したら、最後のメッセージを表示
-        System.out.println("end");
+        App.view.printMessage("end");
     }
 }
