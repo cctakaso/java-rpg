@@ -11,7 +11,7 @@ import rpg.utils.*;
  * </p>
  */
 public class Characters extends Lists{
-  ArrayList<Character> children;  // キャラクターのリスト
+  protected ArrayList<Character> children;  // キャラクターのリスト
   protected Character leader; // リーダーキャラクター
 
   /**
