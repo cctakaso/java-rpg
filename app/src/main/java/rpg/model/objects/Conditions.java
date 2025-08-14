@@ -13,7 +13,7 @@ public class Conditions extends Lists{
   /**
    * Conditionオブジェクトを格納するリスト
    */
-  public ArrayList<Condition> children;
+  protected ArrayList<Condition> children;
 
   /**
    * Conditionsの新しいインスタンスを生成します。

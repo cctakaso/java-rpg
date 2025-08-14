@@ -10,7 +10,7 @@ public class Parties extends Lists{
   /**
    * Partyオブジェクトを格納するリスト
    */
-  public ArrayList<Party> children;
+  protected ArrayList<Party> children;
 
   /**
    * Partiesの新しいインスタンスを生成します。

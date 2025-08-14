@@ -11,35 +11,35 @@ public class Level {
   /**
    * 現在のレベル
    */
-  public int level;
+  private int level;
   /**
    * 現在のレベルでの経験値
    */
-  public int experience;
+  private int experience;
   /**
    * 現在のレベルの最大経験値
    */
-  public int expTotal;
+  private int expTotal;
   /**
    * 次のレベルアップに必要な経験値
    */
-  public int expForNextLevel;
+  private int expForNextLevel;
   /**
    * レベル係数
    */
-  public float levelFactor;
+  private float levelFactor;
   /**
    * 初期レベル
    */
-  public static int FIRST_LEVEL = 1;
+  private static int FIRST_LEVEL = 1;
   /**
    * レベルアップに必要な敵の討伐数（目安）
    */
-  public static int NEED_NUM_DEFEAT = 5;
+  private static int NEED_NUM_DEFEAT = 5;
   /**
    * 平均HP
    */
-  public static int AVE_HP = 10;
+  private static int AVE_HP = 10;
 
   /**
    * デフォルトコンストラクタ。
@@ -49,6 +49,14 @@ public class Level {
     this.level = 1;
     experience = 0;
     buildLevelFactor();
+  }
+
+  /**
+   * 現在のレベルの最大経験値を取得します。
+   * @return 現在のレベルの最大経験値
+   */
+  public int getExpTotal() {
+    return this.expTotal;
   }
 
   /**

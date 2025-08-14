@@ -276,7 +276,7 @@ public class Character extends Base{
    * @return キャラクターの経験値
    */
   public int getTotalExpericence() {
-    return this.charStatus.getLevel().expTotal;
+    return this.charStatus.getLevel().getExpTotal();
   }
 
   /**

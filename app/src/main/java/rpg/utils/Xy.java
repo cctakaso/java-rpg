@@ -8,9 +8,9 @@ package rpg.utils;
  * </p>
  */
 public class Xy implements Cloneable{
-  /** X座標または幅を表すpublicなフィールド */
+  /** X座標または幅を表すフィールド */
   public int x;
-  /** Y座標または高さを表すpublicなフィールド */
+  /** Y座標または高さを表すフィールド */
   public int y;
 
   /**
@@ -52,6 +52,38 @@ public class Xy implements Cloneable{
    */
   public Xy(int x, int y) {
     this.x = x;
+    this.y = y;
+  }
+
+  /**
+   * X座標または幅を取得します。
+   * @return X座標または幅
+   */
+  public int getX() {
+    return this.x;
+  }
+
+  /**
+   * X座標または幅を設定します。
+   * @param x X座標または幅
+   */
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  /**
+   * Y座標または高さを取得します。
+   * @return Y座標または高さ
+   */
+  public int getY() {
+    return this.y;
+  }
+
+  /**
+   * Y座標または高さを設定します。
+   * @param y Y座標または高さ
+   */
+  public void setY(int y) {
     this.y = y;
   }
 
