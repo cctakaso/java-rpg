@@ -71,22 +71,4 @@ public enum AttackType {
     this.id = id;
   }
 
-  /**
-   * 魔法の消費コストを計算する（？）メソッド。
-   * <p>
-   * 注意: 現在の実装には問題がある可能性があります。
-   * {@code this.id != Attack.id} という比較は、意図通りに動作しない可能性が高いです。
-   * (Attackクラスに静的なidフィールドが存在しないため)
-   * </p>
-   * @return 計算されたコスト。現在はほぼ常に5を返す。
-   */
-  public int constOfMagic() {
-    // TODO: このロジックは要レビュー。Attack.idという参照はコンパイルエラーになるはず。
-    // おそらく、特定のAttackTypeと比較することを意図していたと思われる。
-    // if (this.id != Attack.id) { のような比較が正しいかもしれない。
-    if (this.id != 1) { // 仮に Attack(1) 以外を魔法とみなすロジックに修正
-      return 5; //5%
-    }
-    return 0;
-  }
 }

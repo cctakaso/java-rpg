@@ -10,10 +10,7 @@ import rpg.model.types.ConditionType;
  * Listsクラスを継承し、キャラクターの全ステータスなどを表現するために使用されます。
  */
 public class Conditions extends Lists{
-  /**
-   * Conditionオブジェクトを格納するリスト
-   */
-  protected ArrayList<Condition> children;
+  protected ArrayList<Condition> children;  // 管理するConditionオブジェクトのリスト
 
   /**
    * Conditionsの新しいインスタンスを生成します。

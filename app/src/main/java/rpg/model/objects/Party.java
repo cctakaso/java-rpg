@@ -9,33 +9,13 @@ import rpg.utils.*;
  * パーティ全体の所持品、所持金、キャラクターの管理、およびイベント処理を担当します。
  */
 public class Party extends Base{
-  /**
-   * パーティに所属するキャラクターのリスト
-   */
-  protected Characters characters;
-  /**
-   * パーティが所持するアイテムのリスト
-   */
-  protected Items items;
-  /**
-   * パーティ全体のステータス（所持金など）
-   */
-  protected CharStatus charStatus;
-  /**
-   * パーティに関連する会話のリスト
-   */
-  protected Talks talks;
+  protected Characters characters;  // パーティに所属するキャラクターのリスト
+  protected Items items;            // パーティが持つアイテムのリスト
+  protected CharStatus charStatus;  // パーティ全体のステータス情報
+  protected Talks talks;            // パーティに関連する会話のリスト
 
   /**
-   * 指定されたキャラクターで新しいパーティを生成します。
-   * @param character 初期メンバーとなるキャラクター
-   */
-  public Party(Character character) {
-    this();
-    addCharacter(character);
-  }
-
-  /**
+   * デフォルトコンストラクタ。
    * 空のパーティを生成します。
    */
   public Party() {
@@ -44,6 +24,15 @@ public class Party extends Base{
     this.items = new Items();
     this.charStatus = new CharStatus();
     this.talks = new Talks();
+  }
+
+  /**
+   * 指定されたキャラクターで新しいパーティを生成します。
+   * @param character 初期メンバーとなるキャラクター
+   */
+  public Party(Character character) {
+    this();
+    addCharacter(character);
   }
 
   /**

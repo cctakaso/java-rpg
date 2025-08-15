@@ -13,12 +13,12 @@ import rpg.utils.*;
  * </p>
  */
 public class Character extends Base{
-  protected CharacterType type; // キャラクターの種類
-  protected Talks talks;        // キャラクターの会話
+  protected CharacterType type;     // キャラクターの種類
+  protected Talks talks;            // キャラクターの会話
   protected CharStatus charStatus;  // キャラクターのステータス
-  protected Gears gears;  // キャラクターの装備
-  protected Items items;  // キャラクターのアイテム
-  protected Attacks attacks;  // キャラクターの攻撃
+  protected Gears gears;            // キャラクターの装備
+  protected Items items;            // キャラクターのアイテム
+  protected Attacks attacks;        // キャラクターの攻撃
 
   /**
    * デフォルトコンストラクタ。

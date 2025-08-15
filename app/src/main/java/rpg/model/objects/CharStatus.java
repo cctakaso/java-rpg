@@ -13,9 +13,9 @@ import java.util.*;
  * </p>
  */
 public class CharStatus extends Base{
-  protected ArrayList<Integer> condarray; // キャラクターのステータス基本値
+  protected ArrayList<Integer> condarray;     // キャラクターのステータス基本値
   protected ArrayList<Integer> condarrayRate; // キャラクターのステータス割合（100が通常、0が無効）
-  protected Level level;  // キャラクターのレベルと経験値に関する情報
+  protected Level level;                      // キャラクターのレベルと経験値に関する情報
 
   /**
    * デフォルトコンストラクタ。

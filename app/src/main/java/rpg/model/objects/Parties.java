@@ -7,10 +7,8 @@ import rpg.utils.Pt;
  * Listsクラスを継承し、Partyオブジェクトのコレクションを扱います。
  */
 public class Parties extends Lists{
-  /**
-   * Partyオブジェクトを格納するリスト
-   */
-  protected ArrayList<Party> children;
+
+  protected ArrayList<Party> children;  // Partyオブジェクトのリスト
 
   /**
    * Partiesの新しいインスタンスを生成します。

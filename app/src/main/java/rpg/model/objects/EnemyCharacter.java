@@ -11,6 +11,16 @@ import rpg.App;
  * </p>
  */
 public class EnemyCharacter extends Character{
+
+  /**
+   * デフォルトコンストラクタ。
+   * <p>
+   * 敵キャラクターのプロパティを初期化します。
+   * </p>
+   */
+  public EnemyCharacter() {
+  }
+
   /**
    * 敵キャラクターのコンストラクタ。
    * <p>
@@ -21,14 +31,6 @@ public class EnemyCharacter extends Character{
   public EnemyCharacter(Character character) {
     this();
     super.copy(character);
-  }
-  /**
-   * デフォルトコンストラクタ。
-   * <p>
-   * 敵キャラクターのプロパティを初期化します。
-   * </p>
-   */
-  public EnemyCharacter() {
   }
 
   /**

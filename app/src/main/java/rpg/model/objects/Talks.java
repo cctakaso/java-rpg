@@ -8,10 +8,8 @@ import rpg.utils.Answer;
  * Listsクラスを継承し、一連の会話の流れなどを表現するために使用されます。
  */
 public class Talks extends Lists{
-  /**
-   * Talkオブジェクトを格納するリスト
-   */
-  protected ArrayList<Talk> children;
+
+  protected ArrayList<Talk> children; // Talkオブジェクトのリスト
 
   /**
    * Talksの新しいインスタンスを生成します。

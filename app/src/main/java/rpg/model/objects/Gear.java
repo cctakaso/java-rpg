@@ -14,7 +14,7 @@ import rpg.utils.Pt;
  */
 public class Gear extends Item {
 
-  protected GearType gearType;    // 装備の種類
+  protected GearType gearType;                        // 装備の種類
   protected ArrayList<CharacterType> characterTypes;  //装備可能職業
 
   /**

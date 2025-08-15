@@ -45,10 +45,7 @@ public class Defs {
    * @return 対応するKey定数。見つからない場合はKey.Error。
    */
   public static Key getDirection(int num) {
-    // TODO: バグ修正 - Key.Westの比較が重複している。switch文を使うとより安全で効率的。
     if (num == Key.West.id) {
-      return Key.West;
-    }else if (num == Key.West.id) { // この行は重複している
       return Key.West;
     }else if (num == Key.North.id) {
       return Key.North;

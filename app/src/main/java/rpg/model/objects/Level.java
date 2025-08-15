@@ -8,45 +8,21 @@ import rpg.model.types.ConditionType;
  * キャラクターのレベル、経験値、およびそれに関連するステータス計算を管理するクラスです。
  */
 public class Level {
-  /**
-   * 現在のレベル
-   */
-  private int level;
-  /**
-   * 現在のレベルでの経験値
-   */
-  private int experience;
-  /**
-   * 現在のレベルの最大経験値
-   */
-  private int expTotal;
-  /**
-   * 次のレベルアップに必要な経験値
-   */
-  private int expForNextLevel;
-  /**
-   * レベル係数
-   */
-  private float levelFactor;
-  /**
-   * 初期レベル
-   */
-  private static int FIRST_LEVEL = 1;
-  /**
-   * レベルアップに必要な敵の討伐数（目安）
-   */
-  private static int NEED_NUM_DEFEAT = 5;
-  /**
-   * 平均HP
-   */
-  private static int AVE_HP = 10;
+  private int level;                  // 現在のレベル
+  private int experience;             // 現在の経験値
+  private int expTotal;               // 現在のレベルの最大経験値
+  private int expForNextLevel;        // 次のレベルアップに必要な経験値
+  private float levelFactor;          // レベル係数（レベルアップによるステータスの増加を計算するための係数）
+  private static int FIRST_LEVEL = 1; // 初期レベル
+  private static int NEED_NUM_DEFEAT = 5; // レベルアップに必要な敵の数
+  private static int AVE_HP = 10;     // 平均HP（レベルアップ時のステータス計算に使用）
 
   /**
    * デフォルトコンストラクタ。
    * レベルを1に初期化し、経験値を0に設定します。
    */
   public Level() {
-    this.level = 1;
+    this.level = FIRST_LEVEL;
     experience = 0;
     buildLevelFactor();
   }

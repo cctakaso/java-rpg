@@ -13,13 +13,13 @@ import rpg.utils.*;
  * </p>
  */
 public class Event {
-  private EventType type; // イベントの種類
-  private Fields field;   // イベントが発生したフィールド（マップ）
-  private Items items;    // イベントが発生したアイテムのリスト
+  private EventType type;     // イベントの種類
+  private Fields field;       // イベントが発生したフィールド（マップ）
+  private Items items;        // イベントが発生したアイテムのリスト
   private Characters characters;  // イベントが発生したキャラクターのリスト
-  private Parties parties;  // イベントが発生したパーティのリスト
+  private Parties parties;    // イベントが発生したパーティのリスト
+  private Pt hitPt;           // イベントが発生した元の座標
 
-  private Pt hitPt; // イベントが発生した元の座標
   /**
    * デフォルトコンストラクタ。
    * <p>

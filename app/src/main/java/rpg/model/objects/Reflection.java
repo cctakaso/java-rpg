@@ -16,4 +16,5 @@ public interface Reflection {
    * @param cls スキャン対象のクラス
    */
   public void scanClass(Class<?> cls);
+
 }

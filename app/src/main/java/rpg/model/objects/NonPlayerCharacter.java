@@ -12,17 +12,18 @@ import rpg.utils.*;
  */
 public class NonPlayerCharacter extends Character{
   /**
+   * デフォルトコンストラクタ
+   */
+  public NonPlayerCharacter() {
+  }
+
+  /**
    * 既存のCharacterオブジェクトをコピーして新しいNonPlayerCharacterインスタンスを生成します。
    * @param character コピー元のCharacterオブジェクト
    */
   public NonPlayerCharacter(Character character) {
     this();
     super.copy(character);
-  }
-  /**
-   * デフォルトコンストラクタ
-   */
-  public NonPlayerCharacter() {
   }
 
   /**

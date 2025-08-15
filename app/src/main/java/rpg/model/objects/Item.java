@@ -13,8 +13,8 @@ import rpg.utils.Pt;
  * </p>
  */
 public class Item extends Base{
-  protected ItemType itemType;  // アイテムの種類
-  protected int count;          // アイテムの数量
+  protected ItemType itemType;      // アイテムの種類
+  protected int count;              // アイテムの数量
   protected Conditions conditions;  // アイテムに関連するステータス
 
   /**
@@ -26,6 +26,7 @@ public class Item extends Base{
   public Item() {
     this(100);
   }
+
   /**
    * 重さを指定してアイテムを初期化します。
    * <p>

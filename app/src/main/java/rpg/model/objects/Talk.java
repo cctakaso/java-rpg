@@ -12,18 +12,20 @@ import rpg.utils.*;
  * 会話の前半部分、選択肢、および選択後の会話を保持します。
  */
 public class Talk extends Base{
+  protected ArrayList<String> befores;  // プレイヤーに提示される選択肢の前の会話文
+  protected ArrayList<String> choices;  // プレイヤーが選択できる選択肢のリスト
+  protected ArrayList<String> afters;   // プレイヤーが選択した後に表示される会話文
+
   /**
-   * 選択肢の前に表示される会話文のリスト
+   * デフォルトコンストラクタ。
+   * 会話の各パートを空のリストで初期化します。
    */
-  protected ArrayList<String> befores;
-  /**
-   * プレイヤーに提示される選択肢のリスト
-   */
-  protected ArrayList<String> choices;
-  /**
-   * プレイヤーが選択肢を選んだ後に表示される会話文のリスト
-   */
-  protected ArrayList<String> afters;
+  public Talk() {
+    super();
+    this.befores = new ArrayList<String>();
+    this.choices = new ArrayList<String>();
+    this.afters = new ArrayList<String>();
+  }
 
   /**
    * 会話の各パートを文字列配列で指定して、新しいTalkインスタンスを生成します。
@@ -42,17 +44,6 @@ public class Talk extends Base{
     for (String after: afters) {
       this.befores.add(after);
     }
-  }
-
-  /**
-   * デフォルトコンストラクタ。
-   * 会話の各パートを空のリストで初期化します。
-   */
-  public Talk() {
-    super();
-    this.befores = new ArrayList<String>();
-    this.choices = new ArrayList<String>();
-    this.afters = new ArrayList<String>();
   }
 
   /**

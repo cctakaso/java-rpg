@@ -14,6 +14,18 @@ import rpg.App;
  * </p>
  */
 public class CrewCharacter extends Character{
+
+
+  /**
+   * デフォルトコンストラクタ。
+   * <p>
+   * クルーキャラクターのプロパティを初期化します。
+   * </p>
+   */
+  public CrewCharacter() {
+  }
+
+
   /**
    * クルーキャラクターを指定して初期化します。
    * <p>
@@ -25,15 +37,6 @@ public class CrewCharacter extends Character{
   public CrewCharacter(Character character) {
     this();
     super.copy(character);
-  }
-
-  /**
-   * デフォルトコンストラクタ。
-   * <p>
-   * クルーキャラクターのプロパティを初期化します。
-   * </p>
-   */
-  public CrewCharacter() {
   }
 
   /**

@@ -12,7 +12,7 @@ import rpg.utils.*;
  */
 public class Characters extends Lists{
   protected ArrayList<Character> children;  // キャラクターのリスト
-  protected Character leader; // リーダーキャラクター
+  protected Character leader;               // リーダーキャラクター
 
   /**
    * デフォルトコンストラクタ。

@@ -13,18 +13,16 @@ import rpg.utils.*;
  * @param <T> リストに含まれる要素の型
  */
 public abstract class Lists extends Base{
+  protected ArrayList<String> names;    // 辞書からの名前リスト
+  protected ArrayList<Integer> numbers; // 辞書からの数量リスト
+  protected Pt randomPt;                // ランダムな座標（初期化時に使用）
+
   /**
-   * 辞書からオブジェクトを生成する際に使用する名前のリスト
+   * デフォルトコンストラクタ
    */
-  protected ArrayList<String> names;
-  /**
-   * 辞書からオブジェクトを生成する際に使用する数量のリスト
-   */
-  protected ArrayList<Integer> numbers;
-  /**
-   * オブジェクトのランダムな位置を生成するための座標
-   */
-  protected Pt randomPt;
+  public Lists() {
+    super();
+  }
 
   /**
    * 管理しているオブジェクトのリストを取得します。
@@ -44,12 +42,6 @@ public abstract class Lists extends Base{
    */
   protected abstract Lists getNewInstance();
 
-  /**
-   * デフォルトコンストラクタ
-   */
-  public Lists() {
-    super();
-  }
 
   /**
    * リストのサイズを返します。

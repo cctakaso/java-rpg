@@ -7,8 +7,8 @@ package rpg.model.types;
  * </p>
  */
 public enum TradeType {
-  buy(0),      //買う
-  sale(1);      //売る
+  buy(0),     //買う
+  sale(1);    //売る
 
   /**
    * 取引タイプに対応する整数ID。

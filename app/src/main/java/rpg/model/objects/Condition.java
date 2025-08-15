@@ -8,24 +8,10 @@ import rpg.utils.Pt;
  * 例えば、HP、攻撃力、防御力などがこのクラスのインスタンスとして表現されます。
  */
 public class Condition extends Base{
-  /**
-   * ステータスの初期比率（100%）
-   */
-  static int INITIAL_RATE = 100;
-
-  /**
-   * ステータスの種類（HP, MP, 攻撃力など）
-   */
-  protected ConditionType type;
-  /**
-   * ステータスの基本値（1〜100）
-   */
-  protected int point;
-  /**
-   * ステータスの一時的な比率（%）。100がデフォルト。
-   * 魔法やアイテムによる一時的な増減を表します。
-   */
-  protected int rate;
+  protected ConditionType type;   // ステータスの種類（HP、攻撃力など）
+  protected int point;            // ステータスの基本値（例えば、HPの最大値や攻撃力の値）
+  protected int rate;             // ステータスの比率（100が通常、0が無効）
+  static int INITIAL_RATE = 100;  //ステータスの初期比率（100%）
 
   /**
    * ステータスの種類と基本値を指定して新しいStatusインスタンスを生成します。

@@ -13,17 +13,17 @@ import rpg.utils.*;
  * </p>
  */
 public class Fields extends Lists{
-  protected FieldType type; // フィールドの種類
-  protected Size size;      // フィールドのサイズ
-  protected Items items;      // フィールドに存在するアイテムのリスト
-  protected Characters characters;  // フィールドに存在するキャラクターのリスト
-  protected Parties parties;    // フィールドに存在するパーティのリスト
-  protected Talks talks;        // フィールドに関連する会話のリスト
+  protected FieldType type;               // フィールドの種類
+  protected Size size;                    // フィールドのサイズ
+  protected Items items;                  // フィールドに存在するアイテムのリスト
+  protected Characters characters;        // フィールドに存在するキャラクターのリスト
+  protected Parties parties;              // フィールドに存在するパーティのリスト
+  protected Talks talks;                  // フィールドに関連する会話のリスト
   protected ArrayList<Fields> children;   // フィールドの子フィールドのリスト
-  protected ArrayList<Size> sizes;          // フィールドのサイズの辞書リスト
-  protected ArrayList<Pt> pts;      // フィールドの座標の辞書リスト
+  protected ArrayList<Size> sizes;        // フィールドのサイズの辞書リスト
+  protected ArrayList<Pt> pts;            // フィールドの座標の辞書リスト
 
-  protected static int UNIT = 10; // フィールドの単位サイズ
+  protected static int UNIT = 10;         // フィールドの単位サイズ
 
   /**
    * デフォルトコンストラクタ。
@@ -111,14 +111,14 @@ public class Fields extends Lists{
    */
   public Items getItems() {
     return this.items;
-  } 
+  }
   /**
    * フィールドのキャラクターを取得します。
    * @return フィールドのキャラクター
    */
   public Characters getCharacters() {
     return this.characters;
-  } 
+  }
   /**
    * フィールドのパーティを取得します。
    * @return フィールドのパーティ
