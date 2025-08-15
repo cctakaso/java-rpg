@@ -47,20 +47,6 @@ public class Character extends Base{
   public CharacterType getType() {
     return this.type;
   }
-  /**
-   * キャラクターの種類を設定します。
-   * @param type キャラクターの種類
-   */
-  public void setType(CharacterType type) {
-    this.type = type;
-  }
-  /**
-   * キャラクターの会話を取得します。
-   * @return キャラクターの会話
-   */
-  public Talks getTalks() {
-    return this.talks;
-  }
 
   /**
    * キャラクターのステータスを取得します。
@@ -68,28 +54,6 @@ public class Character extends Base{
    */
   public CharStatus getCharStatus() {
     return this.charStatus;
-  }
-
-  /**
-   * キャラクターの装備を取得します。
-   * @return キャラクターの装備
-   */
-  public Gears getGears() {
-    return this.gears;
-  }
-  /**
-   * キャラクターのアイテムを取得します。
-   * @return キャラクターのアイテム
-   */
-  public Items getItems() {
-    return this.items;
-  }
-  /**
-   * キャラクターの攻撃を取得します。
-   * @return キャラクターの攻撃
-   */
-  public Attacks getAttacks() {
-    return this.attacks;
   }
 
   /**

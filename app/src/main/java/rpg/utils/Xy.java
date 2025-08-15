@@ -56,38 +56,6 @@ public class Xy implements Cloneable{
   }
 
   /**
-   * X座標または幅を取得します。
-   * @return X座標または幅
-   */
-  public int getX() {
-    return this.x;
-  }
-
-  /**
-   * X座標または幅を設定します。
-   * @param x X座標または幅
-   */
-  public void setX(int x) {
-    this.x = x;
-  }
-
-  /**
-   * Y座標または高さを取得します。
-   * @return Y座標または高さ
-   */
-  public int getY() {
-    return this.y;
-  }
-
-  /**
-   * Y座標または高さを設定します。
-   * @param y Y座標または高さ
-   */
-  public void setY(int y) {
-    this.y = y;
-  }
-
-  /**
    * このXyオブジェクトのディープコピー（複製）を生成します。
    * @return 複製された新しいXyオブジェクト
    */

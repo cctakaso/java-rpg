@@ -58,21 +58,4 @@ public class Gears extends Lists{
     this.children = (ArrayList<Gear>)children;
   }
 
-  /**
-   * 指定された装備の種類に一致する装備品を取得します。
-   * <p>
-   * 装備品のリストから、指定された装備の種類に一致する最初の装備品を返します。
-   * </p>
-   * @param gearType 装備の種類
-   * @return 一致する装備品、存在しない場合はnull
-   */
-  public Gear getGear(GearType gearType) {
-    for (Gear gear: children) {
-      if (gear.getGearType() == gearType) {
-        return gear;
-      }
-    }
-    return null;
-  }
-
 }

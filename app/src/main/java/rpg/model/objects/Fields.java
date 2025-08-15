@@ -126,13 +126,6 @@ public class Fields extends Lists{
   public Parties getParties() {
     return this.parties;
   }
-  /**
-   * フィールドの種類を設定します。
-   * @param type フィールドの種類
-   */
-  public void setType(FieldType type) {
-    this.type = type;
-  }
 
   /**
    * フィールドのマップを表示します。

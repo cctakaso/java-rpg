@@ -219,7 +219,7 @@ public class Items extends Lists{
    * @param item 検索するアイテム
    * @return 同じ種類のアイテム、見つからない場合はnull
    */
-  protected Item getSameTypeItem(Item item) {
+  private Item getSameTypeItem(Item item) {
     if (item.isGear()) {
       return null;
     }

@@ -56,41 +56,6 @@ public class Condition extends Base{
   }
 
   /**
-   * ステータスの種類を設定します。
-   * @param type ステータスの種類
-   */
-  public void setType(ConditionType type) {
-    this.type = type;
-  }
-
-  /**
-   * ステータスの基本値を取得します。
-   * @return ステータスの基本値
-   */
-  public int getPoint() {
-    return this.point;
-  }
-
-  /**
-   * ステータスの基本値を設定します。
-   * @param point ステータスの基本値
-   */
-  public void setPoint(int point) {
-    this.point = point;
-  }
-
-  /**
-   * ステータスの比率を取得します。
-   * <p>
-   * 比率は、ステータスの一時的な増減を表します。
-   * </p>
-   * @return ステータスの比率
-   */
-  public void setRate(int rate) {
-    this.rate = rate;
-  }
-
-  /**
    * ステータスの比率を取得します。
    * <p>
    * 比率は、ステータスの一時的な増減を表します。
