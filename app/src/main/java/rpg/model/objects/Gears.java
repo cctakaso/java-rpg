@@ -23,17 +23,6 @@ public class Gears extends Lists{
   }
 
   /**
-   * 新たにGearsインスタンスを取得します。
-   * <p>
-   * 装備品のリストを管理するための新しいインスタンスを返します。
-   * </p>
-   * @return Gearsインスタンス
-   */
-  protected Lists getNewInstance() {
-    return new Gears();
-  }
-
-  /**
    * 装備品のリストを取得します。
    * <p>
    * 装備品のリストを返します。
@@ -43,6 +32,17 @@ public class Gears extends Lists{
   @Override
   public List<Gear> getList() {
     return children;
+  }
+
+  /**
+   * 新たにGearsインスタンスを取得します。
+   * <p>
+   * 装備品のリストを管理するための新しいインスタンスを返します。
+   * </p>
+   * @return Gearsインスタンス
+   */
+  protected Lists getNewInstance() {
+    return new Gears();
   }
 
   /**
@@ -57,5 +57,4 @@ public class Gears extends Lists{
   protected void setList(List<?> children) {
     this.children = (ArrayList<Gear>)children;
   }
-
 }

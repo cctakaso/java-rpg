@@ -35,14 +35,50 @@
       ]
     }
   },
-  "打撃":{
-    "name": "打撃",
+  "突き":{
+    "name": "突き",
     "type": "Attack",
     "conditions": {
       "children": [
         {
           "type": "HealthPoint",
-          "point": 30,
+          "point": 35,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "拳骨":{
+    "name": "拳骨",
+    "type": "Attack",
+    "conditions": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 25,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "蹴り":{
+    "name": "蹴り",
+    "type": "Attack",
+    "conditions": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 40,
           "rate": 100
         },
         {
@@ -60,7 +96,25 @@
       "children": [
         {
           "type": "HealthPoint",
-          "point": 10,
+          "point": 20,
+          "rate": 100
+        },
+        {
+          "type": "Critical",
+          "point": 2,
+          "rate": 20
+        }
+      ]
+    }
+  },
+  "火矢":{
+    "name": "火矢",
+    "type": "Attack",
+    "conditions": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 40,
           "rate": 100
         },
         {
@@ -114,7 +168,25 @@
       "children": [
         {
           "type": "HealthPoint",
-          "point": 30,
+          "point": 35,
+          "rate": 100
+        },
+        {
+          "type": "MagicPoint",
+          "point": 10,
+          "rate": 100
+        }
+      ]
+    }
+  },
+  "ブリザー":{
+    "name": "ブリザー",
+    "type": "Blizzard",
+    "conditions": {
+      "children": [
+        {
+          "type": "HealthPoint",
+          "point": 35,
           "rate": 100
         },
         {

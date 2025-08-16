@@ -49,16 +49,16 @@ public class View {
       printPartyStatus();
   }
 
-  private void printMap() {
-      // 現在位置を含めてマップ全体を描画
-      String str = adventure.getFields().toString(adventure.getParty());
-      App.view.printMessage(str);
-  }
-
   public void printPartyStatus() {
     // プレイヤーのステータスを表示
     App.view.printMessage();
     App.view.printMessage(adventure.getParty().toString(true));
+  }
+
+  private void printMap() {
+      // 現在位置を含めてマップ全体を描画
+      String str = adventure.getFields().toString(adventure.getParty());
+      App.view.printMessage(str);
   }
 
 

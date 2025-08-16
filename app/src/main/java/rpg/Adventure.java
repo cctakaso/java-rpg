@@ -49,28 +49,12 @@ public class Adventure {
   }
 
   /**
-   * 冒険のタイトルを設定します。
-   * @param title 冒険のタイトル
-   */
-  public void setTitle(String title) {
-    this.title = title; // 冒険のタイトルを設定
-  }
-
-  /**
    * ゲーム全体のフィールドを取得します
    * @return フィールド
    */
   public Fields getFields() {
     return fields;
   }
-  /**
-   * ゲーム全体のフィールドを設定します
-   * @param fields フィールド
-   */
-  public void setFields(Fields fields) {
-    this.fields = fields; // 現在のフィールドを設定
-  }
-
 
   /**
    * ゲームの主役パーティを取得します
@@ -78,14 +62,6 @@ public class Adventure {
    */
   public Party getParty() {
     return party;
-  }
-
-  /**
-   * ゲームの主役パーティを設定します
-   * @param 主役パーティ
-   */
-  public void setParty(Party party) {
-    this.party = party; // 主役パーティを設定
   }
 
   /**
@@ -102,6 +78,31 @@ public class Adventure {
    */
   public Pt getNowPt() {
     return nowPt; // 現在の座標を取得
+  }
+
+  /**
+   * 冒険のタイトルを設定します。
+   * @param title 冒険のタイトル
+   */
+  public void setTitle(String title) {
+    this.title = title; // 冒険のタイトルを設定
+  }
+
+  /**
+   * ゲーム全体のフィールドを設定します
+   * @param fields フィールド
+   */
+  public void setFields(Fields fields) {
+    this.fields = fields; // 現在のフィールドを設定
+  }
+
+
+  /**
+   * ゲームの主役パーティを設定します
+   * @param 主役パーティ
+   */
+  public void setParty(Party party) {
+    this.party = party; // 主役パーティを設定
   }
 
   /**
@@ -151,5 +152,4 @@ public class Adventure {
   public static List<Base> getDicClones(String type, String name, int number, Pt randomPt) {
     return dic.getClones(type, name, number, randomPt);
   }
-
 }

@@ -24,17 +24,6 @@ public class Attacks extends Lists{
   }
 
   /**
-   * 新たにAttacksインスタンスを取得します。
-   * <p>
-   * 攻撃のリストを管理するための新しいインスタンスを返します。
-   * </p>
-   * @return Attacksインスタンス
-   */
-  protected Lists getNewInstance() {
-    return new Attacks();
-  }
-
-  /**
    * 攻撃のリストを取得します。
    * <p>
    * 攻撃のリストは、AttackオブジェクトのArrayListとして保持されます。
@@ -44,19 +33,6 @@ public class Attacks extends Lists{
   @Override
   public List<Attack> getList() {
     return children;
-  }
-
-  /**
-   * 攻撃のリストを設定します。
-   * <p>
-   * 引数として渡されたリストを、攻撃のリストとして設定します。
-   * </p>
-   * @param children 攻撃のリスト
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void setList(List<?> children) {
-    this.children = (ArrayList<Attack>)children;
   }
 
   /**
@@ -77,5 +53,29 @@ public class Attacks extends Lists{
       }
     }
     return list;
+  }
+
+  /**
+   * 新たにAttacksインスタンスを取得します。
+   * <p>
+   * 攻撃のリストを管理するための新しいインスタンスを返します。
+   * </p>
+   * @return Attacksインスタンス
+   */
+  protected Lists getNewInstance() {
+    return new Attacks();
+  }
+
+  /**
+   * 攻撃のリストを設定します。
+   * <p>
+   * 引数として渡されたリストを、攻撃のリストとして設定します。
+   * </p>
+   * @param children 攻撃のリスト
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected void setList(List<?> children) {
+    this.children = (ArrayList<Attack>)children;
   }
 }

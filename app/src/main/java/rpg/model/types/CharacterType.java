@@ -15,7 +15,7 @@ public enum CharacterType {
   Archer(3),     //弓使い
   Wizard(4),     //魔法使い
   Bishop(5),     //司教
-  CrewMac(5),    //仲間キャラクターIDの最大値を示すマーカー
+  CrewMax(5),    //仲間キャラクターIDの最大値を示すマーカー
 
   // --- 敵キャラクターの範囲 ---
   EnemyMin(10), // 敵キャラクターの最小ID
@@ -34,7 +34,7 @@ public enum CharacterType {
   Troll(22),    // トロール
   Vampire(23),  // 吸血鬼
   Zombie(24),   // ゾンビ
-  EnemyMac(24), // 敵キャラクターIDの最大値を示すマーカー
+  EnemyMax(24), // 敵キャラクターIDの最大値を示すマーカー
 
   // --- NPC (ノンプレイヤーキャラクター) の範囲 ---
   NpcMin(30),
@@ -44,7 +44,7 @@ public enum CharacterType {
   Boniface(33),   //宿屋の主人
   Priest(34),     //神父
   Blacksmith(35), //鍛冶屋
-  NpcMac(35);     // NPCのIDの最大値を示すマーカー
+  NpcMax(35);     // NPCのIDの最大値を示すマーカー
 
   /**
    * キャラクター種別に対応する整数ID。
@@ -64,7 +64,7 @@ public enum CharacterType {
    * @return 仲間であればtrue、そうでなければfalse
    */
   public boolean isCrewCharacter() {
-    return CrewMin.id <= this.id && this.id <= CrewMac.id;
+    return CrewMin.id <= this.id && this.id <= CrewMax.id;
   }
 
   /**
@@ -72,7 +72,7 @@ public enum CharacterType {
    * @return 敵であればtrue、そうでなければfalse
    */
   public boolean isEnemyCharacter() {
-    return EnemyMin.id <= this.id && this.id <= EnemyMac.id;
+    return EnemyMin.id <= this.id && this.id <= EnemyMax.id;
   }
 
   /**
@@ -80,6 +80,6 @@ public enum CharacterType {
    * @return NPCであればtrue、そうでなければfalse
    */
   public boolean isNpcCharacter() {
-    return NpcMin.id <= this.id && this.id <= NpcMac.id;
+    return NpcMin.id <= this.id && this.id <= NpcMax.id;
   }
 }

@@ -32,28 +32,6 @@ public class CharStatus extends Base{
   }
 
   /**
-   * キャラクターの能力値を取得します。
-   * <p>
-   * キャラクターの能力値は、ゲーム内でのキャラクターの強さや特性を表します。
-   * </p>
-   * @return キャラクターの能力値のリスト
-   */
-  protected ArrayList<Integer> getConditions() {
-    return this.condarray;
-  }
-
-  /**
-   * キャラクターの能力値の割合を取得します。
-   * <p>
-   * 能力値の割合は、キャラクターの成長や装備によって変化することがあります。
-   * </p>
-   * @return キャラクターの能力値の割合のリスト
-   */
-  protected ArrayList<Integer> getConditionsRate() {
-    return this.condarrayRate;
-  }
-
-  /**
    * キャラクターのレベルを取得します。
    * <p>
    * キャラクターのレベルは、経験値に基づいて変化し、能力値やステータスに影響を与えます。
@@ -62,6 +40,51 @@ public class CharStatus extends Base{
    */
   public Level getLevel() {
     return this.level;
+  }
+
+  /**
+   * キャラクターの所持金を取得します。
+   * <p>
+   * キャラクターが持っているお金の量を返します。
+   * </p>
+   * @return キャラクターの所持金
+   */
+  public int getMoney() {
+    return getPoint(ConditionType.Money);
+  }
+
+  /**
+   * キャラクターステータスのマジックポイントを取得します。
+   * <p>
+   * キャラクターのマジックポイントを表します。
+   * </p>
+   * @return マジックステータスのポイント
+   */
+  public int getMagicPoint() {
+    return this.level.getMagicPoint(condarray, condarrayRate);
+  }
+
+  /**
+   * キャラクターステータスの割合ポイントを取得します。
+   * <p>
+   * ステータスの割合ポイントは、キャラクターの能力や特性の比率を表します。
+   * </p>
+   * @param type ステータスの種類
+   * @return 指定されたステータスの割合ポイント
+   */
+  public int getRatePoint(ConditionType type) {
+    return this.level.getRatePoint(type, condarray, condarrayRate);
+  }
+
+  /**
+   * キャラクターのヘルスポイントを取得します。
+   * <p>
+   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
+   * </p>
+   * @return ヘルスポイント
+   */
+  public int getHealthPoint() {
+    return this.level.getHealthPoint(condarray, condarrayRate);
   }
 
   /**
@@ -189,17 +212,6 @@ public class CharStatus extends Base{
   }
 
   /**
-   * キャラクターの所持金を取得します。
-   * <p>
-   * キャラクターが持っているお金の量を返します。
-   * </p>
-   * @return キャラクターの所持金
-   */
-  public int getMoney() {
-    return getPoint(ConditionType.Money);
-  }
-
-  /**
    * キャラクターの所持金を追加します。
    * <p>
    * 指定された金額をキャラクターの所持金に追加します。
@@ -223,52 +235,6 @@ public class CharStatus extends Base{
    */
   public int decMoney(int money) {
     return addMoney(money*-1);
-  }
-
-  /**
-   * キャラクターステータスのポイントを取得します。
-   * <p>
-   * ステータスのポイントは、キャラクターの能力や特性を表します。
-   * </p>
-   * @param type ステータスの種類
-   * @return 指定されたステータスのポイント
-   */
-  private int getPoint(ConditionType type) {
-    return this.condarray.get(type.id);
-  }
-
-  /**
-   * キャラクターステータスのマジックポイントを取得します。
-   * <p>
-   * キャラクターのマジックポイントを表します。
-   * </p>
-   * @return マジックステータスのポイント
-   */
-  public int getMagicPoint() {
-    return this.level.getMagicPoint(condarray, condarrayRate);
-  }
-
-  /**
-   * キャラクターステータスの割合ポイントを取得します。
-   * <p>
-   * ステータスの割合ポイントは、キャラクターの能力や特性の比率を表します。
-   * </p>
-   * @param type ステータスの種類
-   * @return 指定されたステータスの割合ポイント
-   */
-  public int getRatePoint(ConditionType type) {
-    return this.level.getRatePoint(type, condarray, condarrayRate);
-  }
-
-  /**
-   * キャラクターのヘルスポイントを取得します。
-   * <p>
-   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
-   * </p>
-   * @return ヘルスポイント
-   */
-  public int getHealthPoint() {
-    return this.level.getHealthPoint(condarray, condarrayRate);
   }
 
   /**
@@ -317,6 +283,40 @@ public class CharStatus extends Base{
    */
   public int decMagicPoint(int delta) {
     return this.level.decMagicPoint(delta, condarray, condarrayRate);
+  }
+
+  /**
+   * キャラクターの能力値を取得します。
+   * <p>
+   * キャラクターの能力値は、ゲーム内でのキャラクターの強さや特性を表します。
+   * </p>
+   * @return キャラクターの能力値のリスト
+   */
+  protected ArrayList<Integer> getConditions() {
+    return this.condarray;
+  }
+
+  /**
+   * キャラクターの能力値の割合を取得します。
+   * <p>
+   * 能力値の割合は、キャラクターの成長や装備によって変化することがあります。
+   * </p>
+   * @return キャラクターの能力値の割合のリスト
+   */
+  protected ArrayList<Integer> getConditionsRate() {
+    return this.condarrayRate;
+  }
+
+  /**
+   * キャラクターステータスのポイントを取得します。
+   * <p>
+   * ステータスのポイントは、キャラクターの能力や特性を表します。
+   * </p>
+   * @param type ステータスの種類
+   * @return 指定されたステータスのポイント
+   */
+  private int getPoint(ConditionType type) {
+    return this.condarray.get(type.id);
   }
 
 }

@@ -20,30 +20,12 @@ public class Parties extends Lists{
   }
 
   /**
-   * Partiesクラスの新しいインスタンスを返します。
-   * @return 新しいPartiesインスタンス
-   */
-  protected Lists getNewInstance() {
-    return new Parties();
-  }
-
-  /**
    * 管理しているPartyのリストを返します。
    * @return Partyオブジェクトのリスト
    */
   @Override
   public List<Party> getList() {
     return children;
-  }
-
-  /**
-   * 管理するPartyのリストを設定します。
-   * @param children 設定するPartyオブジェクトのリスト
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void setList(List<?> children) {
-    this.children = (ArrayList<Party>)children;
   }
 
   /**
@@ -67,5 +49,23 @@ public class Parties extends Lists{
       // エラーが発生した場合は何もしない
     }
     return null;
+  }
+
+  /**
+   * Partiesクラスの新しいインスタンスを返します。
+   * @return 新しいPartiesインスタンス
+   */
+  protected Lists getNewInstance() {
+    return new Parties();
+  }
+
+  /**
+   * 管理するPartyのリストを設定します。
+   * @param children 設定するPartyオブジェクトのリスト
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected void setList(List<?> children) {
+    this.children = (ArrayList<Party>)children;
   }
 }

@@ -25,19 +25,6 @@ public class Characters extends Lists{
     children = new ArrayList<Character>();
   }
 
-
-  /**
-   * 新しいインスタンスを取得します。
-   * <p>
-   * このメソッドは、Charactersクラスの新しいインスタンスを返します。
-   * </p>
-   * @return 新しいCharactersオブジェクト
-   */
-  protected Lists getNewInstance() {
-    return new Characters();
-  }
-
-
   /**
    * キャラクターのリストを取得します。
    * <p>
@@ -48,33 +35,6 @@ public class Characters extends Lists{
   @Override
   public List<Character> getList() {
     return children;
-  }
-
-  /**
-   * キャラクターをリストに追加します。
-   * <p>
-   * 引数として渡されたCharacterオブジェクトを、キャラクターのリストに追加します。
-   * </p>
-   * @param one 追加するキャラクター
-   */
-  protected void add(Base one) {
-    super.add(one);
-    if (size()==1){
-      leader = (Character)one;
-    }
-  }
-
-  /**
-   * キャラクターのリストを設定します。
-   * <p>
-   * 引数として渡されたリストを、キャラクターのリストとして設定します。
-   * </p>
-   * @param children キャラクターのリスト
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void setList(List<?> children) {
-    this.children = (ArrayList<Character>)children;
   }
 
   /**
@@ -148,7 +108,6 @@ public class Characters extends Lists{
     }
   }
 
-
   /**
    * キャラクターのリストを文字列として返します。
    * <p>
@@ -164,7 +123,7 @@ public class Characters extends Lists{
       sb.append(one.toString()).append("\n");
     }
     return sb.toString();
-  } 
+  }
 
   /**
    * キャラクターのリストを回答形式で取得します。
@@ -201,5 +160,43 @@ public class Characters extends Lists{
       }
     }
     return list;
+  }
+
+  /**
+   * 新しいインスタンスを取得します。
+   * <p>
+   * このメソッドは、Charactersクラスの新しいインスタンスを返します。
+   * </p>
+   * @return 新しいCharactersオブジェクト
+   */
+  protected Lists getNewInstance() {
+    return new Characters();
+  }
+
+  /**
+   * キャラクターをリストに追加します。
+   * <p>
+   * 引数として渡されたCharacterオブジェクトを、キャラクターのリストに追加します。
+   * </p>
+   * @param one 追加するキャラクター
+   */
+  protected void add(Base one) {
+    super.add(one);
+    if (size()==1){
+      leader = (Character)one;
+    }
+  }
+
+  /**
+   * キャラクターのリストを設定します。
+   * <p>
+   * 引数として渡されたリストを、キャラクターのリストとして設定します。
+   * </p>
+   * @param children キャラクターのリスト
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected void setList(List<?> children) {
+    this.children = (ArrayList<Character>)children;
   }
 }

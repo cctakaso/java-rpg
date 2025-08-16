@@ -13,13 +13,13 @@ import rpg.utils.*;
  * </p>
  */
 public class BattleField {
-  protected Party allyParty;  // 味方パーティ
-  protected Party enemyParty; // 敵パーティ
+  protected Party allyParty;                  // 味方パーティ
+  protected Party enemyParty;                 // 敵パーティ
   protected ArrayList<Character> characters;  // 戦闘に参加するキャラクターのリスト
   protected ArrayList<Integer> agility;       // 各キャラクターの敏捷性に基づく行動順序
   protected ArrayList<Integer> agilityCounter;  // 各キャラクターの行動回数カウンター
-  protected int timer;          // 戦闘のタイマー
-  protected int enemyAveExperience; // 敵の平均経験値
+  protected int timer;                        // 戦闘のタイマー
+  protected int enemyAveExperience;           // 敵の平均経験値
 
   /**
    * 戦闘フィールドのコンストラクタ。
@@ -46,6 +46,125 @@ public class BattleField {
    */
   public BattleField(Party allyParty, Character enemyCharacter) {
     this(allyParty, new Party(enemyCharacter));
+  }
+
+  /**
+   * キャラクターの比較を行うコンパレータ。
+   * <p>
+   * 敏捷性（Agility）に基づいてキャラクターを比較し、戦闘の行動順序を決定します。
+   * </p>
+   */
+  public class CharacterComparator implements Comparator<Character> {
+    @Override
+    public int compare(Character p1, Character p2) {
+      int agility1 = p1.charStatus.getConditions().get(ConditionType.Agility.id)*p1.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+      int agility2 = p2.charStatus.getConditions().get(ConditionType.Agility.id)*p2.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+      return agility1 > agility2 ? -1 : 1;
+    }
+  }
+
+  /**
+   * 味方パーティの平均経験値を敵パーティに追加します。
+   * <p>
+   * 戦闘終了後、味方パーティの平均経験値を敵パーティに加算します。
+   * </p>
+   */
+  public void addAveExperience() {
+    allyParty.addAveExperience(enemyAveExperience);
+  }
+
+  /**
+   * 戦闘を開始します。
+   * <p>
+   * 戦闘を開始し、キャラクターの行動を順次処理します。
+   * </p>
+   * @param scanner 入力を受け付けるスキャナー
+   * @return 戦闘が終了した場合はtrue、それ以外はfalse
+   */
+  public boolean start(Scanner scanner) {
+    ArrayList<Character> protected_charcters = new ArrayList<Character>();
+    boolean isLoop = true;
+    while(isLoop) {
+      Scanner scan;
+      Character attacker = getNextFighter();
+      if (attacker == this.allyParty.characters.getList().get(0)) {
+        scan = scanner;
+      }else{
+        scan = null; //自動ランダム選択
+      }
+      Answer<?> anser = attacker.selectAttack(scan);
+      Attack attack = (Attack)anser.getValue();
+      if (protected_charcters.contains(attacker)) {
+        attacker.charStatus.doProtect(null);
+        protected_charcters.remove(attacker);
+      }
+      if (attack.isPhysicalDefence()) {
+        attacker.charStatus.doProtect(attack);
+        protected_charcters.add(attacker);
+        anser = attacker.haveAttack(attack, attacker);
+        App.view.printMessage(anser.getLabel());
+      }else if (attack.isHeal()) {
+        Party reciverParty = isAllyCharacter(attacker) ? allyParty:enemyParty;
+        App.view.printMessage(attacker.getName()+"が、"+attack.getName()+"を使用します。");
+        if (attack.isAffectParty()) {
+          for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
+            anser = reciver.haveAttack(attack, attacker);
+            App.view.printMessage(anser.getLabel());
+          }
+        }else{
+          anser = reciverParty.selectCharacter(scan, false);
+          Character reciver = (Character)anser.getValue();
+          anser = reciver.haveAttack(attack, attacker);
+          App.view.printMessage(anser.getLabel());
+        }
+      }else if (attack.isOffence()) {
+        Party reciverParty = isAllyCharacter(attacker) ? enemyParty:allyParty;
+        if (attack.isAffectParty()) {
+          for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
+            anser = reciver.haveAttack(attack, attacker);
+            App.view.printMessage(anser.getLabel());
+            int reciverHp = (int)anser.getValue();
+            if (reciverHp==0) {
+              App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
+              if (reciver.getName().equals("勇者")) {
+                App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
+                return false; //ゲームオーバー
+              }
+              if (removeFighter(reciver)) {
+                this.addAveExperience();
+                App.view.printMessage();
+                boolean isEnamy = reciver.type.isEnemyCharacter();
+                App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
+                isLoop = false;
+                break;
+              }
+            }
+          }
+        }else{
+          anser = reciverParty.selectCharacter(scan, false);
+          Character reciver = (Character)anser.getValue();
+          anser = reciver.haveAttack(attack, attacker);
+          App.view.printMessage(anser.getLabel());
+          int reciverHp = (int)anser.getValue();
+          if (reciverHp==0) {
+            App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
+            if (reciver.getName().equals("勇者")) {
+              App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
+              return false; //ゲームオーバー
+            }
+            if (removeFighter(reciver)) {
+              this.addAveExperience();
+              App.view.printMessage();
+              boolean isEnamy = reciver.type.isEnemyCharacter();
+              App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
+              isLoop = false;
+              break;
+            }
+          }
+        }
+      }
+    }
+    return true;
   }
 
   /**
@@ -98,33 +217,6 @@ public class BattleField {
     Collections.sort(characters, new CharacterComparator());
     return characters;
   }
-
-  /**
-   * 味方パーティの平均経験値を敵パーティに追加します。
-   * <p>
-   * 戦闘終了後、味方パーティの平均経験値を敵パーティに加算します。
-   * </p>
-   */
-  public void addAveExperience() {
-    allyParty.addAveExperience(enemyAveExperience);
-  }
-
-  /**
-   * キャラクターの比較を行うコンパレータ。
-   * <p>
-   * 敏捷性（Agility）に基づいてキャラクターを比較し、戦闘の行動順序を決定します。
-   * </p>
-   */
-  public class CharacterComparator implements Comparator<Character> {
-    @Override
-    public int compare(Character p1, Character p2) {
-      int agility1 = p1.charStatus.getConditions().get(ConditionType.Agility.id)*p1.charStatus.getConditionsRate().get(ConditionType.Agility.id);
-      int agility2 = p2.charStatus.getConditions().get(ConditionType.Agility.id)*p2.charStatus.getConditionsRate().get(ConditionType.Agility.id);
-      return agility1 > agility2 ? -1 : 1;
-    }
-  }
-
-
 
   /**
    * 指定されたキャラクターが味方パーティに属しているかどうかを判定します。
@@ -196,99 +288,5 @@ public class BattleField {
       }
     }
     return allyCount==0 || enemyCount==0;
-  }
-
-  /**
-   * 戦闘を開始します。
-   * <p>
-   * 戦闘を開始し、キャラクターの行動を順次処理します。
-   * </p>
-   * @param scanner 入力を受け付けるスキャナー
-   * @return 戦闘が終了した場合はtrue、それ以外はfalse
-   */
-  public boolean start(Scanner scanner) {
-    ArrayList<Character> protected_charcters = new ArrayList<Character>();
-    boolean isLoop = true;
-    while(isLoop) {
-      Scanner scan;
-      Character attacker = getNextFighter();
-      if (attacker == this.allyParty.characters.getList().get(0)) {
-        scan = scanner;
-      }else{
-        scan = null; //自動ランダム選択
-      }
-      Answer<?> anser = attacker.selectAttack(scan);
-      Attack attack = (Attack)anser.getValue();
-      if (protected_charcters.contains(attacker)) {
-        attacker.charStatus.doProtect(null);
-        protected_charcters.remove(attacker);
-      }
-      if (attack.isPhysicalDefence()) {
-        attacker.charStatus.doProtect(attack);
-        protected_charcters.add(attacker);
-        anser = attacker.haveAttack(attack, attacker);
-        App.view.printMessage(anser.getLabel());
-      }else if (attack.isHeal()) {
-        Party reciverParty = isAllyCharacter(attacker) ? allyParty:enemyParty;
-        if (attack.isAffectParty()) {
-          for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
-            anser = reciver.haveAttack(attack, attacker);
-            App.view.printMessage(anser.getLabel());
-          }
-        }else{
-          App.view.printMessage(attacker.getName()+"が、"+attack.getName()+"を使用します。");
-          anser = reciverParty.selectCharacter(scan, false);
-          Character reciver = (Character)anser.getValue();
-          anser = reciver.haveAttack(attack, attacker);
-          App.view.printMessage(anser.getLabel());
-        }
-      }else if (attack.isOffence()) {
-        Party reciverParty = isAllyCharacter(attacker) ? enemyParty:allyParty;
-        if (attack.isAffectParty()) {
-          for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
-            anser = reciver.haveAttack(attack, attacker);
-            App.view.printMessage(anser.getLabel());
-            int reciverHp = (int)anser.getValue();
-            if (reciverHp==0) {
-              App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
-              if (reciver.getName().equals("勇者")) {
-                App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
-                return false; //ゲームオーバー
-              }
-              if (removeFighter(reciver)) {
-                this.addAveExperience();
-                App.view.printMessage();
-                boolean isEnamy = reciver.type.isEnemyCharacter();
-                App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
-                isLoop = false;
-                break;
-              }
-            }
-          }
-        }else{
-          anser = reciverParty.selectCharacter(scan, false);
-          Character reciver = (Character)anser.getValue();
-          anser = reciver.haveAttack(attack, attacker);
-          App.view.printMessage(anser.getLabel());
-          int reciverHp = (int)anser.getValue();
-          if (reciverHp==0) {
-            App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
-            if (reciver.getName().equals("勇者")) {
-              App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
-              return false; //ゲームオーバー
-            }
-            if (removeFighter(reciver)) {
-              this.addAveExperience();
-              App.view.printMessage();
-              boolean isEnamy = reciver.type.isEnemyCharacter();
-              App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
-              isLoop = false;
-              break;
-            }
-          }
-        }
-      }
-    }
-    return true;
   }
 }

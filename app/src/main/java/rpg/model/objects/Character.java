@@ -44,6 +44,10 @@ public class Character extends Base{
     return super.getName();
   }
 
+  /**
+   * キャラクターの種類を取得します。
+   * @return キャラクターの種類
+   */
   public CharacterType getType() {
     return this.type;
   }
@@ -54,6 +58,28 @@ public class Character extends Base{
    */
   public CharStatus getCharStatus() {
     return this.charStatus;
+  }
+
+  /**
+   * キャラクターのヘルスポイントを取得します。
+   * <p>
+   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
+   * </p>
+   * @return ヘルスポイント
+   */
+  public int getHealthPoint() {
+    return this.charStatus.getHealthPoint();
+  }
+
+  /**
+   * キャラクターの経験値を取得します。
+   * <p>
+   * キャラクターの現在の経験値を返します。
+   * </p>
+   * @return キャラクターの経験値
+   */
+  public int getTotalExpericence() {
+    return this.charStatus.getLevel().getExpTotal();
   }
 
   /**
@@ -83,17 +109,6 @@ public class Character extends Base{
   }
 
   /**
-   * キャラクターのヘルスポイントを取得します。
-   * <p>
-   * キャラクターのヘルスポイントは、キャラクターの体力を表します。
-   * </p>
-   * @return ヘルスポイント
-   */
-  public int getHealthPoint() {
-    return this.charStatus.getHealthPoint();
-  }
-
-  /**
    * キャラクターの詳細を文字列として返します。
    * <p>
    * キャラクターの名前、タイプ、装備の詳細を含む文字列を返します。
@@ -107,7 +122,7 @@ public class Character extends Base{
     // 装備が見つからない場合、装備なしの情報を返す
     for(Gear gear: (ArrayList<Gear>)this.gears.getList()) {
       if (gear.getGearType() == gearType) {
-        return super.toString()+"["+this.type+ " " + gear.toString()+ "]";
+        return super.toString()+"["+this.type+ " " + gear.toString()+"]";
       }
     }
     return toString(false);
@@ -230,17 +245,6 @@ public class Character extends Base{
    */
   public void setReset() {
     this.charStatus.setReset();
-  }
-
-  /**
-   * キャラクターの経験値を取得します。
-   * <p>
-   * キャラクターの現在の経験値を返します。
-   * </p>
-   * @return キャラクターの経験値
-   */
-  public int getTotalExpericence() {
-    return this.charStatus.getLevel().getExpTotal();
   }
 
   /**

@@ -21,30 +21,12 @@ public class Talks extends Lists{
   }
 
   /**
-   * Talksクラスの新しいインスタンスを返します。
-   * @return 新しいTalksインスタンス
-   */
-  protected Lists getNewInstance() {
-    return new Talks();
-  }
-
-  /**
    * 管理しているTalkのリストを返します。
    * @return Talkオブジェクトのリスト
    */
   @Override
   public List<Talk> getList() {
     return children;
-  }
-
-  /**
-   * 管理するTalkのリストを設定します。
-   * @param children 設定するTalkオブジェクトのリスト
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void setList(List<?> children) {
-    this.children = (ArrayList<Talk>)children;
   }
 
   /**
@@ -63,5 +45,23 @@ public class Talks extends Lists{
       break; // 現在は最初の会話のみ実行
     }
     return rtn;
+  }
+
+  /**
+   * Talksクラスの新しいインスタンスを返します。
+   * @return 新しいTalksインスタンス
+   */
+  protected Lists getNewInstance() {
+    return new Talks();
+  }
+
+  /**
+   * 管理するTalkのリストを設定します。
+   * @param children 設定するTalkオブジェクトのリスト
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected void setList(List<?> children) {
+    this.children = (ArrayList<Talk>)children;
   }
 }

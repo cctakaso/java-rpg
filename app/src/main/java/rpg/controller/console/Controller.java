@@ -86,14 +86,6 @@ public class Controller {
     App.view.printMessage("冒険を終了します。");
   }
 
-  private List<Event> getEvents(Scanner scan) {
-    // 現在のフィールドを取得
-    getField(scan);
-    // 指定されたフィールドと座標で発生するイベントを取得
-    return adventure.getNowField().getHitEvents(adventure.getParty(), adventure.getParty().getPt(), adventure.getNowPt());
-  }
-
-
   /**
    * イベントを処理します。
    * @param scanner ユーザー入力用のScanner
@@ -158,6 +150,13 @@ public class Controller {
     }
 
     return true;
+  }
+
+  private List<Event> getEvents(Scanner scan) {
+    // 現在のフィールドを取得
+    getField(scan);
+    // 指定されたフィールドと座標で発生するイベントを取得
+    return adventure.getNowField().getHitEvents(adventure.getParty(), adventure.getParty().getPt(), adventure.getNowPt());
   }
 
 

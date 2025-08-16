@@ -198,18 +198,6 @@ public class Attack extends Base{
    * </p>
    * @return 物理攻撃かどうか
    */
-  private boolean isPhysical() {
-    return this.type == AttackType.Attack || this.type == AttackType.Protect ||
-      this.type == AttackType.PartyAttack;
-  }
-
-  /**
-   * 攻撃の種類が物理攻撃かどうかを判定します。
-   * <p>
-   * 攻撃の種類が物理攻撃またはパーティー攻撃の場合、物理攻撃とみなします。
-   * </p>
-   * @return 物理攻撃かどうか
-   */
   public boolean isPhysicalOffence() {
     return this.type == AttackType.Attack || this.type == AttackType.PartyAttack;
   }
@@ -248,6 +236,18 @@ public class Attack extends Base{
   }
 
   /**
+   * 攻撃の種類が物理攻撃かどうかを判定します。
+   * <p>
+   * 攻撃の種類が物理攻撃またはパーティー攻撃の場合、物理攻撃とみなします。
+   * </p>
+   * @return 物理攻撃かどうか
+   */
+  private boolean isPhysical() {
+    return this.type == AttackType.Attack || this.type == AttackType.Protect ||
+      this.type == AttackType.PartyAttack;
+  }
+
+  /**
    * 攻撃の種類が魔法防御かどうかを判定します。
    * <p>
    * 攻撃の種類が魔法防御の場合、魔法防御とみなします。
@@ -256,7 +256,7 @@ public class Attack extends Base{
    */
   private boolean isMagicDefence() {
     return AttackType.MagicDefenceMin.id <= this.type.id &&
-          this.type.id <=  AttackType.MagicDefenceMin.id;
+          this.type.id <=  AttackType.MagicDefenceMax.id;
   }
 
   /**
@@ -268,7 +268,7 @@ public class Attack extends Base{
    */
   private boolean isMagicalOffence() {
     return AttackType.MagicOffenceMin.id <= this.type.id &&
-          this.type.id <=  AttackType.MagicOffenceMin.id;
+          this.type.id <=  AttackType.MagicOffenceMax.id;
   }
 
   /**
@@ -287,7 +287,5 @@ public class Attack extends Base{
     }
     return 0;
   }
-
-
 
 }

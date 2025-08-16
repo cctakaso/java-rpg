@@ -86,6 +86,22 @@ public class Item extends Base{
   }
 
   /**
+   * アイテムの価格を取得します。
+   * <p>
+   * アイテムに関連するステータスから金銭の価格を取得します。
+   * </p>
+   * @return アイテムの価格
+   */
+  public int getPrice() {
+    for (Condition condition: (ArrayList<Condition>)this.conditions.getList()) {
+      if (condition.type == ConditionType.Money) {
+        return condition.point;
+      }
+    }
+    return 0;
+  }
+
+  /**
    * アイテムの文字列表現を返します。
    * <p>
    * アイテムの名前と数量を含む文字列を返します。
@@ -162,21 +178,4 @@ public class Item extends Base{
   public boolean isMoney() {
     return this.itemType.isMoney();
   }
-
-  /**
-   * アイテムの価格を取得します。
-   * <p>
-   * アイテムに関連するステータスから金銭の価格を取得します。
-   * </p>
-   * @return アイテムの価格
-   */
-  public int getPrice() {
-    for (Condition condition: (ArrayList<Condition>)this.conditions.getList()) {
-      if (condition.type == ConditionType.Money) {
-        return condition.point;
-      }
-    }
-    return 0;
-  }
-
 }

@@ -22,43 +22,12 @@ public class Conditions extends Lists{
   }
 
   /**
-   * Conditionsクラスの新しいインスタンスを返します。
-   * @return 新しいConditionsインスタンス
-   */
-  protected Lists getNewInstance() {
-    return new Conditions();
-  }
-
-  /**
    * 管理しているStatusのリストを返します。
    * @return Statusオブジェクトのリスト
    */
   @Override
   public List<Condition> getList() {
     return children;
-  }
-
-  /**
-   * 管理するStatusのリストを設定します。
-   * @param children 設定するStatusオブジェクトのリスト
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  protected void setList(List<?> children) {
-    this.children = (ArrayList<Condition>)children;
-  }
-
-  /**
-   * すべてのステータス情報を連結した文字列を返します。
-   * @return ステータス情報の文字列
-   */
-  @SuppressWarnings("unchecked")
-  public String toString() {
-    String str = "";
-    for(Condition condition: (ArrayList<Condition>)getList()) {
-      str += condition.toString() + " ";
-    }
-    return str;
   }
 
   /**
@@ -85,6 +54,37 @@ public class Conditions extends Lists{
         return condition.point * condition.rate/Condition.INITIAL_RATE;
     }
     return 0;
+  }
+
+  /**
+   * すべてのステータス情報を連結した文字列を返します。
+   * @return ステータス情報の文字列
+   */
+  @SuppressWarnings("unchecked")
+  public String toString() {
+    String str = "";
+    for(Condition condition: (ArrayList<Condition>)getList()) {
+      str += condition.toString() + " ";
+    }
+    return str;
+  }
+
+  /**
+   * Conditionsクラスの新しいインスタンスを返します。
+   * @return 新しいConditionsインスタンス
+   */
+  protected Lists getNewInstance() {
+    return new Conditions();
+  }
+
+  /**
+   * 管理するStatusのリストを設定します。
+   * @param children 設定するStatusオブジェクトのリスト
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  protected void setList(List<?> children) {
+    this.children = (ArrayList<Condition>)children;
   }
 
   /**
