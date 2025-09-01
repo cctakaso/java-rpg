@@ -221,6 +221,7 @@ public abstract class Lists extends Base{
     Field[] fields = cls.getDeclaredFields();
     for (Field field: fields) {
       try{
+        field.setAccessible(true);
         Object val = field.get(this);
         // フィールドがArrayListのインスタンスかチェック
         if (val instanceof ArrayList) {

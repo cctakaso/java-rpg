@@ -89,6 +89,7 @@ public class Resource {
     for (Field field: fields) {
       try {
         // リフレクションでフィールドの値を取得
+        field.setAccessible(true);
         Object val = field.get(obj);
         if (val == null) {
           // 何もしない

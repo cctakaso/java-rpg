@@ -159,6 +159,7 @@ public void scanClass(Class<?> cls) {
   Field[] fields = cls.getDeclaredFields();
   for (Field field: fields) {
     try {
+      field.setAccessible(true);
       Object val = field.get(this);
       if (val == null) {
         // 何もしない
