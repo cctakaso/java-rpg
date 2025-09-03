@@ -25,6 +25,14 @@ This is a console-based RPG for engineer education.
     ./gradlew build
     ```
 
+3.  Set the language option:
+    ```sh
+    file: app/main/resouces/game.properties
+    ...
+    language=[ja|en]
+    ...
+    ```
+
 ## How to Run
 
 Execute the following command to run the application:
@@ -53,7 +61,7 @@ ice-i--ii---c-ien--*     | eiie  en i e  e  |i             |
 M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ
 
 勇者パーティ(0,0) Money:10000
-Items:薬草x 1 
+Items:薬草x 1
 メンバー：
 勇者[Gladiator] LEVEL:1 EX:0/50
 HP:100/100 MP:100/100 AK:10 DF:10 MA:10 MD:10 AG:1 DX:1 EV:1 CR:1
