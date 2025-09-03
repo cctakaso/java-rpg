@@ -2,6 +2,7 @@ package rpg.model.objects;
 
 import java.util.*;
 
+import rpg.Adventure;
 import rpg.model.types.*;
 import rpg.utils.*;
 
@@ -144,7 +145,7 @@ public class Fields extends Lists{
     for(int y=0; y<area.length; y++) {
       mapStr += new String(area[y]) + "\n";
     }
-    return mapStr+"M:勇者パーティ、i:アイテム、c:キャラクター、n:NPキャラクター、e:モンスター、E:モンスターパーティ";
+    return mapStr+Adventure.messages.getString("MapLegend");
   }
 
   /**
@@ -281,7 +282,7 @@ public class Fields extends Lists{
     return Map.ofEntries(
       Map.entry("hitField", hitField),
       Map.entry("hitPt", hitPt),
-      Map.entry("toString", hitField.name + "("+hitPt.x+","+hitPt.y+")-" + "("+(hitPt.x+hitField.size.x)+","+(hitPt.y+hitField.size.y)+")")
+      Map.entry("toString", hitField + "("+hitPt.x+","+hitPt.y+")-" + "("+(hitPt.x+hitField.size.x)+","+(hitPt.y+hitField.size.y)+")")
     );
   }
 

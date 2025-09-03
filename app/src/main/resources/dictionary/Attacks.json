@@ -1,6 +1,6 @@
 {
-  "斬り":{
-    "name": "斬り",
+  "Slash":{
+    "name": "Slash",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -17,8 +17,8 @@
       ]
     }
   },
-  "プロテクト":{
-    "name": "プロテクト",
+  "Protect":{
+    "name": "Protect",
     "type": "Protect",
     "conditions": {
       "children": [
@@ -35,8 +35,8 @@
       ]
     }
   },
-  "突き":{
-    "name": "突き",
+  "Hit":{
+    "name": "Hit",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -53,8 +53,8 @@
       ]
     }
   },
-  "拳骨":{
-    "name": "拳骨",
+  "Strike":{
+    "name": "Strike",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -71,8 +71,8 @@
       ]
     }
   },
-  "蹴り":{
-    "name": "蹴り",
+  "Kick":{
+    "name": "Kick",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -89,8 +89,8 @@
       ]
     }
   },
-  "弓矢":{
-    "name": "弓矢",
+  "BowAndArrow":{
+    "name": "BowAndArrow",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -107,8 +107,8 @@
       ]
     }
   },
-  "火矢":{
-    "name": "火矢",
+  "Fire arrow":{
+    "name": "Fire arrow",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -125,8 +125,8 @@
       ]
     }
   },
-  "ヒール":{
-    "name": "ヒール",
+  "Heel":{
+    "name": "Heel",
     "type": "Heal",
     "conditions": {
       "children": [
@@ -143,8 +143,8 @@
       ]
     }
   },
-  "ファイア":{
-    "name": "ファイア",
+  "Fire":{
+    "name": "Fire",
     "type": "Fire",
     "conditions": {
       "children": [
@@ -161,8 +161,8 @@
       ]
     }
   },
-  "サンダー":{
-    "name": "サンダー",
+  "Thunder":{
+    "name": "Thunder",
     "type": "Thunder",
     "conditions": {
       "children": [
@@ -179,8 +179,8 @@
       ]
     }
   },
-  "ブリザー":{
-    "name": "ブリザー",
+  "Blizzard":{
+    "name": "Blizzard",
     "type": "Blizzard",
     "conditions": {
       "children": [
@@ -197,8 +197,8 @@
       ]
     }
   },
-  "体当たり":{
-    "name": "体当たり",
+  "Tackle":{
+    "name": "Tackle",
     "type": "Attack",
     "conditions": {
       "children": [
@@ -215,8 +215,8 @@
       ]
     }
   },
-  "斧攻撃":{
-    "name": "斧攻撃",
+  "AxAttack":{
+    "name": "AxAttack",
     "type": "Attack",
     "conditions": {
       "children": [

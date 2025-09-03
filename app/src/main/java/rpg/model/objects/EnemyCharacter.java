@@ -45,7 +45,7 @@ public class EnemyCharacter extends Character{
    */
   public boolean meet(Scanner scanner, Party myParty) {
     this.talks.print(scanner, myParty, this);
-    App.view.printMessage("1:戦う  0:逃げる");
+    App.view.printMessage("choice_fight_or_flee");
     int num=0;
     while(true) {
       try{
@@ -59,7 +59,7 @@ public class EnemyCharacter extends Character{
         System.err.println(ex.getMessage());
         //scanner.nextLine(); // 入力バッファをクリア
       }
-      App.view.printMessage("番号が違います。");
+      App.view.printMessage("wrong_number");
     }
     return num==1;
   }

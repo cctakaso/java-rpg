@@ -1,66 +1,66 @@
 {
-  "始まりの町":{
-    "name": "始まりの町",
+  "StartingTown":{
+    "name": "StartingTown",
     "type": "Town",
     "size": {"x": 200, "y": 50},
     "items": {
-      "names": ["コイン","薬草","ポーション"],
+      "names": ["Coin","Herb","Potion"],
       "numbers": [10, 10, 10],
       "randomPt": {"x": 200, "y": 50}
     },
     "characters": {
-      "names": ["スライム", "宿屋の主人","商人", "鍛冶屋", "神父", "町人", "弓使い", "魔法使い"],
+      "names": ["Slime", "Innkeeper","Merchant", "Blacksmith", "Priest", "Townspeople", "Archer", "Wizard"],
       "numbers": [10, 5, 2, 1, 2, 5, 3, 3],
       "randomPt": {"x": 200, "y": 50}
     },
     "talks": {
-      "names": ["始まりの町"]
+      "names": ["StartingTown"]
     }
   },
-  "山脈":{
-    "name": "山脈",
+  "MountainRange":{
+    "name": "MountainRange",
     "type": "Mountain",
     "size": {"x": 200, "y": 50},
     "items": {
-      "names": ["コイン","薬草","ポーション"],
+      "names": ["Coin","Herb","Potion"],
       "numbers": [10, 10, 20],
       "randomPt": {"x": 200, "y": 50}
     },
     "characters": {
-      "names": ["旅人", "スライム", "ゴブリン"],
+      "names": ["Traveler", "Slime", "Goblin"],
       "numbers": [5, 20, 10],
       "randomPt": {"x": 200, "y": 50}
     },
     "parties" : {
-      "names": ["スライムパーティ"],
+      "names": ["SlimeParty"],
       "numbers": [10],
       "randomPt": {"x": 200, "y": 50}
     },
     "talks": {
-      "names": ["山脈"]
+      "names": ["MountainRange"]
     }
   },
-  "洞窟":{
-    "name": "洞窟",
+  "Cave":{
+    "name": "Cave",
     "type": "Cave",
     "size": {"x": 200, "y": 50},
     "items": {
-      "names": ["コイン","薬草", "ポーション"],
+      "names": ["Coin","Herb", "Potion"],
       "numbers": [5, 20, 10],
       "randomPt": {"x": 200, "y": 50}
     },
     "characters": {
-      "names": ["旅人", "魔法使い", "スライム", "ゴブリン", "ゴースト"],
+      "names": ["Traveler", "Wizard", "Slime", "Goblin", "Ghost"],
       "numbers": [5, 5, 10, 5, 5],
       "randomPt": {"x": 200, "y": 50}
     },
     "parties" : {
-      "names": ["スライムパーティ"],
+      "names": ["SlimeParty"],
       "numbers": [10],
       "randomPt": {"x": 200, "y": 50}
     },
     "talks": {
-      "names": ["洞窟"]
+      "names": ["Cave"]
     }
   }
 }

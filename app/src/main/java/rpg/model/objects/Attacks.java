@@ -4,6 +4,7 @@ import java.util.*;
 
 import rpg.Adventure;
 import rpg.utils.*;
+import rpg.view.console.View;
 
 /**
  * 複数の攻撃（Attack）を管理するためのリストクラスです。
@@ -45,8 +46,8 @@ public class Attacks extends Lists{
    */
   public Answers<Attack> toAnswers(Character character) {
     Answers<Attack> list = new Answers<>();
-    Attack attack = (Attack)Adventure.getDicClone("Attacks", "プロテクト");
-    list.add(new Answer<Attack>("防御する", attack));
+    Attack attack = (Attack)Adventure.getDicClone("Attacks", "Protect");
+    list.add(new Answer<Attack>(View.toString("Defend"), attack));
     for (Attack one: children) {
       if (one.isAvailable(character)) {
         list.add(new Answer<Attack>(one.toString(), one));

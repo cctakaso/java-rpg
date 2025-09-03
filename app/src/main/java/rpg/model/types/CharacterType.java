@@ -11,7 +11,7 @@ public enum CharacterType {
   // --- プレイヤー・仲間キャラクターの範囲 --- (職業やクラスに相当)
   CrewMin(1),    // 仲間キャラクターの最小ID
   Gladiator(1),  //剣術士
-  Pubilist(2),   //拳闘士 (Pugilistの誤記か)
+  MartialArtist(2),   //拳闘士 (Pugilistの誤記か)
   Archer(3),     //弓使い
   Wizard(4),     //魔法使い
   Bishop(5),     //司教

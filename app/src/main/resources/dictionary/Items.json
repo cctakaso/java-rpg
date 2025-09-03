@@ -1,6 +1,6 @@
 {
-  "紙幣": {
-    "name": "紙幣",
+  "Bill": {
+    "name": "Bill",
     "itemType": "Money",
     "conditions": {
       "children": [
@@ -12,8 +12,8 @@
       ]
     }
   },
-  "コイン": {
-    "name": "コイン",
+  "Coin": {
+    "name": "Coin",
     "itemType": "Money",
     "conditions": {
       "children": [
@@ -25,8 +25,8 @@
       ]
     }
   },
-  "薬草": {
-    "name": "薬草",
+  "Herb": {
+    "name": "Herb",
     "itemType": "Herb",
     "conditions": {
       "children": [
@@ -43,8 +43,8 @@
       ]
     }
   },
-  "ポーション": {
-    "name": "ポーション",
+  "Potion": {
+    "name": "Potion",
     "itemType": "Potion",
     "conditions": {
       "children": [
@@ -61,8 +61,8 @@
       ]
     }
   },
-  "スーパーポーション": {
-    "name": "スーパーポーション",
+  "SuperPotion": {
+    "name": "SuperPotion",
     "itemType": "SuperPotion",
     "conditions": {
       "children": [
@@ -79,8 +79,8 @@
       ]
     }
   },
-  "ハイパーポーション": {
-    "name": "ハイパーポーション",
+  "HyperPotion": {
+    "name": "HyperPotion",
     "itemType": "HyperPotion",
     "conditions": {
       "children": [
@@ -97,8 +97,8 @@
       ]
     }
   },
-  "マジックポーション": {
-    "name": "マジックポーション",
+  "MagicPotion": {
+    "name": "MagicPotion",
     "itemType": "MagicPotion",
     "conditions": {
       "children": [
@@ -115,8 +115,8 @@
       ]
     }
   },
-  "スーパー・マジックポーション": {
-    "name": "スーパー・マジックポーション",
+  "SuperMagicPotion": {
+    "name": "SuperMagicPotion",
     "itemType": "SuperMagicPotion",
     "conditions": {
       "children": [
@@ -133,8 +133,8 @@
       ]
     }
   },
-  "ハイパー・マジックポーション": {
-    "name": "ハイパー・マジックポーション",
+  "HyperMagicPotion": {
+    "name": "HyperMagicPotion",
     "itemType": "HyperMagicPotion",
     "pt": null,
     "conditions": {
@@ -153,8 +153,8 @@
     }
   },
 
-  "毒消し": {
-    "name": "毒消し",
+  "Antidote": {
+    "name": "Antidote",
     "itemType": "Antidote",
     "conditions": {
       "children": [

@@ -2,6 +2,8 @@ package rpg.model.objects;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
+import rpg.view.console.View;
 import rpg.utils.*;
 
 /**
@@ -65,7 +67,7 @@ public abstract class Base implements Cloneable, Reflection{
    * @return オブジェクトの名前
    */
   public String toString() {
-    return this.name;
+    return View.toString(this.name);
   }
 
   /**

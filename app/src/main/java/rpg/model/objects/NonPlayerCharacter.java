@@ -35,7 +35,7 @@ public class NonPlayerCharacter extends Character{
   public boolean meet(Scanner scan, Party myParty) {
     Answer<?> anser;
     while(true) {
-      App.view.printMessage(this.name+":");
+      App.view.printMessage("character_says", this);
       // NPCとの会話を表示し、プレイヤーの応答を取得
       anser = talks.print(scan, myParty, this);
       if (anser!=null) {
@@ -44,7 +44,7 @@ public class NonPlayerCharacter extends Character{
         // アイテム購入処理
         if (info.equals(":buy.gears") || info.equals(":buy.items")) {
           if (item.getPrice() > myParty.charStatus.getMoney()) {
-            App.view.printMessage("お金が足りません："+ item.getPrice() +">"+ myParty.charStatus.getMoney());
+            App.view.printMessage("not_enough_money", item.getPrice(), myParty.charStatus.getMoney());
             continue;
           }
           myParty.addItem(item);
@@ -67,15 +67,15 @@ public class NonPlayerCharacter extends Character{
               //支払い処理
               if (ssplit[0].equals("pay")) {
                 if (ssplit[1].equals("potion")) {
-                  if (myParty.items.decItem("ポーション", 1)==null) {
-                    App.view.printMessage("水（ポーション）がありません！");
+                  if (myParty.items.decItem("Potion", 1)==null) {
+                    App.view.printMessage("no_water_potion");
                     break;
                   }
                 }else{
                   int money = Util.valueOf(ssplit[1]);
                   if (money>0) { //money?
                     if (money > myParty.charStatus.getMoney()) {
-                      App.view.printMessage("お金が足りません："+ money +">"+ myParty.charStatus.getMoney());
+                      App.view.printMessage("not_enough_money", money, myParty.charStatus.getMoney());
                       continue;
                     }
                     myParty.charStatus.decMoney(money);

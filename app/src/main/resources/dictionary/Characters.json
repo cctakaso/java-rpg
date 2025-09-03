@@ -1,170 +1,170 @@
 {
-  "勇者":{
-    "name": "勇者",
+  "Hero":{
+    "name": "Hero",
     "type": "Gladiator",
     "charStatus": {
       "condarray":  [10000,80000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴","錆びた剣"]
+      "names": ["CasualClothes","CasualShoes","RustySword"]
     },
     "attacks": {
-      "names":["斬り", "蹴り", "ヒール"]
+      "names":["Slash", "Kick", "Heel"]
     }
   },
-  "剣術士":{
-    "name": "剣術士",
+  "Swordsman":{
+    "name": "Swordsman",
     "type": "Gladiator",
     "charStatus": {
       "condarray":  [10000,80000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴","錆びた剣"]
+      "names": ["CasualClothes","CasualShoes","RustySword"]
     },
     "attacks": {
-      "names":["斬り", "突き", "ヒール"]
+      "names":["Slash", "Hit", "Heel"]
     }
   },
-  "拳闘士":{
-    "name": "拳闘士",
-    "type": "Pubilist",
+  "MartialArtist":{
+    "name": "MartialArtist",
+    "type": "MartialArtist",
     "charStatus": {
       "condarray":  [10000,70000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴", "ぐん手"]
+      "names": ["CasualClothes","CasualShoes", "WorkGloves"]
     },
     "attacks": {
-      "names":["拳骨", "蹴り", "ヒール"]
+      "names":["Strike", "Kick", "Heel"]
     }
   },
-  "弓使い":{
-    "name": "弓使い",
+  "Archer":{
+    "name": "Archer",
     "type": "Archer",
     "charStatus": {
       "condarray":  [10000,65000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴", "伸びた弓"]
+      "names": ["CasualClothes","CasualShoes", "BadBow"]
     },
     "attacks": {
-      "names":["弓矢", "火矢", "ヒール"]
+      "names":["BowAndArrow", "Fire arrow", "Heel"]
     }
   },
-  "魔法使い":{
-    "name": "魔法使い",
+  "Wizard":{
+    "name": "Wizard",
     "type": "Wizard",
     "charStatus": {
       "condarray":  [10000,65000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴", "折れた杖"]
+      "names": ["CasualClothes","CasualShoes", "Broken Cane"]
     },
     "attacks": {
-      "names":["ファイア", "サンダー", "ブリザー", "ヒール"]
+      "names":["Fire", "Thunder", "Blizzard", "Heel"]
     }
   },
-  "司教":{
-    "name": "司教",
+  "Bishop":{
+    "name": "Bishop",
     "type": "Bishop",
     "charStatus": {
       "condarray":  [10000,70000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["普通の服","普通の靴", "折れた杖"]
+      "names": ["CasualClothes","CasualShoes", "Broken Cane"]
     },
     "attacks": {
-      "names":["サンダー", "ヒール"]
+      "names":["Thunder", "Heel"]
     }
   },
-  "鍛冶屋":{
-    "name": "鍛冶屋",
+  "Blacksmith":{
+    "name": "Blacksmith",
     "type": "Blacksmith",
     "talks": {
-      "names": ["鍛冶屋"]
+      "names": ["Blacksmith"]
     }
   },
-  "旅人":{
-    "name": "旅人",
+  "Traveler":{
+    "name": "Traveler",
     "type": "Traveler",
     "items": {
-      "names": ["紙幣","薬草"]
+      "names": ["Bill","Herb"]
     },
     "talks": {
-      "names": ["旅人"]
+      "names": ["Traveler"]
     }
   },
-  "町人":{
-    "name": "町人",
+  "Townspeople":{
+    "name": "Townspeople",
     "type": "Townspeple",
     "items": {
-      "names": ["コイン","薬草"]
+      "names": ["Coin","Herb"]
     },
     "talks": {
-      "names": ["町人"]
+      "names": ["Townspeople"]
     }
   },
-  "商人":{
-    "name": "商人",
+  "Merchant":{
+    "name": "Merchant",
     "type": "Merchant",
     "items": {
-      "names": ["コイン","薬草","普通の服","普通の靴", "伸びた弓", "折れた杖"]
+      "names": ["Coin","Herb","CasualClothes","CasualShoes", "BadBow", "Broken Cane"]
     },
     "talks": {
-      "names": ["商人", "商人>買う", "商人>買う>武器・装備", "商人>買う>アイテム", "商人>売る", "商人>売る>武器・装備", "商人>売る>アイテム"]
+      "names": ["Merchant", "Merchant>Buy", "Merchant>Buy>Weapons_Equipment", "Merchant>Buy>Items", "Merchant>Sell", "Merchant>Sell>Weapons_Equipment", "Merchant>Sell>Items"]
     }
   },
-  "宿屋の主人":{
-    "name": "宿屋の主人",
+  "Innkeeper":{
+    "name": "Innkeeper",
     "type": "Boniface",
     "talks": {
-      "names": ["宿屋の主人"]
+      "names": ["Innkeeper"]
     }
   },
-  "神父":{
-    "name": "神父",
+  "Priest":{
+    "name": "Priest",
     "type": "Priest",
     "talks": {
-      "names": ["神父"]
+      "names": ["Priest"]
     }
   },
-  "スライム":{
-    "name": "スライム",
+  "Slime":{
+    "name": "Slime",
     "type": "Slime",
     "charStatus": {
       "condarray":  [100,3000,100,100,10,10,5,5,5,5,5,5,5,5,
                    0,0,0,0,0,0,0,0,0]
     },
     "attacks": {
-      "names":["体当たり"]
+      "names":["Tackle"]
     }
   },
-  "ゴブリン":{
-    "name": "ゴブリン",
+  "Goblin":{
+    "name": "Goblin",
     "type": "Goblin",
     "charStatus": {
       "condarray":  [1000,30000,100,100,10,10,5,5,5,5,5,5,5,5,
                    0,0,0,0,0,0,0,0,0]
     },
     "attacks": {
-      "names":["斧攻撃", "体当たり"]
+      "names":["AxAttack", "Tackle"]
     }
   },
-  "ゴースト":{
-    "name": "ゴースト",
+  "Ghost":{
+    "name": "Ghost",
     "type": "Ghost",
     "charStatus": {
       "condarray":  [100,0,100,100,10,10,5,5,5,5,5,5,5,5,
                    0,0,0,0,0,0,0,0,0]
     },
     "attacks": {
-      "names":["ファイア", "体当たり"]
+      "names":["Fire", "Tackle"]
     }
   }
 }

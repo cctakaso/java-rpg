@@ -1,6 +1,11 @@
 package rpg;
 
 import java.util.*;
+import java.io.File;
+import java.net.URLClassLoader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.net.URL;
 
 import rpg.model.objects.*;
 import rpg.utils.*;
@@ -14,6 +19,11 @@ import rpg.utils.*;
  * </p>
  */
 public class Adventure {
+  // ゲーム・リソースバンドル
+  public static ResourceBundle resouce = ResourceBundle.getBundle("game");
+  // メッセージ・リソースバンドル
+  public static ResourceBundle messages;
+
   // ゲーム全体で共有されるデータ辞書（キャラクター、アイテム等のマスターデータ）
   static Dic dic = new Dic();
   // 現在の冒険で使われるマップデータ
@@ -28,16 +38,27 @@ public class Adventure {
    * ゲームのデータ辞書（キャラクター、アイテムなど）を初期化します。
    * @param path マップデータのパス
    */
-  public Adventure(String title, String path) {
+  public Adventure() {
+    // メッセージリソースバンドルの設定
+    String language = Adventure.resouce.getString("language");
+    try {
+        Path messages_path = Path.of(App.class.getClassLoader().getResource("messages").toURI());
+        URL urls[] = new URL[]{messages_path.toUri().toURL()};
+        URLClassLoader messagesLoader = new URLClassLoader(urls);
+        Locale locale = Locale.of(language);
+        Adventure.messages = ResourceBundle.getBundle("message", locale, messagesLoader);
+    } catch (Exception e) {
+        System.err.println("設定ディレクトリのURLが不正です: " + e.getMessage());
+        return;
+    }
 
-    setTitle(title); // 冒険のタイトルを設定
-    dic.load("/dictionary"); // データ辞書を初期化
-    //map = new Dic();  // 指定されたシナリオのマップデータを読み込む
-    map.load(path); // データ辞書を初期化
+    setTitle(Adventure.messages.getString("title")); // 冒険のタイトルを設定
+    dic.load(Adventure.resouce.getString("dictionary")); // データ辞書を初期化
+    map.load(Adventure.resouce.getString("path")); // データ辞書を初期化
 
     // マップデータからプレイヤーのパーティーとフィールド情報を取得
     setFields((Fields)map.get("Fields", "adventure map"));
-    setParty((Party)map.get("Parties", "hero Party"));
+    setParty((Party)map.get("Parties", "Hero Party"));
   }
 
   /**

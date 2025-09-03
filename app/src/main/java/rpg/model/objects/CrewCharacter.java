@@ -52,17 +52,17 @@ public class CrewCharacter extends Character{
    */
   public boolean meet(Scanner scanner, Party myParty) {
 
-    App.view.printMessage(this.name+"と出会いました。");
+    App.view.printMessage("met_character", this);
     this.talks.print(scanner, myParty, this);
     App.view.printMessage(this.charStatus.toString());
-    App.view.printMessage("1:仲間になる  0:バイバイする");
+    App.view.printMessage("choice_join_or_leave");
     while(true) {
       try{
         System.out.print(myParty.getLeaderName()+">");
         int num = scanner.nextInt();
         if (num == 1) {
           myParty.addCharacter(this);
-          App.view.printMessage(this.name+"が仲間になりました。");
+          App.view.printMessage("character_joined", this);
           break;
         }else if (num==0) {
           break;
@@ -70,7 +70,7 @@ public class CrewCharacter extends Character{
       }catch (InputMismatchException ex){
         scanner.nextLine(); // 入力バッファをクリア
       } catch (NoSuchElementException e) {
-        App.view.printMessage("入力がありません。もう一度入力してください。");
+        App.view.printMessage("no_input_try_again");
         //scanner.next(); // 無効な入力をスキップ
         System.exit(-1);
       }catch(Exception ex) {
@@ -78,7 +78,7 @@ public class CrewCharacter extends Character{
         System.err.println(ex.toString());
         System.exit(-1);
       }
-      App.view.printMessage("正しい番号を入力して下さい");
+      App.view.printMessage("enter_correct_number");
     }
     return true;
   }

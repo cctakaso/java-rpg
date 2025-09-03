@@ -1,8 +1,10 @@
 package rpg.model.objects;
 import java.util.*;
 
+import rpg.App;
 import rpg.model.types.*;
 import rpg.utils.*;
+import rpg.view.console.View;
 
 /**
  * キャラクターの集まりである「パーティ」を表すクラスです。
@@ -125,7 +127,8 @@ public class Party extends Base{
    * @return リーダーのキャラクター名
    */
   public String getLeaderName() {
-    return ((Base)this.characters.getList().get(0)).getName();
+    String name = ((Base)this.characters.getList().get(0)).getName();
+    return View.toString(name);
   }
 
   /**
@@ -133,16 +136,13 @@ public class Party extends Base{
    * @param isDetail 詳細情報を表示するかどうか
    * @return フォーマットされたパーティ情報
    */
-  @SuppressWarnings("unchecked")
-  public String toString(boolean isDetail) {
+  public void printParty() {
     String strCharaString = "";
-    if (isDetail) {
-      for (Character one: (ArrayList<Character>)this.characters.getList()) {
-        strCharaString += one.toString(true);
-      }
+    for (Character one: (ArrayList<Character>)this.characters.getList()) {
+      strCharaString += one.toString(true);
     }
-    return this.name+"("+this.pt.x+","+this.pt.y+")" +
-    " Money:"+this.charStatus.getMoney() + "\nItems:"+this.items.toString() + (isDetail ? "\nメンバー：\n" + strCharaString:"");
+    App.view.printMessage("party_status", toString(), this.pt.x, this.pt.y, this.charStatus.getMoney(), this.items.toString());
+    App.view.printMessage("party_members", strCharaString);
   }
 
   /**

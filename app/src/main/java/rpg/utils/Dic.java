@@ -1,9 +1,7 @@
 package rpg.utils;
 import java.util.*;
 
-import rpg.App;
 import rpg.model.objects.Base;
-import rpg.utils.Resource;
 
 /**
  * ゲーム内の様々なデータ（マスターデータ）を管理するための辞書クラス。

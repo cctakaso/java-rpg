@@ -105,7 +105,7 @@ public class BattleField {
         App.view.printMessage(anser.getLabel());
       }else if (attack.isHeal()) {
         Party reciverParty = isAllyCharacter(attacker) ? allyParty:enemyParty;
-        App.view.printMessage(attacker.getName()+"が、"+attack.getName()+"を使用します。");
+        App.view.printMessage("uses_attack", attacker, attack);
         if (attack.isAffectParty()) {
           for(Character reciver: (ArrayList<Character>)reciverParty.characters.getList()) {
             anser = reciver.haveAttack(attack, attacker);
@@ -125,16 +125,16 @@ public class BattleField {
             App.view.printMessage(anser.getLabel());
             int reciverHp = (int)anser.getValue();
             if (reciverHp==0) {
-              App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
-              if (reciver.getName().equals("勇者")) {
-                App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
+              App.view.printMessage("hp_depleted", reciver);
+              if (reciver.getName().equals("Hero")) {
+                App.view.printMessage("hero_defeated_game_over");
                 return false; //ゲームオーバー
               }
               if (removeFighter(reciver)) {
                 this.addAveExperience();
                 App.view.printMessage();
                 boolean isEnamy = reciver.type.isEnemyCharacter();
-                App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
+                App.view.printMessage(isEnamy ? "all_enemies_defeated":"all_allies_defeated");
                 isLoop = false;
                 break;
               }
@@ -147,16 +147,16 @@ public class BattleField {
           App.view.printMessage(anser.getLabel());
           int reciverHp = (int)anser.getValue();
           if (reciverHp==0) {
-            App.view.printMessage(reciver.getName()+"のHPがなくなり倒れました！");
-            if (reciver.getName().equals("勇者")) {
-              App.view.printMessage("勇者が倒れたため、ゲームオーバーです。");
+            App.view.printMessage("hp_depleted", reciver);
+            if (reciver.getName().equals("Hero")) {
+              App.view.printMessage("hero_defeated_game_over");
               return false; //ゲームオーバー
             }
             if (removeFighter(reciver)) {
               this.addAveExperience();
               App.view.printMessage();
               boolean isEnamy = reciver.type.isEnemyCharacter();
-              App.view.printMessage(isEnamy ? "敵を全て倒しました！":"仲間が全員やられました！");
+              App.view.printMessage(isEnamy ? "all_enemies_defeated":"all_allies_defeated");
               isLoop = false;
               break;
             }

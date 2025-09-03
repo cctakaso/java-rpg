@@ -46,8 +46,7 @@ public class App {
 
         // 1. ゲームデータの初期化
         // Adventureクラスに、ゲームのタイトルと使用するマップデータの場所を教えて、ゲームの準備をさせる
-        Adventure adventure = new Adventure("冒険の書・第一章", "/adventure/chapter-1");
-        App.view.printMessage("let's start!");
+        Adventure adventure = new Adventure();
 
         App.view.initialize(adventure); // ビューの初期化
         App.controller.initialize(adventure); // コントローラーの初期化

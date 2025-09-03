@@ -33,32 +33,42 @@ public class View {
       this.adventure = adventure;
   }
 
+  public static String toString(String key, Object... args) {
+    if (key == null || key.isEmpty()) {
+      return "";
+    }
+    String str=key;
+    try {
+      str = Adventure.messages.getString(key);
+    }catch(Exception e) {
+    }
+    if (args.length > 0) {
+      return String.format(str, args);
+    }
+    return str;
+  }
+
   public void printMessage() {
     // メッセージをコンソールに出力
     System.out.println();
   }
 
-  public void printMessage(String message) {
-      // メッセージをコンソールに出力
-      System.out.println(message!=null ? message : "");
+  public void printMessage(String key, Object... args) {
+    String message = toString(key, args);
+    System.out.println(message);
   }
 
   public void whereYouGoing() {
       // 現在のフィールドとパーティの情報を表示
       printMap();
-      printPartyStatus();
-  }
-
-  public void printPartyStatus() {
-    // プレイヤーのステータスを表示
-    App.view.printMessage();
-    App.view.printMessage(adventure.getParty().toString(true));
+      printMessage();
+      adventure.getParty().printParty();
   }
 
   private void printMap() {
       // 現在位置を含めてマップ全体を描画
       String str = adventure.getFields().toString(adventure.getParty());
-      App.view.printMessage(str);
+      printMessage(str);
   }
 
 

@@ -90,7 +90,7 @@ public class Answers<T>{
     // scanがnullでなければ、生成した文字列を表示
     if (scanner!=null) {
       App.view.printMessage();
-      App.view.printMessage("次のどれを選びますか？");
+      App.view.printMessage("which_to_choose");
       App.view.printMessage(str);
     }
     // 実際の選択処理を呼び出す
@@ -127,7 +127,7 @@ public class Answers<T>{
         }catch (InputMismatchException ex){
           scanner.nextLine(); // 入力バッファをクリア
         } catch (NoSuchElementException e) {
-          App.view.printMessage("入力がありません。もう一度入力してください。");
+          App.view.printMessage("no_input_try_again");
           scanner.next(); // 無効な入力をスキップ
           System.exit(-1);
         }catch(Exception ex) {
@@ -135,7 +135,7 @@ public class Answers<T>{
           System.err.println(ex.toString());
           System.exit(-1);
         }
-        App.view.printMessage("正しい番号を入力して下さい");
+        App.view.printMessage("enter_correct_number");
       }
     }
     return this.get(choice);

@@ -1,16 +1,16 @@
 {
-  "hero Party": {
-    "name": "勇者パーティ",
+  "Hero Party": {
+    "name": "HeroParty",
     "pt": {"x": 0, "y":0},
     "characters": {
-      "names":["勇者"]
+      "names":["Hero"]
     },
     "charStatus": {
       "condarray":  [10000,80000,100,100,10,10,10,10,10,10,10,10,
       0,0,0,0,0,0,0,0,0]
     },
     "items":{
-      "names":["薬草"]
+      "names":["Herb"]
     }
   }
 }

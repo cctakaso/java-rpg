@@ -1,8 +1,8 @@
 {
-  "普通の服": {
+  "CasualClothes": {
     "gearType": "Clothes",
     "itemType": "Gear",
-    "name": "普通の服",
+    "name": "CasualClothes",
     "conditions": {
       "children": [
         {
@@ -18,10 +18,10 @@
       ]
     }
   },
-  "普通の靴": {
+  "CasualShoes": {
     "gearType": "Shoes",
     "itemType": "Gear",
-    "name": "普通の靴",
+    "name": "CasualShoes",
     "conditions": {
       "children": [
         {
@@ -37,11 +37,11 @@
       ]
     }
   },
-  "錆びた剣": {
+  "RustySword": {
     "gearType": "Sword",
     "itemType": "Gear",
     "characterTypes": ["Gladiator"],
-    "name": "錆びた剣",
+    "name": "RustySword",
     "conditions": {
       "children": [
         {
@@ -57,11 +57,11 @@
       ]
     }
   },
-  "ぐん手": {
+  "WorkGloves": {
     "gearType": "gloves",
     "itemType": "Gear",
-    "characterTypes": ["Pubilist"],
-    "name": "ぐん手",
+    "characterTypes": ["MartialArtist"],
+    "name": "WorkGloves",
     "conditions": {
       "children": [
         {
@@ -77,11 +77,11 @@
       ]
     }
   },
-  "伸びた弓": {
+  "BadBow": {
     "gearType": "Bow",
     "itemType": "Gear",
     "characterTypes": ["Archer"],
-    "name": "伸びた弓",
+    "name": "BadBow",
     "conditions": {
       "children": [
         {
@@ -97,11 +97,11 @@
       ]
     }
   },
-  "折れた杖": {
+  "Broken Cane": {
     "gearType": "Wand",
     "itemType": "Gear",
     "characterTypes": ["Wizard", "Bishop"],
-    "name": "折れた杖",
+    "name": "Broken Cane",
     "conditions": {
       "children": [
         {
@@ -117,11 +117,11 @@
       ]
     }
   },
-  "金槌": {
+  "Hammer": {
     "gearType": "hammer",
     "itemType": "Gear",
     "characterTypes": ["Blacksmith"],
-    "name": "金槌",
+    "name": "Hammer",
     "conditions": {
       "children": [
         {

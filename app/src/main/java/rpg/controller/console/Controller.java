@@ -40,8 +40,9 @@ public class Controller {
    */
   public void startGame() {
     // ゲーム開始のロジック
+    App.view.printMessage("lets_start!");
     try (Scanner scan = new Scanner(System.in)) {
-      App.view.printMessage(adventure.getTitle() + "を開始します。");
+      App.view.printMessage("start_adventure", adventure.getTitle());
 
       boolean isGaming = true; // ゲームが進行中かどうかのフラグ
 
@@ -71,7 +72,6 @@ public class Controller {
             if (handleEvent(scan, event)) {
               adventure.getNowField().removeEvent(adventure.getParty().getPt(), adventure.getNowPt(), event);
             }else {
-              App.view.printMessage("ゲーム終了！");
               isGaming = false; // ゲーム終了フラグを立てる
               break; // イベント処理を中断
             }
@@ -83,7 +83,7 @@ public class Controller {
       //updateGameState();
     }
 
-    App.view.printMessage("冒険を終了します。");
+    App.view.printMessage("end_adventure_message");
   }
 
   /**
@@ -96,14 +96,14 @@ public class Controller {
     int size;
     switch (event.getType()) {
       case EventType.ChangeField:
-        App.view.printMessage(event.getField().getName()+"に入りました。");
+        App.view.printMessage("entered_field", event.getField());
         break;
       case EventType.HitItems:
         size = event.getItems().size();
         for(int index=size-1; index>=0; index--) {
           Item item = (Item)event.getItems().getList().get(index);
-          App.view.printMessage(item.getName()+"を見つけました。");
-          App.view.printMessage("1:拾う  0:捨てる");
+          App.view.printMessage("found_item", item);
+          App.view.printMessage("choice_pickup_or_discard");
           while(true) {
             try{
               System.out.print(adventure.getParty().getLeaderName()+">");
@@ -118,7 +118,7 @@ public class Controller {
             }catch (InputMismatchException ex){
               scanner.nextLine(); // 入力バッファをクリア
             } catch (NoSuchElementException e) {
-              App.view.printMessage("入力がありません。もう一度入力してください。");
+              App.view.printMessage("no_input_try_again");
               //scanner.next(); // 無効な入力をスキップ
               System.exit(-1);
             }catch(Exception ex) {
@@ -126,7 +126,7 @@ public class Controller {
               System.err.println(ex.toString());
               System.exit(-1);
             }
-            App.view.printMessage("正しい番号を入力して下さい");
+            App.view.printMessage("enter_correct_number");
           }
         }
         break;
@@ -167,7 +167,7 @@ public class Controller {
    * @return イベント処理が正常に終了した場合はtrue
    */
   private boolean doCharacterEvent(Scanner scanner, Party party) {
-    App.view.printMessage("パーティ："+party.getName()+"が現れました。");
+    App.view.printMessage("party_appeared", party);
     for (Character character: (ArrayList<Character>)party.getCharactersList()) {
       App.view.printMessage(character.toString());
       App.view.printMessage(character.getCharStatus().toString());
@@ -199,7 +199,7 @@ public class Controller {
       xcharacter.meet(scanner, adventure.getParty());
     }else if (character.getType().isEnemyCharacter()) {
       xcharacter = new EnemyCharacter(character);
-      App.view.printMessage(xcharacter.getName()+"が現れました。");
+      App.view.printMessage("character_appeared", xcharacter);
       App.view.printMessage(adventure.getParty().getCharStatus().toString());
       if (xcharacter.meet(scanner, adventure.getParty())) {
         BattleField battleField = new BattleField(adventure.getParty(), xcharacter);
@@ -224,7 +224,6 @@ public class Controller {
 
     // もし、前のターンと違うフィールドに侵入した場合
     if (tmpField != adventure.getNowField()) {
-      adventure.setNowField(tmpField); // 現在のフィールドを更新
       // 前のフィールドに離脱時のイベントがあれば実行
       if (adventure.getNowField() != null) {
         ArrayList<Talk> talks = (ArrayList<Talk>)adventure.getNowField().getTalks().getList();
@@ -232,6 +231,7 @@ public class Controller {
           talks.get(0).printAfter(scan);
         }
       }
+      adventure.setNowField(tmpField); // 現在のフィールドを更新
       // 新しいフィールドに侵入時のイベントがあれば実行
       ArrayList<Talk> talks = (ArrayList<Talk>)adventure.getNowField().getTalks().getList();
       if (talks!=null && talks.size()>0) {
@@ -255,9 +255,9 @@ public class Controller {
 
     Pt pt;
     Defs.Key key;
-    App.view.printMessage("どちらへ行きますか？");
+    App.view.printMessage("where_to_go");
     while(true) {
-      App.view.printMessage("4:西  8:北  6:東  2:南  0:終了");
+      App.view.printMessage("directions_choice");
       while(true) {
         try{
           System.out.print(adventure.getParty().getLeaderName()+">");
@@ -269,7 +269,7 @@ public class Controller {
         }catch (InputMismatchException ex){
           scan.nextLine(); // 入力バッファをクリア
         } catch (NoSuchElementException e) {
-          App.view.printMessage("入力がありません。もう一度入力してください。");
+          App.view.printMessage("no_input_try_again");
           //scan.next(); // 無効な入力をスキップ
           System.exit(-1);
         }catch(Exception ex) {
@@ -277,12 +277,12 @@ public class Controller {
           System.err.println(ex.toString());
           System.exit(-1);
         }
-        App.view.printMessage("正しい番号を入力して下さい");
+        App.view.printMessage("enter_correct_number");
       }
       pt = adventure.getParty().getPt().clone().moveKey(key);
       // 移動先が範囲内かチェック
       if (!parentSize.isWithinArea(parentPt, pt)) {
-        App.view.printMessage("範囲外です。");
+        App.view.printMessage("out_of_range");
         continue;
       }
       if (key == Defs.Key.End) {

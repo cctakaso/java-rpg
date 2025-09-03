@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import rpg.model.types.*;
 import rpg.utils.*;
+import rpg.view.console.View;
 
 /**
  * キャラクターを表すクラス。
@@ -34,14 +35,6 @@ public class Character extends Base{
     this.gears = new Gears();
     this.items = new Items();
     this.attacks = new Attacks();
-  }
-
-  /**
-   * キャラクターの種類を取得します。
-   * @return キャラクターの種類
-   */
-  public String getName() {
-    return super.getName();
   }
 
   /**
@@ -89,11 +82,13 @@ public class Character extends Base{
    * </p>
    * @return キャラクターの文字列表現
    */
+/*
   @Override
   public String toString() {
     return super.toString()+"["+this.type+"]"
     + " "+this.charStatus.toString()+"\n"+this.attacks.toString();
   }
+*/
 
   /**
    * キャラクターの文字列表現を返します。
@@ -138,7 +133,7 @@ public class Character extends Base{
    */
   public Answer<Attack> selectAttack(Scanner scanner) {
     Answers<Attack> ansers = attacks.toAnswers(this);
-    return ansers.printChoice(scanner, getName(), true);
+    return ansers.printChoice(scanner, toString(), true);
   }
 
   /**
@@ -155,16 +150,22 @@ public class Character extends Base{
     if (attack.isHeal()) {
       int reciverHp = this.charStatus.incHealthPoint(damage);
       attacker.charStatus.decMagicPoint(attack.usedMagicPoint());
-      return new Answer<Integer>(attacker.getName()+"が"+this.getName()+"に、ヒール:"+damage+"によりHP:"+reciverHp+"になりました。", Integer.valueOf(reciverHp));
+      //%sがヒール:%dを使用し、thisのHPは%dになりました。
+      String msg = View.toString("heel_apply", attacker.toString(), damage, this, reciverHp);
+      return new Answer<Integer>(msg, Integer.valueOf(reciverHp));
     }else if (attack.isDefence()) {
       // 防御系の攻撃の場合、キャラクターの防御処理を行う
       // 防御系の攻撃は、通常のダメージ計算を行わない
       // 防御系の攻撃は、キャラクターの防御ステータスを更新する
-      return new Answer<Integer>(attacker.getName()+"が、"+attack.getName()+"を使用して防御しました。");
+      //attacker+"が、"+attack+"を使用して防御しました。"
+      String msg = View.toString("do_defence", attacker.toString(), attack.toString());
+      return new Answer<Integer>(msg);
     }else{
       int reciverHp = this.charStatus.decHealthPoint(damage);
       attacker.charStatus.decMagicPoint(attack.usedMagicPoint());
-      return new Answer<Integer>(attacker.getName()+"が"+this.getName()+"に、攻撃:"+attack.getName()+"で"+damage+"ダメージ与えました\n"+this.getName()+"は、現在HP:"+reciverHp+"です。", Integer.valueOf(reciverHp));
+      //attacker+"が"+this+"に、攻撃:"+attack+"で"+damage+"ダメージ与えました\n"+this+"は、現在HP:"+reciverHp+"です。"
+      String msg = View.toString("atack_apply", attacker.toString(), attack.toString(), damage, this.toString(), reciverHp);
+      return new Answer<Integer>(msg, Integer.valueOf(reciverHp));
     }
   }
 

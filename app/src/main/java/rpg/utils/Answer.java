@@ -1,5 +1,7 @@
 package rpg.utils;
 
+import rpg.view.console.View;
+
 /**
  * ユーザーに提示する選択肢一つ分を表現するクラス。
  * <p>
@@ -78,7 +80,7 @@ public class Answer<T> {
    * @return ラベル文字列
    */
   public String getLabel() {
-      return label;
+      return View.toString(label);
   }
 
   /**
