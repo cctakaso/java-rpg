@@ -47,8 +47,7 @@ public class CrewCharacter extends Character{
    * </p>
    * @param scanner 入力を受け付けるScannerオブジェクト
    * @param myParty プレイヤーのパーティ
-   * @return 出会いの結果（true: 仲間になった、false:
-   * 出会いを拒否した）
+   * @return 出会いの結果（true: 仲間になった、false:出会いを拒否した）
    */
   public boolean meet(Scanner scanner, Party myParty) {
 

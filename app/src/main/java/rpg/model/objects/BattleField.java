@@ -49,21 +49,6 @@ public class BattleField {
   }
 
   /**
-   * キャラクターの比較を行うコンパレータ。
-   * <p>
-   * 敏捷性（Agility）に基づいてキャラクターを比較し、戦闘の行動順序を決定します。
-   * </p>
-   */
-  public class CharacterComparator implements Comparator<Character> {
-    @Override
-    public int compare(Character p1, Character p2) {
-      int agility1 = p1.charStatus.getConditions().get(ConditionType.Agility.id)*p1.charStatus.getConditionsRate().get(ConditionType.Agility.id);
-      int agility2 = p2.charStatus.getConditions().get(ConditionType.Agility.id)*p2.charStatus.getConditionsRate().get(ConditionType.Agility.id);
-      return agility1 > agility2 ? -1 : 1;
-    }
-  }
-
-  /**
    * 味方パーティの平均経験値を敵パーティに追加します。
    * <p>
    * 戦闘終了後、味方パーティの平均経験値を敵パーティに加算します。
@@ -180,13 +165,11 @@ public class BattleField {
     int max = this.characters.get(0).charStatus.getConditions().get(ConditionType.Agility.id)*this.characters.get(0).charStatus.getConditionsRate().get(ConditionType.Agility.id);
     this.timer = 0;
 
-    for (int i=0; i<this.characters.size(); i++) {
-      // 各キャラクターの敏捷性に基づいて行動順序を計算し、設定
-      Character character = this.characters.get(i);
+    this.characters.forEach(character -> {
       int one = character.charStatus.getConditions().get(ConditionType.Agility.id)*character.charStatus.getConditionsRate().get(ConditionType.Agility.id);
       this.agility.add(max/one);
       this.agilityCounter.add(1);
-    }
+    });
     this.enemyAveExperience = enemyParty.getTotalExperience()/allyParty.size();
   }
 
@@ -201,20 +184,36 @@ public class BattleField {
     // 戦闘フィールドに参加するキャラクターを設定
     ArrayList<Character> characters = new ArrayList<Character>();
     ArrayList<Character> list = (ArrayList<Character>)this.allyParty.characters.getList();
-    for(Character character: list) {
-      //if (character.charStatus.getConditionsRate().get(ConditionType.HealthPoint.id) > 0) {
-      if (character.getHealthPoint()>0){
-        characters.add(character);
-      }
-    }
+    list.stream()
+      .filter(character -> character.getHealthPoint() > 0)
+      .forEach(character -> characters.add(character));
+
     list = (ArrayList<Character>)this.enemyParty.characters.getList();
-    for(Character character: list) {
-      //if (character.charStatus.getConditionsRate().get(ConditionType.HealthPoint.id) > 0) {
-      if (character.getHealthPoint()>0){
-        characters.add(character);
-      }
-    }
-    Collections.sort(characters, new CharacterComparator());
+    list.stream()
+      .filter(character -> character.getHealthPoint() > 0)
+      .forEach(character -> characters.add(character));
+
+
+
+    /*
+     * 敏捷性（Agility）に基づいてキャラクターを比較し、戦闘の行動順序を決定します。
+     * クラス内クラスを使う代わりに、ラムダ式にする
+     *  public class CharacterComparator implements Comparator<Character> {
+     *    @Override
+     *    public int compare(Character p1, Character p2) {
+     *      int agility1 = p1.charStatus.getConditions().get(ConditionType.Agility.id)*p1.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+     *      int agility2 = p2.charStatus.getConditions().get(ConditionType.Agility.id)*p2.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+     *      return agility1 > agility2 ? -1 : 1;
+     *    }
+     *  }
+     *  Collections.sort(characters, new CharacterComparator());
+    */
+    Collections.sort(characters, (p1, p2) -> {
+      int agility1 = p1.charStatus.getConditions().get(ConditionType.Agility.id)*p1.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+      int agility2 = p2.charStatus.getConditions().get(ConditionType.Agility.id)*p2.charStatus.getConditionsRate().get(ConditionType.Agility.id);
+      return agility1 > agility2 ? -1 : 1;
+    });
+
     return characters;
   }
 
@@ -260,14 +259,11 @@ public class BattleField {
    * @return 戦闘が続行可能であればtrue、そうでなければfalse
    */
   private boolean removeFighter(Character character) {
-    for (int index=0; index<this.characters.size(); index++) {
-      Character one = this.characters.get(index);
-      if (one == character) {
+    int index = this.characters.indexOf(character);
+    if (index>=0) {
         this.characters.remove(index);
         this.agility.remove(index);
         this.agilityCounter.remove(index);
-        break;
-      }
     }
     return isOneParyGone();
   }
@@ -277,16 +273,8 @@ public class BattleField {
    * @return いずれかのパーティのキャラクターが全て倒れた場合はtrue、そうでなければfalse
    */
   private boolean isOneParyGone() {
-    int allyCount = 0;
-    int enemyCount = 0;
-    for (int index=0; index<this.characters.size(); index++) {
-      Character one = this.characters.get(index);
-      if (one.type.isEnemyCharacter()) {
-        enemyCount++;
-      }else{
-        allyCount++;
-      }
-    }
+    long allyCount = this.characters.stream().filter(c -> !c.type.isEnemyCharacter()).count();
+    long enemyCount = this.characters.stream().filter(c -> c.type.isEnemyCharacter()).count();
     return allyCount==0 || enemyCount==0;
   }
 }

@@ -61,33 +61,20 @@ public class Items extends Lists{
     this.children = (ArrayList<Item>)children;
   }
 
-  /**
-   * Baseオブジェクトをリストに追加します。
-   * <p>
-   * 引数として渡されたBaseオブジェクトがItemのインスタンスであれば、
-   * Itemとしてリストに追加します。
-   * </p>
-   * @param one 追加するBaseオブジェクト
-   */
-  protected void add(Base one) {
-    super.add(one);
-    if (one instanceof Item) {
-      add((Item)one);
-    }
-  }
+
   /**
    * アイテムをリストに追加します。
    * <p>
    * 同じ種類のアイテムが既に存在する場合は、その数量を増やします。
    * </p>
-   * @param item 追加するアイテム
+   * @param one 追加するアイテム
    */
-  protected void add(Item item) {
-    Item one = getSameTypeItem(item);
-    if (one != null) {
-      one.addCount(item);
+  public void add(Base one) {
+    Item item = getSameTypeItem((Item)one);
+    if (item != null) {
+      item.addCount((Item)one);
     }else{
-      super.add(item);
+      super.add(one);
     }
   }
 
@@ -152,7 +139,7 @@ public class Items extends Lists{
    */
   private Item doDecItem(Item item, int count) {
     if (item.getCount() <= count) {
-      remove(item);
+      super.remove(item);
     }else{
       item.setCount(item.getCount() - count);
     }
@@ -164,14 +151,13 @@ public class Items extends Lists{
    * <p>
    * 指定されたアイテムの数量を減らします。
    * </p>
-   * @param item 減らすアイテム
-   * @param count 減らす数量
+   * @param one 減らすアイテム
    * @return 減らしたアイテム
    */
-  public Item decItem(Item item, int count) {
-    for(Item one: children) {
+  public Base remove(Base one) {
+    for(Item item: children) {
       if (one == item) {
-        return doDecItem(item, count);
+        return doDecItem(item, 1);
       }
     }
     return null;
@@ -183,13 +169,12 @@ public class Items extends Lists{
    * 指定された名前のアイテムの数量を減らします。
    * </p>
    * @param name 減らすアイテムの名前
-   * @param count 減らす数量
    * @return 減らしたアイテム
    */
-  public Item decItem(String name, int count) {
+  public Item remove(String name) {
     Item item = findItem(name);
     if (item != null) {
-      return doDecItem(item, count);
+      return doDecItem(item, 1);
     }
     return null;
   }

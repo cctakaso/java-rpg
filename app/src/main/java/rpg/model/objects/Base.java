@@ -14,7 +14,7 @@ import rpg.utils.*;
  * フィールドを動的にスキャンし、関連付けなどを行います。
  * </p>
  */
-public abstract class Base implements Cloneable, Reflection{
+public abstract class Base implements Cloneable, CloneInter, Reflection{
   protected String name;  // オブジェクトの名前
   protected Pt pt;  // オブジェクトの位置（座標）
 

@@ -110,7 +110,7 @@ public class Item extends Base{
    */
   public String toString() {
     //return super.toString() + "x " + this.count + "["+ this.conditions.toString() + "]";
-    return super.toString() + "x " + this.count;
+    return super.toString() + "x" + this.count;
   }
 
   /**
@@ -131,7 +131,7 @@ public class Item extends Base{
    * </p>
    * @return 新しいItemオブジェクト
    */
-  public Item clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -144,7 +144,7 @@ public class Item extends Base{
    * @param randomPt ランダムポイント
    * @return 新しいItemオブジェクト
    */
-  public Item clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Item copy = null;
     try {
       copy = (Item)super.clone(num, randomPt);

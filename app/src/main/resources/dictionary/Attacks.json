@@ -107,8 +107,8 @@
       ]
     }
   },
-  "Fire arrow":{
-    "name": "Fire arrow",
+  "FireArrow":{
+    "name": "FireArrow",
     "type": "Attack",
     "conditions": {
       "children": [

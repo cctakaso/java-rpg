@@ -97,11 +97,11 @@
       ]
     }
   },
-  "Broken Cane": {
+  "BrokenCane": {
     "gearType": "Wand",
     "itemType": "Gear",
     "characterTypes": ["Wizard", "Bishop"],
-    "name": "Broken Cane",
+    "name": "BrokenCane",
     "conditions": {
       "children": [
         {

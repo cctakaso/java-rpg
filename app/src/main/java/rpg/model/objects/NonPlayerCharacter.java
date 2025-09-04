@@ -48,12 +48,12 @@ public class NonPlayerCharacter extends Character{
             continue;
           }
           myParty.addItem(item);
-          this.items.decItem(item, 1);
+          this.items.remove(item);
           myParty.charStatus.decMoney(item.getPrice());
         // アイテム売却処理
         }else if (info.equals(":sale.gears") || info.equals(":sale.items")) {
           this.items.add(item);
-          myParty.items.decItem(item, 1);
+          myParty.items.remove(item);
           myParty.charStatus.addMoney(item.getPrice());
         // その他のコマンド処理
         }else if (info.indexOf(':')==0) {
@@ -67,7 +67,7 @@ public class NonPlayerCharacter extends Character{
               //支払い処理
               if (ssplit[0].equals("pay")) {
                 if (ssplit[1].equals("potion")) {
-                  if (myParty.items.decItem("Potion", 1)==null) {
+                  if (myParty.items.remove("Potion")==null) {
                     App.view.printMessage("no_water_potion");
                     break;
                   }
@@ -90,7 +90,7 @@ public class NonPlayerCharacter extends Character{
                     Random rand = new Random();
                     Item gettenItem = (Item)this.items.getList().remove(rand.nextInt(this.items.getList().size()));
                     myParty.addItem(gettenItem);
-                    this.items.decItem(gettenItem, 1);
+                    this.items.remove(gettenItem);
                     App.view.printMessage(gettenItem.toString());
                   }
                 } else{

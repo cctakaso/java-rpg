@@ -52,7 +52,7 @@
       "names": ["CasualClothes","CasualShoes", "BadBow"]
     },
     "attacks": {
-      "names":["BowAndArrow", "Fire arrow", "Heel"]
+      "names":["BowAndArrow", "FireArrow", "Heel"]
     }
   },
   "Wizard":{
@@ -63,7 +63,7 @@
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["CasualClothes","CasualShoes", "Broken Cane"]
+      "names": ["CasualClothes","CasualShoes", "BrokenCane"]
     },
     "attacks": {
       "names":["Fire", "Thunder", "Blizzard", "Heel"]
@@ -77,7 +77,7 @@
       0,0,0,0,0,0,0,0,0]
     },
     "gears": {
-      "names": ["CasualClothes","CasualShoes", "Broken Cane"]
+      "names": ["CasualClothes","CasualShoes", "BrokenCane"]
     },
     "attacks": {
       "names":["Thunder", "Heel"]
@@ -114,7 +114,7 @@
     "name": "Merchant",
     "type": "Merchant",
     "items": {
-      "names": ["Coin","Herb","CasualClothes","CasualShoes", "BadBow", "Broken Cane"]
+      "names": ["Coin","Herb","CasualClothes","CasualShoes", "BadBow", "BrokenCane"]
     },
     "talks": {
       "names": ["Merchant", "Merchant>Buy", "Merchant>Buy>Weapons_Equipment", "Merchant>Buy>Items", "Merchant>Sell", "Merchant>Sell>Weapons_Equipment", "Merchant>Sell>Items"]

@@ -50,7 +50,7 @@ public class Talk extends Base{
    * このTalkオブジェクトのクローンを作成します。
    * @return Talkオブジェクトの新しいインスタンス
    */
-  public Talk clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -61,7 +61,7 @@ public class Talk extends Base{
    * @return Talkオブジェクトの新しいインスタンス
    */
   @SuppressWarnings("unchecked")
-  public Talk clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Talk copy = null;
     try {
       copy = (Talk)super.clone(num, randomPt);

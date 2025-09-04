@@ -12,7 +12,7 @@ import rpg.utils.*;
  * 辞書データからのリストの初期化機能を提供します。
  * @param <T> リストに含まれる要素の型
  */
-public abstract class Lists extends Base{
+public abstract class Lists extends Base implements ListInter{
   protected ArrayList<String> names;    // 辞書からの名前リスト
   protected ArrayList<Integer> numbers; // 辞書からの数量リスト
   protected Pt randomPt;                // ランダムな座標（初期化時に使用）
@@ -84,7 +84,7 @@ public abstract class Lists extends Base{
    * @param one 追加する要素
    */
   @SuppressWarnings("unchecked")
-  protected void add(Base one) {
+  public void add(Base one) {
     List<Base> list = (List<Base>)getList();
     list.add(one);
   }
@@ -141,7 +141,7 @@ public abstract class Lists extends Base{
    */
   @SuppressWarnings("unchecked")
   @Override
-  public Lists clone() {
+  public Base clone() {
     Lists copy = null;
     try {
       copy = (Lists)super.clone();

@@ -57,7 +57,7 @@ public class Gear extends Item {
    * </p>
    * @return 新しいGearオブジェクト
    */
-  public Gear clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -71,7 +71,7 @@ public class Gear extends Item {
    * @return 新しいGearオブジェクト
    */
   @SuppressWarnings("unchecked")
-  public Gear clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Gear copy = null;
     try {
       copy = (Gear)super.clone(num, randomPt);

@@ -100,7 +100,7 @@ public class Party extends Base{
    * このパーティのクローンを作成します。
    * @return パーティの新しいインスタンス
    */
-  public Party clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -110,7 +110,7 @@ public class Party extends Base{
    * @param randomPt ランダムな位置
    * @return パーティの新しいインスタンス
    */
-  public Party clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Party copy = null;
     try {
       copy = (Party)super.clone(num, randomPt);

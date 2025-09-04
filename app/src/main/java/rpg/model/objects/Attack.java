@@ -52,7 +52,7 @@ public class Attack extends Base{
    * </p>
    * @return 新しいAttackオブジェクト
    */
-  public Attack clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -65,7 +65,7 @@ public class Attack extends Base{
    * @param randomPt ランダムポイント
    * @return 新しいAttackオブジェクト
    */
-  public Attack clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Attack copy = null;
     try {
       copy = (Attack)super.clone(num, randomPt);

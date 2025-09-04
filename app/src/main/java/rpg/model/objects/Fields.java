@@ -219,7 +219,7 @@ public class Fields extends Lists{
    * </p>
    * @return 新しいFieldsオブジェクト
    */
-  public Fields clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -233,7 +233,7 @@ public class Fields extends Lists{
    * @param randomPt ランダムな位置（座標）
    * @return 新しいFieldsオブジェクト
    */
-  public Fields clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Fields copy = null;
     try {
       copy = (Fields)super.clone(num, randomPt);

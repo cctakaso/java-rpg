@@ -64,7 +64,7 @@ public class Condition extends Base{
    * このStatusオブジェクトのクローンを作成します。
    * @return Statusオブジェクトの新しいインスタンス
    */
-  public Condition clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -74,7 +74,7 @@ public class Condition extends Base{
    * @param randomPt ランダムな位置
    * @return Statusオブジェクトの新しいインスタンス
    */
-  public Condition clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Condition copy = null;
     try {
       copy = (Condition)super.clone(num, randomPt);

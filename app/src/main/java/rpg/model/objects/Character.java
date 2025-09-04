@@ -13,7 +13,7 @@ import rpg.view.console.View;
  * プロパティを持ちます。キャラクターの行動や戦闘に関する機能も提供します。
  * </p>
  */
-public class Character extends Base{
+public class Character extends Base implements CharaInter{
   protected CharacterType type;     // キャラクターの種類
   protected Talks talks;            // キャラクターの会話
   protected CharStatus charStatus;  // キャラクターのステータス
@@ -177,7 +177,7 @@ public class Character extends Base{
    * </p>
    * @return 新しいCharacterオブジェクト
    */
-  public Character clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -191,7 +191,7 @@ public class Character extends Base{
    * @param randomPt ランダムな位置（座標）
    * @return 新しいCharacterオブジェクト
    */
-  public Character clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     Character copy = null;
     try {
       copy = (Character)super.clone(num, randomPt);

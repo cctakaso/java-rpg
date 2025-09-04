@@ -63,17 +63,10 @@ public class Level {
     if (condarray == null || rates == null || condarray.size() == 0 || rates.size() == 0) {
       return "LEVEL: " + this.level + " EX: " + this.experience + "/" + this.expForNextLevel;
     }
-    // レベル係数を再計算して、ステータスのポイントを正 しく計算
+    // レベル係数を再計算して、ステータスのポイントを正しく計算
     // これにより、レベルアップ時のステータス計算が正確になります。
     // ただし、レベルアップの際にはaddExperienceメソッド
     // で再度buildLevelFactorを呼び出すため、ここでは必要ありません。
-    // ただし、レベルアップ後にステータスを表示する場合
-    // には再度buildLevelFactorを呼び出す必要があります。
-    // ここでは、レベルアップ後のステータス表示を想定して
-    // buildLevelFactorを呼び出しています。
-    // ただし、レベルアップ後のステータス表示は
-    // addExperienceメソッド内で行われるため、
-    // ここでは不要です。
     buildLevelFactor();
     return "LEVEL:" + this.level + " EX:" + this.experience + "/" + this.expForNextLevel + "\n" +
             "HP:" + getRatePoint(ConditionType.HealthPoint, condarray, rates) + "/" + getFullPoint(ConditionType.HealthPoint, condarray) +

@@ -38,29 +38,14 @@ public class Characters extends Lists{
   }
 
   /**
-   * キャラクターのリストにキャラクターを追加します。
-   * <p>
-   * 引数として渡されたCharacterオブジェクトを、キャラクターのリストに追加します。
-   * </p>
-   * @param character 追加するキャラクター
-   */
-  public void add(Character character) {
-    if (character != null) {
-      children.add(character);
-      if (leader == null) {
-        leader = character; // 最初のキャラクターをリーダーとして設定
-      }
-    }
-  }
-
-  /**
    * キャラクターのリストからキャラクターを削除します。
    * <p>
    * 引数として渡されたCharacterオブジェクトを、キャラクターのリストから削除します。
    * </p>
    * @param character 削除するキャラクター
+   * @return 削除したキャラクター
    */
-  public void remove(Character character) {
+  public Base remove(Base character) {
     if (character != null) {
       children.remove(character);
       if (leader == character) {
@@ -71,7 +56,9 @@ public class Characters extends Lists{
           leader = null; // リストが空の場合はリーダーをnull
         }
       }
+      return character;
     }
+    return null;
   }
 
   /**
@@ -83,17 +70,6 @@ public class Characters extends Lists{
   public void clear() {
     children.clear();
     leader = null; // リストが空になった場合、リーダーをnull
-  }
-
-  /**
-   * キャラクターのリストのサイズを取得します。
-   * <p>
-   * キャラクターのリストに含まれるキャラクターの数を返します。
-   * </p>
-   * @return キャラクターのリストのサイズ
-   */
-  public int size() {
-    return children.size();
   }
 
   /**
@@ -180,7 +156,7 @@ public class Characters extends Lists{
    * </p>
    * @param one 追加するキャラクター
    */
-  protected void add(Base one) {
+  public void add(Base one) {
     super.add(one);
     if (size()==1){
       leader = (Character)one;

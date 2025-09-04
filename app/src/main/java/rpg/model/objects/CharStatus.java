@@ -183,7 +183,7 @@ public class CharStatus extends Base{
    * </p>
    * @return 新しいCharStatusオブジェクト
    */
-  public CharStatus clone() {
+  public Base clone() {
     return this.clone(0, null);
   }
 
@@ -198,7 +198,7 @@ public class CharStatus extends Base{
    */
   @SuppressWarnings("unchecked")
   @Override
-  public CharStatus clone(int num, Pt randomPt) {
+  public Base clone(int num, Pt randomPt) {
     CharStatus copy = null;
     try {
       copy = (CharStatus)super.clone(num, randomPt);
