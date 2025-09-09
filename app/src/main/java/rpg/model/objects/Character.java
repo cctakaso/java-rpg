@@ -169,17 +169,6 @@ public class Character extends Base implements CharaInter{
     }
   }
 
-  /**
-   * キャラクターのクローンを作成します。
-   * <p>
-   * キャラクターの名前、位置、タイプ、会話、ステータス、装備、アイテム、攻撃を
-   * 保持した新しいCharacterオブジェクトを返します。
-   * </p>
-   * @return 新しいCharacterオブジェクト
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
 
   /**
    * キャラクターのクローンを作成します。

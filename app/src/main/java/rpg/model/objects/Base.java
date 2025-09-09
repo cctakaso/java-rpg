@@ -78,16 +78,7 @@ public abstract class Base implements Cloneable, CloneInter, Reflection{
    * @return 新しいBaseオブジェクトのクローン
    */
   public Base clone() {
-    Base copy = null;
-    try {
-      copy = (Base)super.clone();
-      copy.name = this.name != null ? this.name:null;
-      copy.pt = this.pt!=null ? this.pt.clone():null;
-    }catch (Exception e){
-      e.printStackTrace();
-    }
-
-    return copy;
+    return this.clone(0, null);
   }
 
   /**

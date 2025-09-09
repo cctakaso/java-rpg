@@ -48,17 +48,6 @@ public class Attack extends Base{
   /**
    * 攻撃のクローンを作成します。
    * <p>
-   * 攻撃の種類とステータスを保持した新しいAttackオブジェクトを返します。
-   * </p>
-   * @return 新しいAttackオブジェクト
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
-
-  /**
-   * 攻撃のクローンを作成します。
-   * <p>
    * 指定された数値とランダムポイントを持つ新しいAttackオブジェクトを返します。
    * </p>
    * @param num クローンの識別番号

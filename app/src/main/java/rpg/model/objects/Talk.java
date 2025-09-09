@@ -47,14 +47,6 @@ public class Talk extends Base{
   }
 
   /**
-   * このTalkオブジェクトのクローンを作成します。
-   * @return Talkオブジェクトの新しいインスタンス
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
-
-  /**
    * このTalkオブジェクトのクローンを、指定された番号とランダムな位置で作成します。
    * @param num クローン番号
    * @param randomPt ランダムな位置

@@ -55,17 +55,6 @@ public class Gear extends Item {
    * <p>
    * 装備品の種類と装備可能職業のリストを保持した新しいGearオブジェクトを返します。
    * </p>
-   * @return 新しいGearオブジェクト
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
-
-  /**
-   * 装備品のクローンを作成します。
-   * <p>
-   * 装備品の種類と装備可能職業のリストを保持した新しいGearオブジェクトを返します。
-   * </p>
    * @param num クローンの番号
    * @param randomPt ランダムな座標（使用されない）
    * @return 新しいGearオブジェクト

@@ -210,19 +210,6 @@ public class Fields extends Lists{
     return area;
   }
 
-
-  /**
-   * このFieldsオブジェクトのクローンを作成します。
-   * <p>
-   * フィールドの種類、サイズ、アイテム、キャラクター、パーティ、会話などを
-   * 保持した新しいFieldsオブジェクトを返します。
-   * </p>
-   * @return 新しいFieldsオブジェクト
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
-
   /**
    * このFieldsオブジェクトのクローンを、指定された番号とランダムな位置で作成します。
    * <p>

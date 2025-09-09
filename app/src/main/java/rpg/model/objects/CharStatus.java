@@ -176,16 +176,6 @@ public class CharStatus extends Base{
     }
   }
 
-  /**
-   * このCharStatusオブジェクトのクローンを作成します。
-   * <p>
-   * ステータス配列、ステータス割合配列、レベルを保持した新しいCharStatusオブジェクトを返します。
-   * </p>
-   * @return 新しいCharStatusオブジェクト
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
 
   /**
    * このCharStatusオブジェクトのクローンを、指定された番号とランダムな位置で作成します。

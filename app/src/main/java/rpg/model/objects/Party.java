@@ -97,14 +97,6 @@ public class Party extends Base{
   }
 
   /**
-   * このパーティのクローンを作成します。
-   * @return パーティの新しいインスタンス
-   */
-  public Base clone() {
-    return this.clone(0, null);
-  }
-
-  /**
    * このパーティのクローンを、指定された番号とランダムな位置で作成します。
    * @param num クローン番号
    * @param randomPt ランダムな位置
